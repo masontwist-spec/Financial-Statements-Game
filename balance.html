@@ -6,7 +6,7 @@
   <title>Balance Sheet | Accounting Statements Game</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body data-page="balance">
   <header class="site-header">
     <div class="container header-inner">
       <a href="home.html" class="brand">Accounting Statements Game</a>
@@ -22,32 +22,43 @@
   <main class="container">
     <section class="page-intro">
       <h1>Balance Sheet</h1>
-      <p>Learn the accounting equation: Assets = Liabilities + Equity.</p>
+      <p>
+        Learn how assets, liabilities, and equity respond to business decisions.
+      </p>
     </section>
 
-    <section class="card">
-      <h2>Mini Balance Sheet</h2>
-      <div class="statement-box">
-        <div class="statement-line"><span>Cash</span><span>$1,000</span></div>
-        <div class="statement-line"><span>Inventory</span><span>$500</span></div>
-        <div class="statement-line"><strong>Total Assets</strong><strong>$1,500</strong></div>
-        <div class="statement-line"><span>Debt</span><span>$600</span></div>
-        <div class="statement-line"><span>Equity</span><span>$900</span></div>
-      </div>
+    <section class="panel">
+      <article class="card">
+        <div id="statement-box" class="statement-box"></div>
+      </article>
 
-      <div class="quiz-area">
-        <h3>Practice Prompt</h3>
-        <p>The company takes out a $400 bank loan. Which areas change?</p>
+      <article class="card">
+        <div class="quiz-area">
+          <h2>Question</h2>
+          <p id="question-text" class="prompt"></p>
 
-        <div class="options">
-          <button class="option-btn">Assets and Liabilities</button>
-          <button class="option-btn">Assets and Equity</button>
-          <button class="option-btn">Liabilities and Equity</button>
+          <div id="options" class="options"></div>
+
+          <div id="feedback" class="feedback">
+            Choose an answer to see feedback.
+          </div>
+
+          <div class="scorebar">
+            <div class="badge"><span>Answered:</span> <strong id="answered-count">0</strong></div>
+            <div class="badge"><span>Correct:</span> <strong id="correct-count">0</strong></div>
+          </div>
+
+          <button id="reset-score-btn" class="button secondary">Reset Score</button>
         </div>
-      </div>
+      </article>
     </section>
+
+    <p class="note">
+      Study logic: borrowing money usually increases cash and debt at the same time.
+    </p>
   </main>
 
   <div class="footer-space"></div>
+  <script src="app.js"></script>
 </body>
 </html>
