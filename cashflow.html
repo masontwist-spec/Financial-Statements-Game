@@ -6,7 +6,7 @@
   <title>Cash Flow Statement | Accounting Statements Game</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body data-page="cashflow">
   <header class="site-header">
     <div class="container header-inner">
       <a href="home.html" class="brand">Accounting Statements Game</a>
@@ -22,31 +22,43 @@
   <main class="container">
     <section class="page-intro">
       <h1>Cash Flow Statement</h1>
-      <p>Practice classifying transactions into operating, investing, and financing activities.</p>
+      <p>
+        Classify real business transactions into operating, investing, and financing.
+      </p>
     </section>
 
-    <section class="card">
-      <h2>Mini Cash Flow Statement</h2>
-      <div class="statement-box">
-        <div class="statement-line"><span>Cash from Operations</span><span>$700</span></div>
-        <div class="statement-line"><span>Cash from Investing</span><span>-$300</span></div>
-        <div class="statement-line"><span>Cash from Financing</span><span>$500</span></div>
-        <div class="statement-line"><strong>Net Change in Cash</strong><strong>$900</strong></div>
-      </div>
+    <section class="panel">
+      <article class="card">
+        <div id="statement-box" class="statement-box"></div>
+      </article>
 
-      <div class="quiz-area">
-        <h3>Practice Prompt</h3>
-        <p>The company buys equipment for cash. Which section does this hit?</p>
+      <article class="card">
+        <div class="quiz-area">
+          <h2>Question</h2>
+          <p id="question-text" class="prompt"></p>
 
-        <div class="options">
-          <button class="option-btn">Operating</button>
-          <button class="option-btn">Investing</button>
-          <button class="option-btn">Financing</button>
+          <div id="options" class="options"></div>
+
+          <div id="feedback" class="feedback">
+            Choose an answer to see feedback.
+          </div>
+
+          <div class="scorebar">
+            <div class="badge"><span>Answered:</span> <strong id="answered-count">0</strong></div>
+            <div class="badge"><span>Correct:</span> <strong id="correct-count">0</strong></div>
+          </div>
+
+          <button id="reset-score-btn" class="button secondary">Reset Score</button>
         </div>
-      </div>
+      </article>
     </section>
+
+    <p class="note">
+      Study logic: buying long-term assets with cash is usually an investing outflow.
+    </p>
   </main>
 
   <div class="footer-space"></div>
+  <script src="app.js"></script>
 </body>
 </html>
