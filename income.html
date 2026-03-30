@@ -6,7 +6,7 @@
   <title>Income Statement | Accounting Statements Game</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body data-page="income">
   <header class="site-header">
     <div class="container header-inner">
       <a href="home.html" class="brand">Accounting Statements Game</a>
@@ -22,30 +22,43 @@
   <main class="container">
     <section class="page-intro">
       <h1>Income Statement</h1>
-      <p>Focus on revenue, expenses, and net income. This page can become your first playable quiz.</p>
+      <p>
+        Focus on revenue, expenses, and net income. Answer the question and track your score.
+      </p>
     </section>
 
-    <section class="card">
-      <h2>Mini Statement</h2>
-      <div class="statement-box">
-        <div class="statement-line"><span>Revenue</span><span>$2,000</span></div>
-        <div class="statement-line"><span>Expenses</span><span>$1,200</span></div>
-        <div class="statement-line"><strong>Net Income</strong><strong>$800</strong></div>
-      </div>
+    <section class="panel">
+      <article class="card">
+        <div id="statement-box" class="statement-box"></div>
+      </article>
 
-      <div class="quiz-area">
-        <h3>Practice Prompt</h3>
-        <p>The company pays $150 for rent. What happens?</p>
+      <article class="card">
+        <div class="quiz-area">
+          <h2>Question</h2>
+          <p id="question-text" class="prompt"></p>
 
-        <div class="options">
-          <button class="option-btn">Revenue increases</button>
-          <button class="option-btn">Expense increases</button>
-          <button class="option-btn">No effect</button>
+          <div id="options" class="options"></div>
+
+          <div id="feedback" class="feedback">
+            Choose an answer to see feedback.
+          </div>
+
+          <div class="scorebar">
+            <div class="badge"><span>Answered:</span> <strong id="answered-count">0</strong></div>
+            <div class="badge"><span>Correct:</span> <strong id="correct-count">0</strong></div>
+          </div>
+
+          <button id="reset-score-btn" class="button secondary">Reset Score</button>
         </div>
-      </div>
+      </article>
     </section>
+
+    <p class="note">
+      Study logic: most rent payments increase expense and reduce net income.
+    </p>
   </main>
 
   <div class="footer-space"></div>
+  <script src="app.js"></script>
 </body>
 </html>
