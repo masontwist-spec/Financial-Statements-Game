@@ -693,7 +693,69 @@ const QUESTION_BANK = {
       correct: "Depreciation",
       explanation: "Depreciation reduces income but does not require a current-period cash outflow.",
       difficulty: "Medium"
-    }
+    },
+     // ADD THESE INTO QUESTION_BANK.cashflow
+
+{
+  prompt: "Which of the following actually affects cash during a period?",
+  options: [
+    "Recording depreciation expense",
+    "Declaring a cash dividend",
+    "Writing off an uncollectible account",
+    "Paying an account payable"
+  ],
+  correct: "Paying an account payable",
+  explanation: "Paying an account payable uses cash. The other choices do not directly affect cash at that moment.",
+  difficulty: "Easy"
+},
+{
+  prompt: "Cash dividends paid are usually reported on the statement of cash flows as:",
+  options: [
+    "An operating inflow",
+    "An investing outflow",
+    "An operating outflow",
+    "A financing outflow"
+  ],
+  correct: "A financing outflow",
+  explanation: "In intro accounting treatment, dividends paid are typically shown as financing outflows.",
+  difficulty: "Easy"
+},
+{
+  prompt: "Under the indirect method, depreciation expense is usually shown on the statement of cash flows by:",
+  options: [
+    "Adding it back to net income in operating activities",
+    "Subtracting it from net income in operating activities",
+    "Showing it as an investing inflow",
+    "Showing it as a financing outflow"
+  ],
+  correct: "Adding it back to net income in operating activities",
+  explanation: "Depreciation reduces net income but is non-cash, so it is added back under the indirect method.",
+  difficulty: "Medium"
+},
+{
+  prompt: "If a company issues $100,000 of new bonds and repays $75,000 of old bonds in the same year, how should this appear in the cash flow statement?",
+  options: [
+    "Only a net inflow of $25,000",
+    "Only a net outflow of $25,000",
+    "An inflow of $100,000 and an outflow of $75,000",
+    "A gain of $25,000 in operating activities"
+  ],
+  correct: "An inflow of $100,000 and an outflow of $75,000",
+  explanation: "Cash flow statements usually show the gross financing inflow and gross financing outflow separately.",
+  difficulty: "Medium"
+},
+{
+  prompt: "A company sells a machine for cash. Which section of the statement of cash flows includes the cash proceeds?",
+  options: [
+    "Operating",
+    "Investing",
+    "Financing",
+    "Equity"
+  ],
+  correct: "Investing",
+  explanation: "Selling long-term assets creates an investing cash inflow.",
+  difficulty: "Easy"
+}
   ],
 
   combined: [
@@ -840,68 +902,6 @@ const QUESTION_BANK = {
       correct: "Both revenue and expense can affect net income, cash changes by the net amount, and operating cash flow reflects both cash effects",
       explanation: "When both the revenue and expense are cash-based in the same period, income statement and operating cash flow both reflect the business activity.",
       difficulty: "Hard"
-    },
-    // ADD THESE INTO QUESTION_BANK.cashflow
-
-{
-  prompt: "Which of the following actually affects cash during a period?",
-  options: [
-    "Recording depreciation expense",
-    "Declaring a cash dividend",
-    "Writing off an uncollectible account",
-    "Paying an account payable"
-  ],
-  correct: "Paying an account payable",
-  explanation: "Paying an account payable uses cash. The other choices do not directly affect cash at that moment.",
-  difficulty: "Easy"
-},
-{
-  prompt: "Cash dividends paid are usually reported on the statement of cash flows as:",
-  options: [
-    "An operating inflow",
-    "An investing outflow",
-    "An operating outflow",
-    "A financing outflow"
-  ],
-  correct: "A financing outflow",
-  explanation: "In intro accounting treatment, dividends paid are typically shown as financing outflows.",
-  difficulty: "Easy"
-},
-{
-  prompt: "Under the indirect method, depreciation expense is usually shown on the statement of cash flows by:",
-  options: [
-    "Adding it back to net income in operating activities",
-    "Subtracting it from net income in operating activities",
-    "Showing it as an investing inflow",
-    "Showing it as a financing outflow"
-  ],
-  correct: "Adding it back to net income in operating activities",
-  explanation: "Depreciation reduces net income but is non-cash, so it is added back under the indirect method.",
-  difficulty: "Medium"
-},
-{
-  prompt: "If a company issues $100,000 of new bonds and repays $75,000 of old bonds in the same year, how should this appear in the cash flow statement?",
-  options: [
-    "Only a net inflow of $25,000",
-    "Only a net outflow of $25,000",
-    "An inflow of $100,000 and an outflow of $75,000",
-    "A gain of $25,000 in operating activities"
-  ],
-  correct: "An inflow of $100,000 and an outflow of $75,000",
-  explanation: "Cash flow statements usually show the gross financing inflow and gross financing outflow separately.",
-  difficulty: "Medium"
-},
-{
-  prompt: "A company sells a machine for cash. Which section of the statement of cash flows includes the cash proceeds?",
-  options: [
-    "Operating",
-    "Investing",
-    "Financing",
-    "Equity"
-  ],
-  correct: "Investing",
-  explanation: "Selling long-term assets creates an investing cash inflow.",
-  difficulty: "Easy"
-}
+    }
   ]
 };
