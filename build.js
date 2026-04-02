@@ -59,10 +59,10 @@ function renderBuildQuestion() {
   els.nextBtn.disabled = true;
 
   els.statementCard.innerHTML = `
-    <div class="build-statement-header">
-      <h3>Income Statement</h3>
-      <p>Enter plain numbers. Commas are optional.</p>
-    </div>
+  <div class="build-statement-header">
+    <h3>${getStatementTitle(buildMode)}</h3>
+    <p>Enter plain numbers. Commas are optional.</p>
+  </div>
     <div class="build-lines">
       ${q.fields.map(field => {
         if (field.editable) {
@@ -188,6 +188,13 @@ function getBuildModeLabel(mode) {
   if (mode === "balance") return "Build Balance Sheet";
   if (mode === "cashflow") return "Build Cash Flow Statement";
   return "Build Mode";
+}
+
+function getStatementTitle(mode) {
+  if (mode === "income") return "Income Statement";
+  if (mode === "balance") return "Balance Sheet";
+  if (mode === "cashflow") return "Cash Flow Statement";
+  return "Statement";
 }
 
 function initBuildQuiz() {
