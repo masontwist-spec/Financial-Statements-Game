@@ -442,3 +442,54 @@ button {
     width: min(var(--container), calc(100% - 20px));
   }
 }
+.build-line.two-inputs {
+  display: grid;
+  grid-template-columns: 1.2fr 220px;
+  gap: 16px;
+  align-items: center;
+}
+
+.build-label-input,
+.build-value-input {
+  width: 100%;
+  border: 1px solid var(--border);
+  background: #ffffff;
+  color: var(--text);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.build-label-input:focus,
+.build-value-input:focus {
+  outline: none;
+  border-color: #c7d2fe;
+  box-shadow: 0 0 0 3px rgba(45, 91, 255, 0.08);
+}
+
+.build-label-input.build-correct,
+.build-value-input.build-correct {
+  border-color: rgba(25, 179, 107, 0.35);
+  background: rgba(25, 179, 107, 0.08);
+}
+
+.build-label-input.build-incorrect,
+.build-value-input.build-incorrect {
+  border-color: rgba(220, 38, 38, 0.28);
+  background: rgba(220, 38, 38, 0.07);
+}
+
+.build-static-label {
+  background: #f2f4f8;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-weight: 700;
+}
+
+@media (max-width: 720px) {
+  .build-line.two-inputs {
+    grid-template-columns: 1fr;
+  }
+}
