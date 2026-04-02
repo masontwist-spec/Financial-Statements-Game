@@ -1,5 +1,8 @@
 const BUILD_QUESTIONS = {
-  income: [
+  income: [...],
+  balance: [...],
+  cashflow: [...]
+};
     {
       prompt: "A company has revenue of 5000000, cost of goods sold of 1000000, and S&A expense of 300000. Populate the income statement and calculate the missing lines.",
       difficulty: "Easy",
