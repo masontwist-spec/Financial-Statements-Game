@@ -112,7 +112,8 @@ function checkBuildAnswer() {
     if (!Number.isFinite(actual)) {
       allCorrect = false;
       input.classList.add("build-incorrect");
-      feedbackLines.push(`${input.id}: enter a number.`);
+      const labelText = input.previousElementSibling.textContent;
+feedbackLines.push(`${labelText}: enter a number.`);
       return;
     }
 
