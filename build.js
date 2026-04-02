@@ -55,31 +55,45 @@ function renderBuildQuestion() {
   els.progress.textContent = `${buildIndex + 1} / ${buildQuestions.length}`;
   els.score.textContent = `${buildScore}`;
   els.feedback.className = "feedback-box";
-  els.feedback.textContent = "Fill in the blank lines, then click Check Answer.";
+  els.feedback.textContent = "Fill in the labels and values, then click Check Answer.";
   els.nextBtn.disabled = true;
 
   els.statementCard.innerHTML = `
-  <div class="build-statement-header">
-    <h3>${getStatementTitle(buildMode)}</h3>
-    <p>Enter plain numbers. Commas are optional.</p>
-  </div>
+    <div class="build-statement-header">
+      <h3>${getStatementTitle(buildMode)}</h3>
+      <p>Enter statement labels and amounts. Numbers may include commas.</p>
+    </div>
     <div class="build-lines">
-      ${q.fields.map(field => {
-        if (field.editable) {
-          return `
-            <div class="build-line">
-              <label for="${field.key}">${field.label}</label>
-              <input
-                type="text"
-                id="${field.key}"
-                class="build-input"
-                data-answer="${field.value}"
-                placeholder="Enter amount"
-                autocomplete="off"
-              />
-            </div>
-          `;
-        }
+      ${q.rows.map((row, index) => `
+        <div class="build-line two-inputs">
+          ${
+            row.labelEditable
+              ? `<input
+                  type="text"
+                  class="build-label-input"
+                  data-expected-label="${row.expectedLabel}"
+                  placeholder="Enter label"
+                  autocomplete="off"
+                />`
+              : `<div class="build-static-label">${row.expectedLabel}</div>`
+          }
+
+          ${
+            row.valueEditable
+              ? `<input
+                  type="text"
+                  class="build-value-input"
+                  data-expected-value="${row.expectedValue}"
+                  placeholder="Enter amount"
+                  autocomplete="off"
+                />`
+              : `<div class="build-static-value">${formatBuildNumber(row.expectedValue)}</div>`
+          }
+        </div>
+      `).join("")}
+    </div>
+  `;
+}
 
         return `
           <div class="build-line">
