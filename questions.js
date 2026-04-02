@@ -33,7 +33,7 @@ const QUESTION_BANK = {
         "Net income rises"
       ],
       correct: "No immediate income statement effect",
-      explanation: "Buying equipment is a balance sheet and cash flow event at first. The expense usually comes later through depreciation.",
+      explanation: "Buying equipment is capitalized first. The expense usually shows up later through depreciation.",
       difficulty: "Medium"
     },
     {
@@ -57,7 +57,7 @@ const QUESTION_BANK = {
         "No effect"
       ],
       correct: "Revenue increases",
-      explanation: "Credit sales still count as revenue when earned, even if cash has not been collected yet.",
+      explanation: "Revenue is recognized when earned, even if cash has not yet been collected.",
       difficulty: "Medium"
     },
     {
@@ -93,7 +93,91 @@ const QUESTION_BANK = {
         "Net income doubles"
       ],
       correct: "No income statement effect today",
-      explanation: "The revenue was recognized earlier when the sale was made. Collecting receivables later does not create new revenue.",
+      explanation: "The revenue was recognized earlier when the sale was made. Collection later does not create new revenue.",
+      difficulty: "Hard"
+    },
+    {
+      prompt: "A company pays $120 for utilities. Which income statement category is most directly affected?",
+      options: [
+        "Revenue",
+        "Expense",
+        "Equity",
+        "Investing cash flow"
+      ],
+      correct: "Expense",
+      explanation: "Utilities are a normal operating expense.",
+      difficulty: "Easy"
+    },
+    {
+      prompt: "A company has revenue of $4,000 and expenses of $3,100. What is net income?",
+      options: [
+        "$900",
+        "$1,100",
+        "$7,100",
+        "$3,100"
+      ],
+      correct: "$900",
+      explanation: "Net income equals revenue minus expenses: $4,000 - $3,100 = $900.",
+      difficulty: "Easy"
+    },
+    {
+      prompt: "A company returns inventory to a supplier before it is sold. What is the immediate income statement effect?",
+      options: [
+        "Revenue increases",
+        "Expense increases",
+        "No immediate income statement effect",
+        "Net income rises immediately"
+      ],
+      correct: "No immediate income statement effect",
+      explanation: "Returning unsold inventory is generally a balance sheet event first, not an immediate income statement event.",
+      difficulty: "Hard"
+    },
+    {
+      prompt: "Cost of goods sold is most directly associated with which type of business event?",
+      options: [
+        "Borrowing money",
+        "Selling inventory",
+        "Issuing stock",
+        "Buying equipment"
+      ],
+      correct: "Selling inventory",
+      explanation: "COGS is recognized when inventory is sold.",
+      difficulty: "Medium"
+    },
+    {
+      prompt: "If revenue increases by $500 and expenses increase by $200, what happens to net income?",
+      options: [
+        "Net income decreases by $300",
+        "Net income increases by $300",
+        "Net income increases by $700",
+        "No effect"
+      ],
+      correct: "Net income increases by $300",
+      explanation: "The net effect is +500 - 200 = +300.",
+      difficulty: "Easy"
+    },
+    {
+      prompt: "Interest expense would normally appear on which statement?",
+      options: [
+        "Income statement",
+        "Only balance sheet",
+        "Only statement of retained earnings",
+        "It is never reported"
+      ],
+      correct: "Income statement",
+      explanation: "Interest expense is a period expense and appears on the income statement.",
+      difficulty: "Medium"
+    },
+    {
+      prompt: "A company prepays one year of insurance in cash today. What is the immediate income statement effect on the payment date?",
+      options: [
+        "Insurance expense rises immediately for the full amount",
+        "Revenue rises",
+        "No immediate full expense recognition",
+        "Net income increases"
+      ],
+      correct: "No immediate full expense recognition",
+      explanation: "A prepaid insurance payment is generally recorded as an asset first, then expensed over time.",
       difficulty: "Hard"
     }
   ],
@@ -192,7 +276,91 @@ const QUESTION_BANK = {
         "Long-term debt"
       ],
       correct: "Retained earnings",
-      explanation: "Net income flows into retained earnings as part of equity, assuming it is not fully paid out as dividends.",
+      explanation: "Net income flows into retained earnings as part of equity.",
+      difficulty: "Hard"
+    },
+    {
+      prompt: "Accounts payable is best classified as:",
+      options: [
+        "An asset",
+        "A liability",
+        "Equity",
+        "Revenue"
+      ],
+      correct: "A liability",
+      explanation: "Accounts payable represents amounts owed to suppliers.",
+      difficulty: "Easy"
+    },
+    {
+      prompt: "If a company collects cash from customers on old receivables, what happens on the balance sheet?",
+      options: [
+        "Cash rises and accounts receivable falls",
+        "Cash falls and revenue rises",
+        "Debt rises and equity falls",
+        "Inventory rises and cash falls"
+      ],
+      correct: "Cash rises and accounts receivable falls",
+      explanation: "One asset increases and another asset decreases.",
+      difficulty: "Medium"
+    },
+    {
+      prompt: "Which of the following is most likely a long-term asset?",
+      options: [
+        "Inventory",
+        "Cash",
+        "Equipment",
+        "Accounts payable"
+      ],
+      correct: "Equipment",
+      explanation: "Equipment is a long-lived operating asset.",
+      difficulty: "Easy"
+    },
+    {
+      prompt: "A company receives cash from a customer before earning the revenue. What liability may be created?",
+      options: [
+        "Accounts receivable",
+        "Unearned revenue",
+        "Retained earnings",
+        "Accumulated depreciation"
+      ],
+      correct: "Unearned revenue",
+      explanation: "Cash received before performance is often recorded as a liability until earned.",
+      difficulty: "Hard"
+    },
+    {
+      prompt: "Which balance sheet category is usually reduced indirectly by depreciation over time?",
+      options: [
+        "Liabilities",
+        "Long-term assets",
+        "Common stock",
+        "Accounts payable"
+      ],
+      correct: "Long-term assets",
+      explanation: "Depreciation reduces the carrying value of long-term assets through accumulated depreciation.",
+      difficulty: "Medium"
+    },
+    {
+      prompt: "If total assets are $10,000 and total liabilities are $6,500, what is total equity?",
+      options: [
+        "$16,500",
+        "$3,500",
+        "$6,500",
+        "$10,000"
+      ],
+      correct: "$3,500",
+      explanation: "Equity = Assets - Liabilities = $10,000 - $6,500 = $3,500.",
+      difficulty: "Easy"
+    },
+    {
+      prompt: "A company purchases equipment by signing a note payable instead of paying cash. What happens immediately?",
+      options: [
+        "Assets rise and liabilities rise",
+        "Assets rise and equity rises",
+        "Cash falls and equity falls",
+        "Revenue rises"
+      ],
+      correct: "Assets rise and liabilities rise",
+      explanation: "The equipment increases assets, and the note payable increases liabilities.",
       difficulty: "Hard"
     }
   ],
@@ -279,7 +447,7 @@ const QUESTION_BANK = {
         "Revenue"
       ],
       correct: "Financing",
-      explanation: "Cash dividends are commonly shown as financing outflows under U.S. GAAP-style treatment for introductory learning.",
+      explanation: "For intro-accounting treatment, cash dividends are commonly shown as financing outflows.",
       difficulty: "Medium"
     },
     {
@@ -292,6 +460,90 @@ const QUESTION_BANK = {
       ],
       correct: "Investing",
       explanation: "Selling long-term assets generates investing cash inflows.",
+      difficulty: "Medium"
+    },
+    {
+      prompt: "Cash paid for inventory is usually classified as:",
+      options: [
+        "Operating",
+        "Investing",
+        "Financing",
+        "No cash flow effect"
+      ],
+      correct: "Operating",
+      explanation: "Purchasing inventory for normal operations is generally treated as an operating cash outflow.",
+      difficulty: "Easy"
+    },
+    {
+      prompt: "Repaying principal on a bank loan is usually classified as:",
+      options: [
+        "Operating",
+        "Investing",
+        "Financing",
+        "Revenue"
+      ],
+      correct: "Financing",
+      explanation: "Repayment of borrowing principal is generally a financing outflow.",
+      difficulty: "Medium"
+    },
+    {
+      prompt: "Which of the following is most likely a financing cash inflow?",
+      options: [
+        "Collecting from customers",
+        "Selling equipment",
+        "Issuing debt",
+        "Paying wages"
+      ],
+      correct: "Issuing debt",
+      explanation: "Raising money from lenders is a financing inflow.",
+      difficulty: "Easy"
+    },
+    {
+      prompt: "Under the indirect method, an increase in accounts receivable usually does what to operating cash flow?",
+      options: [
+        "Increases it",
+        "Decreases it",
+        "Has no effect",
+        "Turns it into financing cash flow"
+      ],
+      correct: "Decreases it",
+      explanation: "An increase in receivables means more revenue recognized than cash collected, so it reduces operating cash flow under the indirect method.",
+      difficulty: "Hard"
+    },
+    {
+      prompt: "Under the indirect method, an increase in accounts payable usually does what to operating cash flow?",
+      options: [
+        "Increases it",
+        "Decreases it",
+        "Has no effect",
+        "Creates investing inflow"
+      ],
+      correct: "Increases it",
+      explanation: "If payables increase, the company has delayed cash payment, which tends to increase operating cash flow under the indirect method.",
+      difficulty: "Hard"
+    },
+    {
+      prompt: "Buying land with cash would most likely be classified as:",
+      options: [
+        "Operating outflow",
+        "Investing outflow",
+        "Financing inflow",
+        "No effect"
+      ],
+      correct: "Investing outflow",
+      explanation: "Land is a long-term asset, so buying it is an investing use of cash.",
+      difficulty: "Easy"
+    },
+    {
+      prompt: "Which item is a classic example of a non-cash charge that affects net income but not current cash?",
+      options: [
+        "Depreciation",
+        "Borrowing money",
+        "Collecting receivables",
+        "Issuing shares"
+      ],
+      correct: "Depreciation",
+      explanation: "Depreciation reduces income but does not require a current-period cash outflow.",
       difficulty: "Medium"
     }
   ],
@@ -342,7 +594,7 @@ const QUESTION_BANK = {
         "No statement changes at all"
       ],
       correct: "Net income falls, asset value falls over time, depreciation is added back in indirect CFO",
-      explanation: "Depreciation reduces income, lowers the carrying value of long-lived assets indirectly through accumulated depreciation, and is added back in the indirect cash flow method.",
+      explanation: "Depreciation reduces income, lowers carrying value over time, and is added back in the indirect cash flow method.",
       difficulty: "Hard"
     },
     {
@@ -367,6 +619,78 @@ const QUESTION_BANK = {
       ],
       correct: "Cash rises and accounts receivable falls, with no new revenue recognized",
       explanation: "Collection converts receivables into cash. The revenue was already recorded when the sale happened.",
+      difficulty: "Hard"
+    },
+    {
+      prompt: "A company pays $200 of wages in cash. Which statement effects are most accurate?",
+      options: [
+        "Expense rises, cash falls, operating cash flow falls",
+        "Revenue rises, cash rises, financing cash flow falls",
+        "Inventory rises, equity rises, investing cash flow falls",
+        "Only liabilities change"
+      ],
+      correct: "Expense rises, cash falls, operating cash flow falls",
+      explanation: "Wages create expense, reduce cash, and are typically an operating outflow.",
+      difficulty: "Medium"
+    },
+    {
+      prompt: "A company issues stock for cash. Which statement effects are most accurate?",
+      options: [
+        "Revenue rises and operating cash flow rises",
+        "Cash rises, equity rises, financing cash flow rises",
+        "Expense rises, liabilities rise, investing cash flow falls",
+        "Accounts receivable rises and net income rises"
+      ],
+      correct: "Cash rises, equity rises, financing cash flow rises",
+      explanation: "Issuing stock brings in cash, increases equity, and is classified as financing.",
+      difficulty: "Medium"
+    },
+    {
+      prompt: "A company repays loan principal with cash. Which statement effects are most accurate?",
+      options: [
+        "Cash falls, liabilities fall, financing cash flow falls",
+        "Expense rises, revenue falls, operating cash flow falls",
+        "Inventory rises, equity rises, investing cash flow rises",
+        "Accounts receivable falls and net income rises"
+      ],
+      correct: "Cash falls, liabilities fall, financing cash flow falls",
+      explanation: "Repaying principal reduces cash and debt and is generally a financing outflow.",
+      difficulty: "Medium"
+    },
+    {
+      prompt: "A company prepays insurance in cash. Which is most accurate immediately?",
+      options: [
+        "Expense rises fully, net income falls, operating cash flow rises",
+        "Prepaid asset rises, cash falls, and there is no full immediate expense recognition",
+        "Revenue rises, liabilities rise, financing cash flow rises",
+        "Debt falls and equity rises"
+      ],
+      correct: "Prepaid asset rises, cash falls, and there is no full immediate expense recognition",
+      explanation: "Prepaid insurance is usually recorded as an asset first. Cash falls immediately, but the expense is recognized over time.",
+      difficulty: "Hard"
+    },
+    {
+      prompt: "A company buys inventory for cash. Which is most accurate immediately?",
+      options: [
+        "Inventory rises, cash falls, operating cash flow falls",
+        "Expense rises, liabilities rise, financing cash flow rises",
+        "Revenue rises, accounts receivable rises, investing cash flow rises",
+        "Only equity changes"
+      ],
+      correct: "Inventory rises, cash falls, operating cash flow falls",
+      explanation: "The balance sheet shifts from cash to inventory, and the cash payment is generally operating. Expense usually comes later when the inventory is sold.",
+      difficulty: "Hard"
+    },
+    {
+      prompt: "A company earns revenue in cash and also incurs $300 of related cash expense in the same period. What is the broad multi-statement logic?",
+      options: [
+        "Both revenue and expense can affect net income, cash changes by the net amount, and operating cash flow reflects both cash effects",
+        "Only the balance sheet changes",
+        "Only financing cash flow changes",
+        "Revenue has no effect if expense also occurs"
+      ],
+      correct: "Both revenue and expense can affect net income, cash changes by the net amount, and operating cash flow reflects both cash effects",
+      explanation: "When both the revenue and expense are cash-based in the same period, income statement and operating cash flow both reflect the business activity.",
       difficulty: "Hard"
     }
   ]
