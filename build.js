@@ -176,14 +176,34 @@ function restartBuildQuiz() {
   renderBuildQuestion();
 }
 
-function initBuildQuiz() {
-  const mode = document.body.dataset.buildMode;
-  if (!mode || !BUILD_QUESTIONS[mode]) return;
+function getBuildModeFromUrl() {
+  const params = new URLSearchParams(window.location.search);
+  const mode = params.get("mode");
+  if (mode && BUILD_QUESTIONS[mode]) return mode;
+  return "income";
+}
 
-  buildMode = mode;
-  buildQuestions = shuffleBuild(BUILD_QUESTIONS[mode]);
+function getBuildModeLabel(mode) {
+  if (mode === "income") return "Build Income Statement";
+  if (mode === "balance") return "Build Balance Sheet";
+  if (mode === "cashflow") return "Build Cash Flow Statement";
+  return "Build Mode";
+}
+
+function initBuildQuiz() {
+  buildMode = getBuildModeFromUrl();
+
+  if (!BUILD_QUESTIONS[buildMode]) return;
+
+  buildQuestions = shuffleBuild(BUILD_QUESTIONS[buildMode]);
 
   const els = getBuildEls();
+
+  const modeLabelEl = document.getElementById("build-mode-label");
+  if (modeLabelEl) {
+    modeLabelEl.textContent = getBuildModeLabel(buildMode);
+  }
+
   els.checkBtn.addEventListener("click", checkBuildAnswer);
   els.nextBtn.addEventListener("click", nextBuildQuestion);
   els.restartBtn.addEventListener("click", restartBuildQuiz);
