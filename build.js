@@ -213,3 +213,21 @@ function initBuildQuiz() {
 }
 
 document.addEventListener("DOMContentLoaded", initBuildQuiz);
+
+function setBuildPageHeader(mode) {
+  const titleEl = document.getElementById("build-page-title");
+  const subtitleEl = document.getElementById("build-page-subtitle");
+
+  if (!titleEl || !subtitleEl) return;
+
+  if (mode === "income") {
+    titleEl.textContent = "Build Income.";
+    subtitleEl.textContent = "Populate the income statement and calculate the missing lines.";
+  } else if (mode === "balance") {
+    titleEl.textContent = "Build Balance.";
+    subtitleEl.textContent = "Populate the balance sheet and make the accounting equation work.";
+  } else if (mode === "cashflow") {
+    titleEl.textContent = "Build Cash Flow.";
+    subtitleEl.textContent = "Populate the cash flow statement and calculate the missing lines.";
+  }
+}
