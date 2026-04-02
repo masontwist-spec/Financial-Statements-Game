@@ -106,28 +106,38 @@ function renderBuildQuestion() {
   `;
 }
 
+function normalizeLabel(text) {
+  return text
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^\w\s+]/g, "")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 function checkBuildAnswer() {
   if (alreadyChecked) return;
 
   const els = getBuildEls();
-  const inputs = Array.from(document.querySelectorAll(".build-input"));
+  const labelInputs = Array.from(document.querySelectorAll(".build-label-input"));
+  const valueInputs = Array.from(document.querySelectorAll(".build-value-input"));
 
   let correctCount = 0;
-  let totalEditable = inputs.length;
+  let totalPossible = 0;
   let allCorrect = true;
   let feedbackLines = [];
 
-  inputs.forEach(input => {
-    const expected = Number(input.dataset.answer);
-    const actual = parseUserNumber(input.value);
+  labelInputs.forEach(input => {
+    totalPossible += 1;
+    const expected = normalizeLabel(input.dataset.expectedLabel);
+    const actual = normalizeLabel(input.value);
 
     input.classList.remove("build-correct", "build-incorrect");
 
-    if (!Number.isFinite(actual)) {
+    if (!actual) {
       allCorrect = false;
       input.classList.add("build-incorrect");
-      const labelText = input.previousElementSibling.textContent;
-feedbackLines.push(`${labelText}: enter a number.`);
+      feedbackLines.push(`Missing label. Expected: ${input.dataset.expectedLabel}.`);
       return;
     }
 
@@ -137,7 +147,31 @@ feedbackLines.push(`${labelText}: enter a number.`);
     } else {
       allCorrect = false;
       input.classList.add("build-incorrect");
-      feedbackLines.push(`${input.previousElementSibling.textContent}: correct answer is ${formatBuildNumber(expected)}.`);
+      feedbackLines.push(`Incorrect label. Expected: ${input.dataset.expectedLabel}.`);
+    }
+  });
+
+  valueInputs.forEach(input => {
+    totalPossible += 1;
+    const expected = Number(input.dataset.expectedValue);
+    const actual = parseUserNumber(input.value);
+
+    input.classList.remove("build-correct", "build-incorrect");
+
+    if (!Number.isFinite(actual)) {
+      allCorrect = false;
+      input.classList.add("build-incorrect");
+      feedbackLines.push(`One value is missing or not numeric. Expected: ${formatBuildNumber(expected)}.`);
+      return;
+    }
+
+    if (actual === expected) {
+      correctCount += 1;
+      input.classList.add("build-correct");
+    } else {
+      allCorrect = false;
+      input.classList.add("build-incorrect");
+      feedbackLines.push(`Incorrect value. Expected: ${formatBuildNumber(expected)}.`);
     }
   });
 
@@ -148,16 +182,16 @@ feedbackLines.push(`${labelText}: enter a number.`);
 
   if (allCorrect) {
     els.feedback.className = "feedback-box success";
-    els.feedback.innerHTML = `<strong>Perfect.</strong> You got all ${totalEditable} calculated lines correct.`;
+    els.feedback.innerHTML = `<strong>Perfect.</strong> You got all ${totalPossible} label/value entries correct.`;
   } else {
     els.feedback.className = "feedback-box error";
     els.feedback.innerHTML = `
-      <strong>Partial credit:</strong> You got ${correctCount} out of ${totalEditable} correct.<br><br>
+      <strong>Partial credit:</strong> You got ${correctCount} out of ${totalPossible} correct.<br><br>
       ${feedbackLines.join("<br>")}
     `;
   }
 
-  inputs.forEach(input => {
+  [...labelInputs, ...valueInputs].forEach(input => {
     input.disabled = true;
   });
 }
