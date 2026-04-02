@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Build Income Statement | Interactive Accounting Game</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-build-mode="income">
+  <header class="site-header">
+    <div class="container header-inner page-topbar">
+      <a href="index.html" class="brand-pill">⚖ Interactive Accounting Game</a>
+      <nav class="page-nav">
+        <a href="index.html">Home</a>
+        <a href="income.html">Income</a>
+        <a href="balance.html">Balance</a>
+        <a href="cashflow.html">Cash Flow</a>
+        <a href="combined.html">Combined</a>
+        <a href="build-income.html" class="active">Build Income</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container quiz-page">
+    <section class="quiz-hero">
+      <h1>Build Income.</h1>
+      <p>Populate the income statement and calculate the missing lines.</p>
+    </section>
+
+    <section class="quiz-layout">
+      <article class="quiz-card status-card">
+        <h2>Session Progress</h2>
+        <div class="stat-list">
+          <div class="stat-item"><span>Mode</span><strong>Build Income Statement</strong></div>
+          <div class="stat-item"><span>Question</span><strong id="build-progress-text">1 / 5</strong></div>
+          <div class="stat-item"><span>Score</span><strong id="build-score-text">0</strong></div>
+        </div>
+      </article>
+
+      <article class="quiz-card main-quiz-card">
+        <div id="build-active-view">
+          <div class="question-header">
+            <span class="difficulty-pill" id="build-difficulty-pill">Easy</span>
+          </div>
+
+          <h2 id="build-prompt">Prompt goes here</h2>
+
+          <div id="build-statement-card" class="build-statement-card"></div>
+
+          <div id="build-feedback-box" class="feedback-box">
+            Fill in the blank lines, then click Check Answer.
+          </div>
+
+          <div class="quiz-actions">
+            <button id="check-build-btn" class="primary-btn">Check Answer</button>
+            <button id="next-build-btn" class="primary-btn" disabled>Next Question</button>
+            <button id="restart-build-btn" class="secondary-btn">Restart Mode</button>
+          </div>
+        </div>
+
+        <div id="build-complete-view" class="hidden">
+          <div class="completion-box">
+            <h2>Mode Complete</h2>
+            <p id="build-final-score-text">You scored 0 out of 0.</p>
+            <div class="quiz-actions">
+              <button id="build-play-again-btn" class="primary-btn">Play Again</button>
+              <a href="index.html" class="secondary-link-btn">Back Home</a>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <script src="buildQuestions.js"></script>
+  <script src="build.js"></script>
+</body>
+</html>
