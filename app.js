@@ -1,175 +1,147 @@
-const GAME_DATA = {
-  income: {
-    statement: {
-      title: "Mini Income Statement",
-      lines: [
-        { label: "Revenue", value: 2000 },
-        { label: "Expenses", value: 1200 },
-        { label: "Net Income", value: 800, total: true }
-      ]
-    },
-    question: "The company pays $150 for rent. What happens?",
-    options: [
-      "Revenue increases",
-      "Expense increases",
-      "No effect"
-    ],
-    correct: "Expense increases",
-    explanation:
-      "Rent is an operating expense. It increases expenses on the income statement, which lowers net income."
-  },
+let currentMode = null;
+let questions = [];
+let currentIndex = 0;
+let score = 0;
+let locked = false;
 
-  balance: {
-    statement: {
-      title: "Mini Balance Sheet",
-      lines: [
-        { label: "Cash", value: 1000 },
-        { label: "Inventory", value: 500 },
-        { label: "Total Assets", value: 1500, total: true },
-        { label: "Debt", value: 600 },
-        { label: "Equity", value: 900 }
-      ]
-    },
-    question: "The company takes out a $400 bank loan. Which areas change?",
-    options: [
-      "Assets and Liabilities",
-      "Assets and Equity",
-      "Liabilities and Equity"
-    ],
-    correct: "Assets and Liabilities",
-    explanation:
-      "A loan brings in cash, so assets increase. It also creates debt, so liabilities increase. Equity does not change at the moment of borrowing."
-  },
-
-  cashflow: {
-    statement: {
-      title: "Mini Cash Flow Statement",
-      lines: [
-        { label: "Cash from Operations", value: 700 },
-        { label: "Cash from Investing", value: -300 },
-        { label: "Cash from Financing", value: 500 },
-        { label: "Net Change in Cash", value: 900, total: true }
-      ]
-    },
-    question: "The company buys equipment for cash. Which section does this hit?",
-    options: [
-      "Operating",
-      "Investing",
-      "Financing"
-    ],
-    correct: "Investing",
-    explanation:
-      "Buying long-term equipment is a capital expenditure, which goes in investing cash flow."
+function shuffle(array) {
+  const copy = [...array];
+  for (let i = copy.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
   }
-};
-
-function formatMoney(value) {
-  const sign = value < 0 ? "-" : "";
-  return `${sign}$${Math.abs(value).toLocaleString()}`;
+  return copy;
 }
 
-function getStoredScore(pageKey) {
-  const raw = localStorage.getItem(`acctgame_${pageKey}`);
-  if (!raw) return { answered: 0, correct: 0 };
-  try {
-    return JSON.parse(raw);
-  } catch {
-    return { answered: 0, correct: 0 };
+function getEls() {
+  return {
+    prompt: document.getElementById("question-prompt"),
+    answerGrid: document.getElementById("answer-grid"),
+    feedbackBox: document.getElementById("feedback-box"),
+    nextBtn: document.getElementById("next-btn"),
+    restartBtn: document.getElementById("restart-btn"),
+    playAgainBtn: document.getElementById("play-again-btn"),
+    progressText: document.getElementById("progress-text"),
+    scoreText: document.getElementById("score-text"),
+    difficultyPill: document.getElementById("difficulty-pill"),
+    quizActiveView: document.getElementById("quiz-active-view"),
+    quizCompleteView: document.getElementById("quiz-complete-view"),
+    finalScoreText: document.getElementById("final-score-text")
+  };
+}
+
+function initQuiz() {
+  const mode = document.body.dataset.mode;
+  if (!mode || !QUESTION_BANK[mode]) return;
+
+  currentMode = mode;
+  questions = shuffle(QUESTION_BANK[mode]);
+  currentIndex = 0;
+  score = 0;
+  locked = false;
+
+  const els = getEls();
+
+  els.nextBtn.addEventListener("click", handleNextQuestion);
+  els.restartBtn.addEventListener("click", restartQuiz);
+
+  if (els.playAgainBtn) {
+    els.playAgainBtn.addEventListener("click", restartQuiz);
   }
+
+  renderQuestion();
 }
 
-function setStoredScore(pageKey, score) {
-  localStorage.setItem(`acctgame_${pageKey}`, JSON.stringify(score));
-}
+function renderQuestion() {
+  const els = getEls();
+  const question = questions[currentIndex];
+  locked = false;
 
-function renderStatement(statement, target) {
-  target.innerHTML = `
-    <h3>${statement.title}</h3>
-    ${statement.lines
-      .map(
-        line => `
-          <div class="statement-line ${line.total ? "total" : ""}">
-            <span>${line.label}</span>
-            <span>${formatMoney(line.value)}</span>
-          </div>
-        `
-      )
-      .join("")}
-  `;
-}
+  els.quizActiveView.classList.remove("hidden");
+  els.quizCompleteView.classList.add("hidden");
 
-function updateScoreUI(pageKey) {
-  const score = getStoredScore(pageKey);
-  const answeredEl = document.getElementById("answered-count");
-  const correctEl = document.getElementById("correct-count");
+  els.prompt.textContent = question.prompt;
+  els.difficultyPill.textContent = question.difficulty;
+  els.progressText.textContent = `${currentIndex + 1} / ${questions.length}`;
+  els.scoreText.textContent = `${score}`;
 
-  if (answeredEl) answeredEl.textContent = score.answered;
-  if (correctEl) correctEl.textContent = score.correct;
-}
+  els.feedbackBox.className = "feedback-box";
+  els.feedbackBox.textContent = "Choose an answer to see feedback.";
 
-function lockButtons(buttons) {
-  buttons.forEach(btn => {
-    btn.disabled = true;
-  });
-}
+  els.nextBtn.disabled = true;
+  els.answerGrid.innerHTML = "";
 
-function setupGame(pageKey) {
-  const data = GAME_DATA[pageKey];
-  if (!data) return;
-
-  const statementEl = document.getElementById("statement-box");
-  const questionEl = document.getElementById("question-text");
-  const optionsEl = document.getElementById("options");
-  const feedbackEl = document.getElementById("feedback");
-  const resetBtn = document.getElementById("reset-score-btn");
-
-  renderStatement(data.statement, statementEl);
-  questionEl.textContent = data.question;
-
-  optionsEl.innerHTML = "";
-
-  data.options.forEach(option => {
+  question.options.forEach(option => {
     const btn = document.createElement("button");
-    btn.className = "option-btn";
+    btn.className = "answer-btn";
     btn.textContent = option;
 
-    btn.addEventListener("click", () => {
-      const buttons = Array.from(optionsEl.querySelectorAll("button"));
-      lockButtons(buttons);
+    btn.addEventListener("click", () => handleAnswer(option, btn));
 
-      const score = getStoredScore(pageKey);
-      score.answered += 1;
-
-      if (option === data.correct) {
-        score.correct += 1;
-        feedbackEl.className = "feedback success";
-        feedbackEl.innerHTML = `<strong>Correct.</strong> ${data.explanation}`;
-      } else {
-        feedbackEl.className = "feedback error";
-        feedbackEl.innerHTML = `<strong>Not quite.</strong> Correct answer: <strong>${data.correct}</strong>. ${data.explanation}`;
-      }
-
-      setStoredScore(pageKey, score);
-      updateScoreUI(pageKey);
-    });
-
-    optionsEl.appendChild(btn);
+    els.answerGrid.appendChild(btn);
   });
-
-  if (resetBtn) {
-    resetBtn.addEventListener("click", () => {
-      setStoredScore(pageKey, { answered: 0, correct: 0 });
-      updateScoreUI(pageKey);
-      window.location.reload();
-    });
-  }
-
-  updateScoreUI(pageKey);
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  const pageKey = document.body.dataset.page;
-  if (pageKey) {
-    setupGame(pageKey);
+function handleAnswer(selectedOption, clickedButton) {
+  if (locked) return;
+  locked = true;
+
+  const els = getEls();
+  const question = questions[currentIndex];
+  const buttons = Array.from(els.answerGrid.querySelectorAll(".answer-btn"));
+
+  buttons.forEach(btn => {
+    btn.disabled = true;
+
+    if (btn.textContent === question.correct) {
+      btn.classList.add("correct");
+    }
+
+    if (btn === clickedButton && selectedOption !== question.correct) {
+      btn.classList.add("incorrect");
+    }
+  });
+
+  if (selectedOption === question.correct) {
+    score += 1;
+    els.feedbackBox.className = "feedback-box success";
+    els.feedbackBox.innerHTML = `<strong>Correct.</strong> ${question.explanation}`;
+  } else {
+    els.feedbackBox.className = "feedback-box error";
+    els.feedbackBox.innerHTML = `<strong>Not quite.</strong> Correct answer: <strong>${question.correct}</strong>. ${question.explanation}`;
   }
-});
+
+  els.scoreText.textContent = `${score}`;
+  els.nextBtn.disabled = false;
+}
+
+function handleNextQuestion() {
+  currentIndex += 1;
+
+  if (currentIndex >= questions.length) {
+    showCompletion();
+    return;
+  }
+
+  renderQuestion();
+}
+
+function showCompletion() {
+  const els = getEls();
+
+  els.quizActiveView.classList.add("hidden");
+  els.quizCompleteView.classList.remove("hidden");
+  els.finalScoreText.textContent = `You scored ${score} out of ${questions.length}.`;
+  els.progressText.textContent = `${questions.length} / ${questions.length}`;
+  els.scoreText.textContent = `${score}`;
+}
+
+function restartQuiz() {
+  questions = shuffle(QUESTION_BANK[currentMode]);
+  currentIndex = 0;
+  score = 0;
+  locked = false;
+  renderQuestion();
+}
+
+document.addEventListener("DOMContentLoaded", initQuiz);
