@@ -208,9 +208,10 @@ function nextBuildQuestion() {
 function showBuildCompletion() {
   const els = getBuildEls();
   const totalPossible = buildQuestions.reduce((sum, q) => {
-    return sum + q.fields.filter(f => f.editable).length;
+  return sum + q.rows.reduce((rowSum, row) => {
+    return rowSum + (row.labelEditable ? 1 : 0) + (row.valueEditable ? 1 : 0);
   }, 0);
-
+}, 0);
   els.activeView.classList.add("hidden");
   els.completeView.classList.remove("hidden");
   els.progress.textContent = `${buildQuestions.length} / ${buildQuestions.length}`;
