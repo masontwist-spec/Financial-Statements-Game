@@ -179,7 +179,81 @@ const QUESTION_BANK = {
       correct: "No immediate full expense recognition",
       explanation: "A prepaid insurance payment is generally recorded as an asset first, then expensed over time.",
       difficulty: "Hard"
-    }
+    },
+    // ADD THESE INTO QUESTION_BANK.income
+
+{
+  prompt: "A company bought $250 of office supplies during the year and had $75 of supplies left at year-end. How much office supplies expense should be recorded?",
+  options: [
+    "$250",
+    "$75",
+    "$175",
+    "$125"
+  ],
+  correct: "$175",
+  explanation: "Supplies expense equals supplies purchased minus supplies remaining: $250 - $75 = $175.",
+  difficulty: "Easy"
+},
+{
+  prompt: "A company prepays $400 of rent on January 1 for four months. By the end of February, how much rent expense should have been recognized in total?",
+  options: [
+    "$100",
+    "$200",
+    "$300",
+    "$400"
+  ],
+  correct: "$200",
+  explanation: "The company uses $100 of rent each month. After January and February, total rent expense recognized should be $200.",
+  difficulty: "Medium"
+},
+{
+  prompt: "Nine months ago, a company collected $720 for a one-year insurance-related contract and recorded it as unearned revenue. At year-end, how much revenue should now be recognized?",
+  options: [
+    "$180",
+    "$540",
+    "$720",
+    "$60"
+  ],
+  correct: "$540",
+  explanation: "Nine out of twelve months have been earned, so recognized revenue is 9/12 × $720 = $540.",
+  difficulty: "Medium"
+},
+{
+  prompt: "A company had beginning inventory of $16,000, purchases of $10,360, and ending inventory of $15,000. What is cost of goods sold?",
+  options: [
+    "$9,360",
+    "$10,360",
+    "$11,360",
+    "$13,160"
+  ],
+  correct: "$11,360",
+  explanation: "COGS = Beginning Inventory + Purchases - Ending Inventory = 16,000 + 10,360 - 15,000 = 11,360.",
+  difficulty: "Easy"
+},
+{
+  prompt: "A company pays for office supplies in November, but the supplies are not used until December. In which month should the supplies be recorded as expense?",
+  options: [
+    "October",
+    "November",
+    "December",
+    "Never"
+  ],
+  correct: "December",
+  explanation: "The expense is recognized when the supplies are used, not when they are paid for.",
+  difficulty: "Medium"
+},
+{
+  prompt: "A company prepays insurance in cash. What is usually true on the payment date?",
+  options: [
+    "The full amount becomes expense immediately",
+    "The payment creates a prepaid asset first",
+    "Revenue increases immediately",
+    "Liabilities increase immediately"
+  ],
+  correct: "The payment creates a prepaid asset first",
+  explanation: "Prepaid insurance is usually recorded as an asset first and then expensed over time.",
+  difficulty: "Medium"
+}
   ],
 
   balance: [
@@ -362,7 +436,81 @@ const QUESTION_BANK = {
       correct: "Assets rise and liabilities rise",
       explanation: "The equipment increases assets, and the note payable increases liabilities.",
       difficulty: "Hard"
-    }
+    },
+    // ADD THESE INTO QUESTION_BANK.balance
+
+{
+  prompt: "A company pays $100 of accounts payable in cash. What happens to the accounting equation?",
+  options: [
+    "Assets decrease and liabilities decrease",
+    "Assets increase and liabilities decrease",
+    "Assets decrease and equity decreases",
+    "Liabilities decrease and equity increases"
+  ],
+  correct: "Assets decrease and liabilities decrease",
+  explanation: "Cash goes down, and accounts payable goes down. Equity is unaffected.",
+  difficulty: "Easy"
+},
+{
+  prompt: "If total assets decrease by $5,500 and owners' equity increases by $2,000, what must happen to liabilities?",
+  options: [
+    "Liabilities decrease by $7,500",
+    "Liabilities increase by $3,500",
+    "Liabilities increase by $7,500",
+    "Liabilities decrease by $3,500"
+  ],
+  correct: "Liabilities decrease by $7,500",
+  explanation: "Using Assets = Liabilities + Equity: if assets fall by 5,500 while equity rises by 2,000, liabilities must fall by 7,500.",
+  difficulty: "Hard"
+},
+{
+  prompt: "A customer pays cash in advance before the company performs the service. What account is usually increased on the balance sheet?",
+  options: [
+    "Accounts receivable",
+    "Unearned revenue",
+    "Retained earnings",
+    "Depreciation expense"
+  ],
+  correct: "Unearned revenue",
+  explanation: "Cash is received before performance, so a liability called unearned revenue is recorded.",
+  difficulty: "Medium"
+},
+{
+  prompt: "A 90-day note receivable is usually classified on the balance sheet as:",
+  options: [
+    "Current asset",
+    "Plant asset",
+    "Current liability",
+    "Long-term liability"
+  ],
+  correct: "Current asset",
+  explanation: "Because it will be collected within a short period, it is typically a current asset.",
+  difficulty: "Easy"
+},
+{
+  prompt: "Allowance for Uncollectible Accounts is best described as:",
+  options: [
+    "An asset with a debit balance",
+    "A liability with a credit balance",
+    "A contra asset with a credit balance",
+    "A contra equity account with a debit balance"
+  ],
+  correct: "A contra asset with a credit balance",
+  explanation: "It offsets accounts receivable and normally carries a credit balance.",
+  difficulty: "Medium"
+},
+{
+  prompt: "If ending inventory is understated, what happens to total assets at year-end?",
+  options: [
+    "They are overstated",
+    "They are understated",
+    "They are unchanged",
+    "Only liabilities are affected"
+  ],
+  correct: "They are understated",
+  explanation: "Inventory is an asset, so understating ending inventory understates total assets.",
+  difficulty: "Medium"
+}
   ],
 
   cashflow: [
@@ -692,6 +840,68 @@ const QUESTION_BANK = {
       correct: "Both revenue and expense can affect net income, cash changes by the net amount, and operating cash flow reflects both cash effects",
       explanation: "When both the revenue and expense are cash-based in the same period, income statement and operating cash flow both reflect the business activity.",
       difficulty: "Hard"
-    }
+    },
+    // ADD THESE INTO QUESTION_BANK.cashflow
+
+{
+  prompt: "Which of the following actually affects cash during a period?",
+  options: [
+    "Recording depreciation expense",
+    "Declaring a cash dividend",
+    "Writing off an uncollectible account",
+    "Paying an account payable"
+  ],
+  correct: "Paying an account payable",
+  explanation: "Paying an account payable uses cash. The other choices do not directly affect cash at that moment.",
+  difficulty: "Easy"
+},
+{
+  prompt: "Cash dividends paid are usually reported on the statement of cash flows as:",
+  options: [
+    "An operating inflow",
+    "An investing outflow",
+    "An operating outflow",
+    "A financing outflow"
+  ],
+  correct: "A financing outflow",
+  explanation: "In intro accounting treatment, dividends paid are typically shown as financing outflows.",
+  difficulty: "Easy"
+},
+{
+  prompt: "Under the indirect method, depreciation expense is usually shown on the statement of cash flows by:",
+  options: [
+    "Adding it back to net income in operating activities",
+    "Subtracting it from net income in operating activities",
+    "Showing it as an investing inflow",
+    "Showing it as a financing outflow"
+  ],
+  correct: "Adding it back to net income in operating activities",
+  explanation: "Depreciation reduces net income but is non-cash, so it is added back under the indirect method.",
+  difficulty: "Medium"
+},
+{
+  prompt: "If a company issues $100,000 of new bonds and repays $75,000 of old bonds in the same year, how should this appear in the cash flow statement?",
+  options: [
+    "Only a net inflow of $25,000",
+    "Only a net outflow of $25,000",
+    "An inflow of $100,000 and an outflow of $75,000",
+    "A gain of $25,000 in operating activities"
+  ],
+  correct: "An inflow of $100,000 and an outflow of $75,000",
+  explanation: "Cash flow statements usually show the gross financing inflow and gross financing outflow separately.",
+  difficulty: "Medium"
+},
+{
+  prompt: "A company sells a machine for cash. Which section of the statement of cash flows includes the cash proceeds?",
+  options: [
+    "Operating",
+    "Investing",
+    "Financing",
+    "Equity"
+  ],
+  correct: "Investing",
+  explanation: "Selling long-term assets creates an investing cash inflow.",
+  difficulty: "Easy"
+}
   ]
 };
