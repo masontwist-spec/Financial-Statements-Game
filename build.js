@@ -204,6 +204,8 @@ function initBuildQuiz() {
     modeLabelEl.textContent = getBuildModeLabel(buildMode);
   }
 
+  setBuildPageHeader(buildMode);
+
   els.checkBtn.addEventListener("click", checkBuildAnswer);
   els.nextBtn.addEventListener("click", nextBuildQuestion);
   els.restartBtn.addEventListener("click", restartBuildQuiz);
