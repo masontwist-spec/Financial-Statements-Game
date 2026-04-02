@@ -95,17 +95,6 @@ function renderBuildQuestion() {
   `;
 }
 
-        return `
-          <div class="build-line">
-            <label>${field.label}</label>
-            <div class="build-static-value">${formatBuildNumber(field.value)}</div>
-          </div>
-        `;
-      }).join("")}
-    </div>
-  `;
-}
-
 function normalizeLabel(text) {
   return text
     .toLowerCase()
