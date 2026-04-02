@@ -3,72 +3,78 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Accounting Statements Game</title>
+  <title>Interactive Accounting Game</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header class="site-header">
     <div class="container header-inner">
-      <a href="index.html" class="brand">Accounting Statements Game</a>
-      <nav class="nav">
-        <a href="index.html" class="active">Home</a>
-        <a href="income.html">Income</a>
-        <a href="balance.html">Balance</a>
-        <a href="cashflow.html">Cash Flow</a>
-      </nav>
+      <a href="index.html" class="brand-pill">⚖ Interactive Accounting Game</a>
     </div>
   </header>
 
   <main>
-    <section class="hero">
-      <div class="container">
-        <h1>Learn the 3 Financial Statements by Playing</h1>
-        <p>
-          This is a simple accounting study game. Each page gives you a small statement,
-          one business event, and a question. The goal is to build intuition for how
-          the income statement, balance sheet, and cash flow statement actually work.
-        </p>
+    <section class="hero container">
+      <h1>Statements.</h1>
+      <p>
+        Master the three financial statements through interactive scenarios.
+        Built for students who want to actually <em>understand</em> accounting.
+      </p>
+
+      <div class="feature-row">
+        <div class="feature-card">
+          <h3>Real Scenarios</h3>
+          <p>Practice with realistic business situations.</p>
+        </div>
+
+        <div class="feature-card">
+          <h3>Instant Feedback</h3>
+          <p>Learn from detailed explanations.</p>
+        </div>
+
+        <div class="feature-card">
+          <h3>College-Level</h3>
+          <p>Built around intro accounting logic.</p>
+        </div>
       </div>
     </section>
 
-    <section class="container">
-      <div class="grid grid-3">
-        <article class="card">
-          <h2>Income Statement</h2>
-          <p>
-            Practice revenue, expenses, and net income through transaction-based questions.
-          </p>
-          <a class="button" href="income.html">Play Income</a>
-        </article>
-
-        <article class="card">
-          <h2>Balance Sheet</h2>
-          <p>
-            Work through assets, liabilities, and equity while keeping the accounting equation in balance.
-          </p>
-          <a class="button" href="balance.html">Play Balance Sheet</a>
-        </article>
-
-        <article class="card">
-          <h2>Cash Flow Statement</h2>
-          <p>
-            Classify transactions into operating, investing, and financing cash flows.
-          </p>
-          <a class="button" href="cashflow.html">Play Cash Flow</a>
-        </article>
+    <section class="container mode-section">
+      <div class="section-heading">
+        <h2>Choose Your Focus</h2>
+        <p>Practice individual statements or tackle them all together.</p>
       </div>
 
-      <div class="card home-cta">
-        <h2>MVP Goal</h2>
-        <p>
-          Right now this is a clean first version. Next, you can add multiple questions per page,
-          a real business simulation, and eventually one master screen where a single transaction
-          updates all three statements at once.
-        </p>
+      <div class="mode-grid">
+        <a class="mode-card" href="income.html">
+          <div class="mode-icon green">↗</div>
+          <h3>Income Statement</h3>
+          <p>Revenue, expenses, and profitability. Learn how companies report earnings.</p>
+          <span class="question-tag">8 questions</span>
+        </a>
+
+        <a class="mode-card" href="balance.html">
+          <div class="mode-icon blue">⚖</div>
+          <h3>Balance Sheet</h3>
+          <p>Assets, liabilities, and equity. Master the accounting equation.</p>
+          <span class="question-tag">8 questions</span>
+        </a>
+
+        <a class="mode-card" href="cashflow.html">
+          <div class="mode-icon purple">▣</div>
+          <h3>Cash Flow</h3>
+          <p>Operating, investing, and financing. Follow the money.</p>
+          <span class="question-tag">8 questions</span>
+        </a>
+
+        <a class="mode-card" href="combined.html">
+          <div class="mode-icon orange">◫</div>
+          <h3>Combined Mode</h3>
+          <p>See how all three statements connect. The ultimate challenge.</p>
+          <span class="question-tag">6 questions</span>
+        </a>
       </div>
     </section>
   </main>
-
-  <div class="footer-space"></div>
 </body>
 </html>
