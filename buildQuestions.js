@@ -1,8 +1,5 @@
 const BUILD_QUESTIONS = {
-  income: [...],
-  balance: [...],
-  cashflow: [...]
-};
+  income: [
     {
       prompt: "A company has revenue of 5000000, cost of goods sold of 1000000, and S&A expense of 300000. Populate the income statement and calculate the missing lines.",
       difficulty: "Easy",
@@ -64,6 +61,35 @@ const BUILD_QUESTIONS = {
         { key: "operating_income", label: "Operating Income", value: 850000, editable: true },
         { key: "interest_expense", label: "Interest Expense", value: 50000, editable: false },
         { key: "net_income", label: "Net Income", value: 800000, editable: true }
+      ]
+    }
+  ],
+
+  balance: [
+    {
+      prompt: "A company has cash of 400000, accounts receivable of 250000, and inventory of 150000. It also has accounts payable of 300000 and equity of 500000. Fill in the missing totals.",
+      difficulty: "Easy",
+      fields: [
+        { key: "cash", label: "Cash", value: 400000, editable: false },
+        { key: "ar", label: "Accounts Receivable", value: 250000, editable: false },
+        { key: "inventory", label: "Inventory", value: 150000, editable: false },
+        { key: "total_assets", label: "Total Assets", value: 800000, editable: true },
+        { key: "accounts_payable", label: "Accounts Payable", value: 300000, editable: false },
+        { key: "equity", label: "Equity", value: 500000, editable: false },
+        { key: "total_liabilities_equity", label: "Total Liabilities + Equity", value: 800000, editable: true }
+      ]
+    }
+  ],
+
+  cashflow: [
+    {
+      prompt: "A company has cash from operations of 500000, cash from investing of -200000, and cash from financing of 100000. Fill in the net change in cash.",
+      difficulty: "Easy",
+      fields: [
+        { key: "cfo", label: "Cash from Operations", value: 500000, editable: false },
+        { key: "cfi", label: "Cash from Investing", value: -200000, editable: false },
+        { key: "cff", label: "Cash from Financing", value: 100000, editable: false },
+        { key: "net_change_cash", label: "Net Change in Cash", value: 400000, editable: true }
       ]
     }
   ]
