@@ -155,10 +155,16 @@ button {
 
 .hero-logo {
   display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.hero-logo-top {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 20px;
-  flex-wrap: wrap;
 }
 
 .hero-logo-mark {
@@ -166,10 +172,15 @@ button {
   font-size: clamp(4.5rem, 10vw, 7.5rem);
   line-height: 1;
   text-shadow: 0 10px 24px rgba(142, 192, 251, 0.2);
+  transform: translateY(-6px);
 }
 
 .hero-logo-copy {
   text-align: left;
+}
+
+.hero-logo-bottom {
+  text-align: center;
 }
 
 .hero h1 {
@@ -181,7 +192,7 @@ button {
 }
 
 .hero-logo-subtitle {
-  margin: 10px 0 0;
+  margin: 0;
   color: #79aef0;
   font-size: clamp(1.1rem, 2.2vw, 1.8rem);
   font-weight: 800;
@@ -571,6 +582,14 @@ button {
 
   .hero-logo-copy {
     text-align: center;
+  }
+
+  .hero-logo-top {
+    gap: 14px;
+  }
+
+  .hero-logo-mark {
+    transform: translateY(-2px);
   }
 
   .build-mode-link {
