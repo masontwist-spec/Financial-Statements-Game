@@ -27,11 +27,14 @@
 <p id="build-page-subtitle">Construct the statement and calculate the missing lines.</p>
     </section>
 
-    <section class="build-mode-picker">
-  <a href="build.html?mode=income" class="secondary-link-btn">Income</a>
-  <a href="build.html?mode=balance" class="secondary-link-btn">Balance</a>
-  <a href="build.html?mode=cashflow" class="secondary-link-btn">Cash Flow</a>
-</section>
+    <section class="build-mode-picker" aria-label="Statement picker">
+      <p class="build-mode-picker-title">Choose your statement:</p>
+      <div class="build-mode-picker-links">
+        <a href="build.html?mode=income" class="secondary-link-btn build-mode-link" data-build-mode-link="income">Income</a>
+        <a href="build.html?mode=balance" class="secondary-link-btn build-mode-link" data-build-mode-link="balance">Balance</a>
+        <a href="build.html?mode=cashflow" class="secondary-link-btn build-mode-link" data-build-mode-link="cashflow">Cash Flow</a>
+      </div>
+    </section>
     
     <section class="quiz-layout">
       <article class="quiz-card status-card">

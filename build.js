@@ -271,6 +271,7 @@ function initBuildQuiz() {
     modeLabelEl.textContent = getBuildModeLabel(buildMode);
   }
 
+  setBuildModePickerState(buildMode);
   setBuildPageHeader(buildMode);
 
   els.checkBtn.addEventListener("click", checkBuildAnswer);
@@ -282,6 +283,20 @@ function initBuildQuiz() {
 }
 
 document.addEventListener("DOMContentLoaded", initBuildQuiz);
+
+function setBuildModePickerState(mode) {
+  const modeLinks = document.querySelectorAll("[data-build-mode-link]");
+
+  modeLinks.forEach(link => {
+    const isActive = link.dataset.buildModeLink === mode;
+    link.classList.toggle("active", isActive);
+    if (isActive) {
+      link.setAttribute("aria-current", "page");
+    } else {
+      link.removeAttribute("aria-current");
+    }
+  });
+}
 
 function setBuildPageHeader(mode) {
   const titleEl = document.getElementById("build-page-title");
