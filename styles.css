@@ -461,6 +461,20 @@ button {
   font-size: 1rem;
 }
 
+.build-label-input {
+  appearance: none;
+  cursor: pointer;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #6d7689 50%),
+    linear-gradient(135deg, #6d7689 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) calc(50% - 2px),
+    calc(100% - 12px) calc(50% - 2px);
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+  padding-right: 38px;
+}
+
 .build-label-input:focus,
 .build-value-input:focus {
   outline: none;

@@ -17,6 +17,15 @@ function formatBuildNumber(value) {
   return Number(value).toLocaleString();
 }
 
+function escapeHtml(text) {
+  return String(text)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 function parseUserNumber(value) {
   if (typeof value !== "string") return NaN;
   const cleaned = value.replace(/[$,\s]/g, "");
@@ -42,9 +51,18 @@ function getBuildEls() {
   };
 }
 
+function getQuestionLabelOptions(question) {
+  return [...new Set(
+    question.rows
+      .filter(row => row.labelEditable)
+      .map(row => row.expectedLabel)
+  )];
+}
+
 function renderBuildQuestion() {
   const els = getBuildEls();
   const q = buildQuestions[buildIndex];
+  const labelOptions = getQuestionLabelOptions(q);
   alreadyChecked = false;
 
   els.activeView.classList.remove("hidden");
@@ -55,27 +73,29 @@ function renderBuildQuestion() {
   els.progress.textContent = `${buildIndex + 1} / ${buildQuestions.length}`;
   els.score.textContent = `${buildScore}`;
   els.feedback.className = "feedback-box";
-  els.feedback.textContent = "Fill in the labels and values, then click Check Answer.";
+  els.feedback.textContent = "Choose the labels, enter the values, then click Check Answer.";
   els.nextBtn.disabled = true;
 
   els.statementCard.innerHTML = `
     <div class="build-statement-header">
       <h3>${getStatementTitle(buildMode)}</h3>
-      <p>Enter statement labels and amounts. Numbers may include commas.</p>
+      <p>Choose statement labels and enter amounts. Numbers may include commas.</p>
     </div>
     <div class="build-lines">
       ${q.rows.map((row, index) => `
         <div class="build-line two-inputs">
           ${
             row.labelEditable
-              ? `<input
-                  type="text"
+              ? `<select
                   class="build-label-input"
-                  data-expected-label="${row.expectedLabel}"
-                  placeholder="Enter label"
-                  autocomplete="off"
-                />`
-              : `<div class="build-static-label">${row.expectedLabel}</div>`
+                  data-expected-label="${escapeHtml(row.expectedLabel)}"
+                >
+                  <option value="">Choose label</option>
+                  ${labelOptions.map(option => `
+                    <option value="${escapeHtml(option)}">${escapeHtml(option)}</option>
+                  `).join("")}
+                </select>`
+              : `<div class="build-static-label">${escapeHtml(row.expectedLabel)}</div>`
           }
 
           ${
@@ -96,6 +116,7 @@ function renderBuildQuestion() {
 }
 
 function normalizeLabel(text) {
+  if (typeof text !== "string") return "";
   return text
     .toLowerCase()
     .replace(/&/g, "and")
