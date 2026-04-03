@@ -1,5 +1,6 @@
 let currentMode = null;
 let questions = [];
+let selectedDifficulty = "All";
 let currentIndex = 0;
 let score = 0;
 let locked = false;
@@ -23,6 +24,7 @@ function getEls() {
     playAgainBtn: document.getElementById("play-again-btn"),
     progressText: document.getElementById("progress-text"),
     scoreText: document.getElementById("score-text"),
+    filterButtons: Array.from(document.querySelectorAll("[data-difficulty-filter]")),
     difficultyPill: document.getElementById("difficulty-pill"),
     quizActiveView: document.getElementById("quiz-active-view"),
     quizCompleteView: document.getElementById("quiz-complete-view"),
@@ -30,15 +32,50 @@ function getEls() {
   };
 }
 
+function getFilteredQuestions() {
+  const modeQuestions = QUESTION_BANK[currentMode] || [];
+
+  if (selectedDifficulty === "All") {
+    return shuffle(modeQuestions);
+  }
+
+  return shuffle(
+    modeQuestions.filter(question => question.difficulty === selectedDifficulty)
+  );
+}
+
+function setDifficultyFilterState(buttons) {
+  buttons.forEach(button => {
+    const isActive = button.dataset.difficultyFilter === selectedDifficulty;
+    button.classList.toggle("active", isActive);
+
+    if (isActive) {
+      button.setAttribute("aria-pressed", "true");
+    } else {
+      button.setAttribute("aria-pressed", "false");
+    }
+  });
+}
+
+function applyDifficultyFilter(nextDifficulty) {
+  selectedDifficulty = nextDifficulty;
+  questions = getFilteredQuestions();
+  currentIndex = 0;
+  score = 0;
+  locked = false;
+
+  const els = getEls();
+  setDifficultyFilterState(els.filterButtons);
+
+  renderQuestion();
+}
+
 function initQuiz() {
   const mode = document.body.dataset.mode;
   if (!mode || !QUESTION_BANK[mode]) return;
 
   currentMode = mode;
-  questions = shuffle(QUESTION_BANK[mode]);
-  currentIndex = 0;
-  score = 0;
-  locked = false;
+  selectedDifficulty = "All";
 
   const els = getEls();
 
@@ -49,11 +86,36 @@ function initQuiz() {
     els.playAgainBtn.addEventListener("click", restartQuiz);
   }
 
-  renderQuestion();
+  els.filterButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      const nextDifficulty = button.dataset.difficultyFilter;
+      if (!nextDifficulty || nextDifficulty === selectedDifficulty) return;
+      applyDifficultyFilter(nextDifficulty);
+    });
+  });
+
+  applyDifficultyFilter(selectedDifficulty);
 }
 
 function renderQuestion() {
   const els = getEls();
+  const totalQuestions = questions.length;
+
+  if (!totalQuestions) {
+    locked = true;
+    els.quizActiveView.classList.remove("hidden");
+    els.quizCompleteView.classList.add("hidden");
+    els.prompt.textContent = "No questions match that difficulty yet.";
+    els.difficultyPill.textContent = selectedDifficulty;
+    els.progressText.textContent = `0 / 0`;
+    els.scoreText.textContent = `${score}`;
+    els.feedbackBox.className = "feedback-box";
+    els.feedbackBox.textContent = "Choose another difficulty filter to keep practicing.";
+    els.nextBtn.disabled = true;
+    els.answerGrid.innerHTML = "";
+    return;
+  }
+
   const question = questions[currentIndex];
   locked = false;
 
@@ -137,7 +199,7 @@ function showCompletion() {
 }
 
 function restartQuiz() {
-  questions = shuffle(QUESTION_BANK[currentMode]);
+  questions = getFilteredQuestions();
   currentIndex = 0;
   score = 0;
   locked = false;
