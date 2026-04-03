@@ -751,7 +751,6 @@ const QUESTION_BANK = {
   explanation: "Net realizable value is accounts receivable minus the allowance: $40,000 - $2,300 = $37,700.",
   difficulty: "Hard"
 }
-}
   ],
 
   cashflow: [
