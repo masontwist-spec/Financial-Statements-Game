@@ -73,6 +73,48 @@ const BUILD_QUESTIONS = {
         { expectedLabel: "Total Expenses", expectedValue: 396000, labelEditable: true, valueEditable: true },
         { expectedLabel: "Net Income", expectedValue: 50000, labelEditable: true, valueEditable: true }
       ]
+    },
+    {
+      prompt: "Harbor Company reported sales of 150,000, cost of goods sold of 90,000, rent expense of 20,000, and wages expense of 15,000. Build the income statement and calculate the subtotals.",
+      difficulty: "Easy",
+      rows: [
+        { expectedLabel: "Sales", expectedValue: 150000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Cost of Goods Sold", expectedValue: 90000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Gross Profit", expectedValue: 60000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Rent Expense", expectedValue: 20000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Wages Expense", expectedValue: 15000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Total Operating Expenses", expectedValue: 35000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Net Income", expectedValue: 25000, labelEditable: true, valueEditable: true }
+      ]
+    },
+    {
+      prompt: "Northstar Company earned service revenue of 120,000. Expenses were salaries 48,000, utilities 12,000, depreciation 10,000, and interest 5,000. Build the income statement and calculate total expenses and net income.",
+      difficulty: "Medium",
+      rows: [
+        { expectedLabel: "Service Revenue", expectedValue: 120000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Salaries Expense", expectedValue: 48000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Utilities Expense", expectedValue: 12000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Depreciation Expense", expectedValue: 10000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Interest Expense", expectedValue: 5000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Total Expenses", expectedValue: 75000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Net Income", expectedValue: 45000, labelEditable: true, valueEditable: true }
+      ]
+    },
+    {
+      prompt: "Summit Company reported gross sales of 600,000 and sales returns of 20,000. Cost of goods sold was 340,000, S&A expense was 110,000, interest expense was 12,000, and income tax expense was 28,000. Build the income statement and calculate the missing lines.",
+      difficulty: "Hard",
+      rows: [
+        { expectedLabel: "Gross Sales", expectedValue: 600000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Sales Returns", expectedValue: 20000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Net Sales", expectedValue: 580000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Cost of Goods Sold", expectedValue: 340000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Gross Profit", expectedValue: 240000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "S&A Expense", expectedValue: 110000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Operating Income", expectedValue: 130000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Interest Expense", expectedValue: 12000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Income Tax Expense", expectedValue: 28000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Net Income", expectedValue: 90000, labelEditable: true, valueEditable: true }
+      ]
     }
   ],
 
@@ -144,6 +186,54 @@ const BUILD_QUESTIONS = {
         { expectedLabel: "Less: NSF Check", expectedValue: 1700, labelEditable: true, valueEditable: true },
         { expectedLabel: "Less: Bank Service Charge", expectedValue: 26, labelEditable: true, valueEditable: true },
         { expectedLabel: "Adjusted Cash Balance", expectedValue: 48242, labelEditable: true, valueEditable: true }
+      ]
+    },
+    {
+      prompt: "A company has cash of 85,000, accounts receivable of 35,000, supplies of 5,000, and equipment of 75,000. It also has accounts payable of 40,000 and notes payable of 60,000. Build the balance sheet and calculate equity and total liabilities + equity.",
+      difficulty: "Easy",
+      rows: [
+        { expectedLabel: "Cash", expectedValue: 85000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Accounts Receivable", expectedValue: 35000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Supplies", expectedValue: 5000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Equipment", expectedValue: 75000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Total Assets", expectedValue: 200000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Accounts Payable", expectedValue: 40000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Notes Payable", expectedValue: 60000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Equity", expectedValue: 100000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Total Liabilities + Equity", expectedValue: 200000, labelEditable: true, valueEditable: true }
+      ]
+    },
+    {
+      prompt: "Pioneer Company had beginning stockholders' equity of 410,000. October revenue was 96,000, expenses were 71,000, and dividends paid were 9,000. Build the equity section and calculate ending stockholders' equity.",
+      difficulty: "Medium",
+      rows: [
+        { expectedLabel: "Beginning Stockholders' Equity", expectedValue: 410000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Revenue", expectedValue: 96000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Expenses", expectedValue: 71000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Net Income", expectedValue: 25000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Dividends", expectedValue: 9000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Ending Stockholders' Equity", expectedValue: 426000, labelEditable: true, valueEditable: true }
+      ]
+    },
+    {
+      prompt: "Cedar Corporation reported cash 24,000, accounts receivable 41,000, inventory 63,000, prepaid expenses 7,000, equipment 120,000, accumulated depreciation 18,000, accounts payable 29,000, wages payable 11,000, note payable 57,000, and common stock 80,000. Build the balance sheet and calculate the missing totals and retained earnings.",
+      difficulty: "Hard",
+      rows: [
+        { expectedLabel: "Cash", expectedValue: 24000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Accounts Receivable", expectedValue: 41000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Inventory", expectedValue: 63000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Prepaid Expenses", expectedValue: 7000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Current Assets", expectedValue: 135000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Equipment, Net", expectedValue: 102000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Total Assets", expectedValue: 237000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Accounts Payable", expectedValue: 29000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Wages Payable", expectedValue: 11000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Note Payable", expectedValue: 57000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Total Liabilities", expectedValue: 97000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Common Stock", expectedValue: 80000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Retained Earnings", expectedValue: 60000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Total Equity", expectedValue: 140000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Total Liabilities + Equity", expectedValue: 237000, labelEditable: true, valueEditable: true }
       ]
     }
   ],
@@ -218,6 +308,38 @@ const BUILD_QUESTIONS = {
         { expectedLabel: "Net Change in Cash", expectedValue: 1000, labelEditable: true, valueEditable: true },
         { expectedLabel: "Beginning Cash Balance", expectedValue: 4000, labelEditable: true, valueEditable: true },
         { expectedLabel: "Ending Cash Balance", expectedValue: 5000, labelEditable: true, valueEditable: true }
+      ]
+    },
+    {
+      prompt: "A company has net cash from operating activities of 72,000, net cash from investing activities of -28,000, and net cash from financing activities of -14,000. Build the summary section and calculate the net change in cash.",
+      difficulty: "Easy",
+      rows: [
+        { expectedLabel: "Net Cash from Operating Activities", expectedValue: 72000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Net Cash from Investing Activities", expectedValue: -28000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Net Cash from Financing Activities", expectedValue: -14000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Net Change in Cash", expectedValue: 30000, labelEditable: true, valueEditable: true }
+      ]
+    },
+    {
+      prompt: "Atlas Company had net income of 32,000. Accounts receivable decreased by 6,000, inventory increased by 3,000, accounts payable increased by 5,000, and depreciation expense was 4,000. Build the operating section and calculate net cash from operating activities.",
+      difficulty: "Medium",
+      rows: [
+        { expectedLabel: "Net Income", expectedValue: 32000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Depreciation Expense", expectedValue: 4000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Decrease in Accounts Receivable", expectedValue: 6000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Increase in Inventory", expectedValue: -3000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Increase in Accounts Payable", expectedValue: 5000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Net Cash from Operating Activities", expectedValue: 44000, labelEditable: true, valueEditable: true }
+      ]
+    },
+    {
+      prompt: "Pine Company sold equipment with a book value of 14,000 for a 2,000 gain, purchased 25,000 of equipment, and purchased 9,000 of land. Build the investing section and calculate net cash from investing activities.",
+      difficulty: "Hard",
+      rows: [
+        { expectedLabel: "Proceeds from Sale of Equipment", expectedValue: 16000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Purchase of Equipment", expectedValue: -25000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Purchase of Land", expectedValue: -9000, labelEditable: true, valueEditable: true },
+        { expectedLabel: "Net Cash from Investing Activities", expectedValue: -18000, labelEditable: true, valueEditable: true }
       ]
     }
   ]
