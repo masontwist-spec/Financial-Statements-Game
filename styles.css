@@ -1022,10 +1022,55 @@ a {
   font-weight: 700;
 }
 
+.interactive-layout {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+
+.statement-card {
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.statement-card-header {
+  padding: 20px 22px 16px;
+  border-bottom: 1px solid rgba(191, 216, 197, 0.8);
+  background: linear-gradient(180deg, rgba(247, 251, 248, 0.98) 0%, rgba(238, 247, 241, 0.98) 100%);
+}
+
+.statement-card-header h2 {
+  margin: 0;
+  font-size: 1.35rem;
+  letter-spacing: -0.03em;
+  color: var(--green-dark);
+}
+
+.statement-card-body {
+  padding: 10px 18px 14px;
+}
+
+.line-item {
+  padding: 13px 12px;
+  border-bottom: 1px solid rgba(216, 231, 220, 0.7);
+  color: var(--text);
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.line-item:last-child {
+  border-bottom: none;
+}
+
 @media (max-width: 980px) {
   .hero-layout,
   .feature-row,
   .steps-grid,
+  .interactive-layout,
   .mode-grid,
   .quiz-layout {
     grid-template-columns: 1fr;

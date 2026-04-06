@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interactive Statements | Interactive Accounting Game</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner page-topbar">
+      <a href="index.html" class="brand-pill">⚖ The Accounting Game</a>
+      <nav class="page-nav">
+        <a href="index.html">Home</a>
+        <a href="income.html">Income Statement</a>
+        <a href="balance.html">Balance Sheet</a>
+        <a href="cashflow.html">Cash Flow</a>
+        <a href="combined.html">Combined</a>
+        <a href="build.html">Build</a>
+        <a href="interactive.html" class="active">Interactive</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container quiz-page">
+    <section class="quiz-hero">
+      <h1>Interactive Statements.</h1>
+      <p>View the three financial statements side by side in one clean layout.</p>
+    </section>
+
+    <section class="interactive-layout" aria-label="Interactive financial statements">
+      <article class="statement-card">
+        <div class="statement-card-header">
+          <h2>Income Statement</h2>
+        </div>
+        <div class="statement-card-body">
+          <div class="line-item" data-id="revenue">Revenue</div>
+          <div class="line-item" data-id="cost-of-goods-sold">Cost of Goods Sold</div>
+          <div class="line-item" data-id="gross-profit">Gross Profit</div>
+          <div class="line-item" data-id="depreciation">Depreciation</div>
+          <div class="line-item" data-id="operating-income">Operating Income</div>
+          <div class="line-item" data-id="net-income">Net Income</div>
+        </div>
+      </article>
+
+      <article class="statement-card">
+        <div class="statement-card-header">
+          <h2>Balance Sheet</h2>
+        </div>
+        <div class="statement-card-body">
+          <div class="line-item" data-id="cash">Cash</div>
+          <div class="line-item" data-id="accounts-receivable">Accounts Receivable</div>
+          <div class="line-item" data-id="inventory">Inventory</div>
+          <div class="line-item" data-id="equipment">Equipment</div>
+          <div class="line-item" data-id="accounts-payable">Accounts Payable</div>
+          <div class="line-item" data-id="equity">Equity</div>
+        </div>
+      </article>
+
+      <article class="statement-card">
+        <div class="statement-card-header">
+          <h2>Cash Flow Statement</h2>
+        </div>
+        <div class="statement-card-body">
+          <div class="line-item" data-id="net-income-cf">Net Income</div>
+          <div class="line-item" data-id="depreciation-cf">Depreciation</div>
+          <div class="line-item" data-id="changes-in-working-capital">Changes in Working Capital</div>
+          <div class="line-item" data-id="capital-expenditures">Capital Expenditures</div>
+          <div class="line-item" data-id="financing-activities">Financing Activities</div>
+          <div class="line-item" data-id="net-change-in-cash">Net Change in Cash</div>
+        </div>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
