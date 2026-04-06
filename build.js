@@ -59,6 +59,69 @@ function getQuestionLabelOptions(question) {
   )];
 }
 
+function getBuildRowClasses(label) {
+  const normalized = String(label || "").toLowerCase();
+  const classes = ["build-line", "two-inputs"];
+
+  const isTotalLine =
+    normalized.startsWith("total ") ||
+    normalized.includes(" net income") ||
+    normalized.includes("ending ") ||
+    normalized.includes("adjusted ") ||
+    normalized.includes("net cash from") ||
+    normalized.includes("net change in cash") ||
+    normalized.includes("ending cash balance") ||
+    normalized.includes("adjusted cash balance") ||
+    normalized.includes("equity");
+
+  const isSubtotalLine =
+    normalized.includes("gross profit") ||
+    normalized.includes("operating income") ||
+    normalized.includes("current assets") ||
+    normalized.includes("current liabilities") ||
+    normalized.includes("equipment, net") ||
+    normalized.includes("goods available for sale") ||
+    normalized.includes("total revenue") ||
+    normalized.includes("total expenses");
+
+  const isIndentedLine =
+    normalized.includes("expense") ||
+    normalized.includes("accounts receivable") ||
+    normalized.includes("inventory") ||
+    normalized.includes("prepaid") ||
+    normalized.includes("supplies") ||
+    normalized.includes("wages payable") ||
+    normalized.includes("accounts payable") ||
+    normalized.includes("interest payable") ||
+    normalized.includes("service charge") ||
+    normalized.startsWith("add:") ||
+    normalized.startsWith("less:") ||
+    normalized.startsWith("increase ") ||
+    normalized.startsWith("decrease ") ||
+    normalized.startsWith("purchase ") ||
+    normalized.startsWith("proceeds ") ||
+    normalized.startsWith("repayment ") ||
+    normalized.startsWith("issuance ") ||
+    normalized.includes("dividends") ||
+    normalized.includes("collections") ||
+    normalized.includes("write-offs") ||
+    normalized.includes("sales returns");
+
+  if (isSubtotalLine) {
+    classes.push("build-line-subtotal");
+  }
+
+  if (isTotalLine) {
+    classes.push("build-line-total");
+  }
+
+  if (isIndentedLine && !isTotalLine) {
+    classes.push("build-line-indented");
+  }
+
+  return classes.join(" ");
+}
+
 function renderBuildQuestion() {
   const els = getBuildEls();
   const q = buildQuestions[buildIndex];
@@ -82,8 +145,8 @@ function renderBuildQuestion() {
       <p>Choose statement labels and enter amounts. Numbers may include commas.</p>
     </div>
     <div class="build-lines">
-      ${q.rows.map((row, index) => `
-        <div class="build-line two-inputs">
+      ${q.rows.map(row => `
+        <div class="${getBuildRowClasses(row.expectedLabel)}">
           ${
             row.labelEditable
               ? `<select
@@ -105,6 +168,7 @@ function renderBuildQuestion() {
                   class="build-value-input"
                   data-expected-value="${row.expectedValue}"
                   placeholder="Enter amount"
+                  inputmode="numeric"
                   autocomplete="off"
                 />`
               : `<div class="build-static-value">${formatBuildNumber(row.expectedValue)}</div>`

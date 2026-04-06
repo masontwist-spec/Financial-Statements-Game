@@ -742,11 +742,13 @@ a {
   border: 1px solid var(--border);
   background: linear-gradient(180deg, #ffffff 0%, #f9fcfa 100%);
   border-radius: var(--radius-lg);
-  padding: 20px;
+  padding: 20px 20px 16px;
 }
 
 .build-statement-header {
   margin-bottom: 18px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(191, 216, 197, 0.7);
 }
 
 .build-statement-header h3 {
@@ -762,7 +764,7 @@ a {
 
 .build-lines {
   display: grid;
-  gap: 12px;
+  gap: 0;
 }
 
 .build-line.two-inputs {
@@ -770,16 +772,64 @@ a {
   grid-template-columns: minmax(0, 1.2fr) 220px;
   gap: 16px;
   align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(216, 231, 220, 0.65);
+}
+
+.build-line:last-child {
+  border-bottom: none;
+}
+
+.build-line-indented .build-static-label,
+.build-line-indented .build-label-input {
+  padding-left: 26px;
+}
+
+.build-line-subtotal {
+  margin-top: 10px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(191, 216, 197, 0.9);
+}
+
+.build-line-subtotal .build-static-label,
+.build-line-subtotal .build-label-input {
+  font-weight: 800;
+}
+
+.build-line-subtotal .build-static-value,
+.build-line-subtotal .build-value-input {
+  border-top: 1px solid rgba(31, 143, 85, 0.3);
+  padding-top: 14px;
+}
+
+.build-line-total {
+  margin-top: 14px;
+  padding-top: 16px;
+  border-top: 2px solid rgba(31, 143, 85, 0.22);
+}
+
+.build-line-total .build-static-label,
+.build-line-total .build-label-input {
+  font-weight: 800;
+  color: var(--green-dark);
+}
+
+.build-line-total .build-static-value,
+.build-line-total .build-value-input {
+  font-weight: 800;
+  color: var(--green-dark);
+  border-top: 2px solid rgba(31, 143, 85, 0.28);
+  padding-top: 14px;
 }
 
 .build-label-input,
 .build-value-input {
   width: 100%;
-  border: 1px solid var(--border);
-  background: #ffffff;
+  border: 1px solid transparent;
+  background: transparent;
   color: var(--text);
-  border-radius: var(--radius-sm);
-  padding: 13px 14px;
+  border-radius: 10px;
+  padding: 10px 12px;
   font-weight: 700;
   font-size: 1rem;
 }
@@ -798,10 +848,22 @@ a {
   padding-right: 38px;
 }
 
+.build-value-input,
+.build-static-value {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.build-static-label,
+.build-label-input {
+  line-height: 1.4;
+}
+
 .build-label-input:focus,
 .build-value-input:focus {
   outline: none;
   border-color: #96c5a5;
+  background-color: rgba(255, 255, 255, 0.92);
   box-shadow: 0 0 0 4px var(--green-ring);
 }
 
@@ -821,10 +883,10 @@ a {
 
 .build-static-label,
 .build-static-value {
-  background: var(--surface-soft);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-sm);
-  padding: 13px 14px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 10px 12px;
   font-weight: 700;
 }
 
