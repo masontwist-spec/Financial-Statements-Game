@@ -17,10 +17,20 @@ document.addEventListener("DOMContentLoaded", () => {
   document.body.appendChild(tooltip);
   let activeId = null;
 
-  function moveTooltip(event) {
-    const offset = 16;
-    tooltip.style.left = `${event.clientX + offset}px`;
-    tooltip.style.top = `${event.clientY + offset}px`;
+  function positionTooltip(event, item) {
+    const offset = 14;
+    const itemRect = item.getBoundingClientRect();
+    const left = Math.min(
+      window.innerWidth - 280,
+      Math.max(12, event.clientX + offset)
+    );
+    const top = Math.min(
+      window.innerHeight - 120,
+      Math.max(12, itemRect.top + window.scrollY - window.scrollY + offset)
+    );
+
+    tooltip.style.left = `${left}px`;
+    tooltip.style.top = `${top}px`;
   }
 
   function getConnectedIds(id) {
@@ -59,21 +69,10 @@ document.addEventListener("DOMContentLoaded", () => {
     lineItems.forEach(item => {
       item.classList.remove("is-selected", "is-related", "is-dimmed");
     });
+    tooltip.classList.remove("visible");
   }
 
   lineItems.forEach(item => {
-    item.addEventListener("mouseenter", event => {
-      tooltip.textContent = item.dataset.tooltip || "";
-      tooltip.classList.add("visible");
-      moveTooltip(event);
-    });
-
-    item.addEventListener("mousemove", moveTooltip);
-
-    item.addEventListener("mouseleave", () => {
-      tooltip.classList.remove("visible");
-    });
-
     item.addEventListener("click", event => {
       event.stopPropagation();
 
@@ -86,6 +85,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       activeId = item.dataset.id;
       applyConnectionState(activeId);
+      tooltip.textContent = item.dataset.tooltip || "";
+      tooltip.classList.add("visible");
+      positionTooltip(event, item);
     });
   });
 

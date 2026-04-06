@@ -1009,10 +1009,6 @@ a {
   border-bottom: none;
 }
 
-.statement-card-body .line-item:hover {
-  background: rgba(239, 247, 242, 0.5);
-}
-
 .statement-card-body .line-item .line-value {
   text-align: right;
   font-variant-numeric: tabular-nums;
