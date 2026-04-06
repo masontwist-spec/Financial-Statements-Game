@@ -37,25 +37,47 @@
       </div>
     </section>
 
-    <section class="interactive-preview-grid">
-      <a class="mode-card" href="interactive-income.html">
-        <div class="mode-icon green">↗</div>
-        <h3>Income Statement</h3>
-        <p>Revenue, expenses, subtotals, and earnings presented in a cleaner statement view.</p>
-      </a>
+    <section class="interactive-layout" aria-label="Connected financial statements">
+      <article class="statement-card">
+        <div class="statement-card-header">
+          <h2>Income Statement</h2>
+        </div>
+        <div class="statement-card-body">
+          <div class="line-item" data-id="revenue" data-tooltip="Top-line sales or service income earned during the period."><span class="line-label">Revenue</span><span class="line-value">—</span></div>
+          <div class="line-item line-item-indented" data-id="cost-of-goods-sold" data-tooltip="Direct costs tied to producing or delivering what the company sold."><span class="line-label">Cost of Goods Sold</span><span class="line-value">—</span></div>
+          <div class="line-item line-item-subtotal" data-id="gross-profit" data-tooltip="Revenue minus cost of goods sold."><span class="line-label">Gross Profit</span><span class="line-value">—</span></div>
+          <div class="line-item line-item-indented" data-id="depreciation" data-tooltip="The period's allocated cost of long-lived assets."><span class="line-label">Depreciation Expense</span><span class="line-value">—</span></div>
+          <div class="line-item line-item-total" data-id="net-income" data-tooltip="The final profit remaining after all revenues and expenses."><span class="line-label">Net Income</span><span class="line-value">—</span></div>
+        </div>
+      </article>
 
-      <a class="mode-card" href="interactive-balance.html">
-        <div class="mode-icon green">⚖</div>
-        <h3>Balance Sheet</h3>
-        <p>Assets, liabilities, and equity organized with accounting-style sections and totals.</p>
-      </a>
+      <article class="statement-card">
+        <div class="statement-card-header">
+          <h2>Balance Sheet</h2>
+        </div>
+        <div class="statement-card-body">
+          <div class="line-item" data-id="cash" data-tooltip="Cash available for immediate use."><span class="line-label">Cash</span><span class="line-value">—</span></div>
+          <div class="line-item line-item-indented" data-id="accounts-receivable" data-tooltip="Amounts customers owe the company from prior sales."><span class="line-label">Accounts Receivable</span><span class="line-value">—</span></div>
+          <div class="line-item line-item-indented" data-id="inventory" data-tooltip="Goods held for sale or use in production."><span class="line-label">Inventory</span><span class="line-value">—</span></div>
+          <div class="line-item line-item-indented" data-id="equipment" data-tooltip="Long-lived operating assets shown net of depreciation."><span class="line-label">Equipment, Net</span><span class="line-value">—</span></div>
+          <div class="line-item line-item-indented" data-id="retained-earnings" data-tooltip="Cumulative profits kept in the business rather than paid out."><span class="line-label">Retained Earnings</span><span class="line-value">—</span></div>
+        </div>
+      </article>
 
-      <a class="mode-card" href="interactive-cashflow.html">
-        <div class="mode-icon green">⇄</div>
-        <h3>Cash Flow Statement</h3>
-        <p>Operating, investing, and financing sections laid out in a more realistic format.</p>
-      </a>
+      <article class="statement-card">
+        <div class="statement-card-header">
+          <h2>Cash Flow Statement</h2>
+        </div>
+        <div class="statement-card-body">
+          <div class="line-item" data-id="net-cash-operating" data-tooltip="Net cash generated or used by operating activities."><span class="line-label">Cash Flows from Operating Activities</span><span class="line-value">—</span></div>
+          <div class="line-item line-item-indented" data-id="changes-in-working-capital" data-tooltip="Adjustments for changes in current operating assets and liabilities."><span class="line-label">Changes in Working Capital</span><span class="line-value">—</span></div>
+          <div class="line-item line-item-indented" data-id="capital-expenditures" data-tooltip="Cash spent to acquire or improve long-lived assets."><span class="line-label">Capital Expenditures</span><span class="line-value">—</span></div>
+          <div class="line-item line-item-indented" data-id="debt-issued" data-tooltip="Cash raised by borrowing from lenders or issuing debt."><span class="line-label">Debt Issued</span><span class="line-value">—</span></div>
+          <div class="line-item line-item-total" data-id="net-change-in-cash" data-tooltip="The overall increase or decrease in cash during the period."><span class="line-label">Net Change in Cash</span><span class="line-value">—</span></div>
+        </div>
+      </article>
     </section>
   </main>
+  <script src="interactive.js"></script>
 </body>
 </html>
