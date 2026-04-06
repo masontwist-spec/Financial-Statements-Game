@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interactive Income Statement | Interactive Accounting Game</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner page-topbar">
+      <a href="index.html" class="brand-pill">⚖ The Accounting Game</a>
+      <nav class="page-nav">
+        <a href="index.html">Home</a>
+        <a href="income.html">Income Statement</a>
+        <a href="balance.html">Balance Sheet</a>
+        <a href="cashflow.html">Cash Flow</a>
+        <a href="combined.html">Combined</a>
+        <a href="build.html">Build</a>
+        <a href="interactive.html" class="active">Interactive</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container quiz-page">
+    <section class="quiz-hero">
+      <h1>Interactive Income.</h1>
+      <p>Study the layout of a cleaner, more realistic income statement.</p>
+    </section>
+
+    <section class="build-mode-picker interactive-picker" aria-label="Statement picker">
+      <p class="build-mode-picker-title">Choose your statement:</p>
+      <div class="build-mode-picker-links">
+        <a href="interactive-income.html" class="secondary-link-btn build-mode-link active" aria-current="page">Income</a>
+        <a href="interactive-balance.html" class="secondary-link-btn build-mode-link">Balance</a>
+        <a href="interactive-cashflow.html" class="secondary-link-btn build-mode-link">Cash Flow</a>
+      </div>
+    </section>
+
+    <section class="statement-view-card">
+      <div class="statement-view-sheet">
+        <div class="statement-view-meta">
+          <p class="statement-view-company">Company Name</p>
+          <h2>Income Statement</h2>
+          <p class="statement-view-period">For the Year Ended December 31, 20XX</p>
+        </div>
+
+        <div class="statement-lines">
+          <div class="line-item" data-id="revenue"><span class="line-label">Revenue</span><span class="line-value">—</span></div>
+          <div class="line-item line-item-indented" data-id="cost-of-goods-sold"><span class="line-label">Cost of Goods Sold</span><span class="line-value">—</span></div>
+          <div class="line-item line-item-subtotal" data-id="gross-profit"><span class="line-label">Gross Profit</span><span class="line-value">—</span></div>
+          <div class="line-item line-item-indented" data-id="selling-expense"><span class="line-label">Selling Expense</span><span class="line-value">—</span></div>
+          <div class="line-item line-item-indented" data-id="depreciation"><span class="line-label">Depreciation Expense</span><span class="line-value">—</span></div>
+          <div class="line-item line-item-indented" data-id="general-and-admin"><span class="line-label">General and Administrative Expense</span><span class="line-value">—</span></div>
+          <div class="line-item line-item-subtotal" data-id="total-operating-expenses"><span class="line-label">Total Operating Expenses</span><span class="line-value">—</span></div>
+          <div class="line-item line-item-total" data-id="operating-income"><span class="line-label">Operating Income</span><span class="line-value">—</span></div>
+          <div class="line-item line-item-indented" data-id="interest-expense"><span class="line-label">Interest Expense</span><span class="line-value">—</span></div>
+          <div class="line-item line-item-total" data-id="net-income"><span class="line-label">Net Income</span><span class="line-value">—</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

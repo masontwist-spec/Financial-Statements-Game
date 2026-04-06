@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interactive Balance Sheet | Interactive Accounting Game</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner page-topbar">
+      <a href="index.html" class="brand-pill">⚖ The Accounting Game</a>
+      <nav class="page-nav">
+        <a href="index.html">Home</a>
+        <a href="income.html">Income Statement</a>
+        <a href="balance.html">Balance Sheet</a>
+        <a href="cashflow.html">Cash Flow</a>
+        <a href="combined.html">Combined</a>
+        <a href="build.html">Build</a>
+        <a href="interactive.html" class="active">Interactive</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container quiz-page">
+    <section class="quiz-hero">
+      <h1>Interactive Balance.</h1>
+      <p>Study the layout of a cleaner, more realistic balance sheet.</p>
+    </section>
+
+    <section class="build-mode-picker interactive-picker" aria-label="Statement picker">
+      <p class="build-mode-picker-title">Choose your statement:</p>
+      <div class="build-mode-picker-links">
+        <a href="interactive-income.html" class="secondary-link-btn build-mode-link">Income</a>
+        <a href="interactive-balance.html" class="secondary-link-btn build-mode-link active" aria-current="page">Balance</a>
+        <a href="interactive-cashflow.html" class="secondary-link-btn build-mode-link">Cash Flow</a>
+      </div>
+    </section>
+
+    <section class="statement-view-card">
+      <div class="statement-view-sheet">
+        <div class="statement-view-meta">
+          <p class="statement-view-company">Company Name</p>
+          <h2>Balance Sheet</h2>
+          <p class="statement-view-period">December 31, 20XX</p>
+        </div>
+
+        <div class="statement-lines">
+          <div class="line-item line-item-section" data-id="current-assets"><span class="line-label">Current Assets</span><span class="line-value"></span></div>
+          <div class="line-item line-item-indented" data-id="cash"><span class="line-label">Cash</span><span class="line-value">—</span></div>
+          <div class="line-item line-item-indented" data-id="accounts-receivable"><span class="line-label">Accounts Receivable</span><span class="line-value">—</span></div>
+          <div class="line-item line-item-indented" data-id="inventory"><span class="line-label">Inventory</span><span class="line-value">—</span></div>
+          <div class="line-item line-item-subtotal" data-id="total-current-assets"><span class="line-label">Total Current Assets</span><span class="line-value">—</span></div>
+          <div class="line-item line-item-section" data-id="long-term-assets"><span class="line-label">Long-Term Assets</span><span class="line-value"></span></div>
+          <div class="line-item line-item-indented" data-id="equipment"><span class="line-label">Equipment, Net</span><span class="line-value">—</span></div>
+          <div class="line-item line-item-total" data-id="total-assets"><span class="line-label">Total Assets</span><span class="line-value">—</span></div>
+          <div class="line-item line-item-section" data-id="liabilities"><span class="line-label">Liabilities</span><span class="line-value"></span></div>
+          <div class="line-item line-item-indented" data-id="accounts-payable"><span class="line-label">Accounts Payable</span><span class="line-value">—</span></div>
+          <div class="line-item line-item-indented" data-id="long-term-debt"><span class="line-label">Long-Term Debt</span><span class="line-value">—</span></div>
+          <div class="line-item line-item-subtotal" data-id="total-liabilities"><span class="line-label">Total Liabilities</span><span class="line-value">—</span></div>
+          <div class="line-item line-item-section" data-id="stockholders-equity"><span class="line-label">Stockholders' Equity</span><span class="line-value"></span></div>
+          <div class="line-item line-item-indented" data-id="common-stock"><span class="line-label">Common Stock</span><span class="line-value">—</span></div>
+          <div class="line-item line-item-indented" data-id="retained-earnings"><span class="line-label">Retained Earnings</span><span class="line-value">—</span></div>
+          <div class="line-item line-item-total" data-id="total-liabilities-equity"><span class="line-label">Total Liabilities and Equity</span><span class="line-value">—</span></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
