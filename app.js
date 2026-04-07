@@ -28,8 +28,38 @@ function getEls() {
     difficultyPill: document.getElementById("difficulty-pill"),
     quizActiveView: document.getElementById("quiz-active-view"),
     quizCompleteView: document.getElementById("quiz-complete-view"),
-    finalScoreText: document.getElementById("final-score-text")
+    finalScoreText: document.getElementById("final-score-text"),
+    progressFill: document.getElementById("progress-fill"),
+    progressPercentText: document.getElementById("progress-percent-text"),
+    progressNote: document.getElementById("progress-note")
   };
+}
+
+function updateProgressUI(els, currentStep, totalSteps, noteOverride = "") {
+  const safeTotal = Number.isFinite(totalSteps) ? totalSteps : 0;
+  const safeCurrent = Number.isFinite(currentStep) ? currentStep : 0;
+  const clampedCurrent = Math.min(Math.max(safeCurrent, 0), safeTotal);
+  const percent = safeTotal > 0 ? Math.round((clampedCurrent / safeTotal) * 100) : 0;
+
+  if (els.progressFill) {
+    els.progressFill.style.width = `${percent}%`;
+  }
+
+  if (els.progressPercentText) {
+    els.progressPercentText.textContent = `${percent}%`;
+  }
+
+  if (els.progressNote) {
+    if (noteOverride) {
+      els.progressNote.textContent = noteOverride;
+    } else if (!safeTotal) {
+      els.progressNote.textContent = "No questions are available in this filter yet.";
+    } else if (clampedCurrent >= safeTotal) {
+      els.progressNote.textContent = "Section complete. Review your score or play again.";
+    } else {
+      els.progressNote.textContent = `${safeTotal - clampedCurrent} question${safeTotal - clampedCurrent === 1 ? "" : "s"} remaining in this set.`;
+    }
+  }
 }
 
 function getFilteredQuestions() {
@@ -113,6 +143,7 @@ function renderQuestion() {
     els.feedbackBox.textContent = "Choose another difficulty filter to keep practicing.";
     els.nextBtn.disabled = true;
     els.answerGrid.innerHTML = "";
+    updateProgressUI(els, 0, 0);
     return;
   }
 
@@ -126,6 +157,7 @@ function renderQuestion() {
   els.difficultyPill.textContent = question.difficulty;
   els.progressText.textContent = `${currentIndex + 1} / ${questions.length}`;
   els.scoreText.textContent = `${score}`;
+  updateProgressUI(els, currentIndex + 1, questions.length);
 
   els.feedbackBox.className = "feedback-box";
   els.feedbackBox.textContent = "Choose an answer to see feedback.";
@@ -196,6 +228,7 @@ function showCompletion() {
   els.finalScoreText.textContent = `You scored ${score} out of ${questions.length}.`;
   els.progressText.textContent = `${questions.length} / ${questions.length}`;
   els.scoreText.textContent = `${score}`;
+  updateProgressUI(els, questions.length, questions.length);
 }
 
 function restartQuiz() {

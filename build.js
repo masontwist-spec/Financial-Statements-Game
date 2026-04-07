@@ -47,8 +47,38 @@ function getBuildEls() {
     activeView: document.getElementById("build-active-view"),
     completeView: document.getElementById("build-complete-view"),
     finalScore: document.getElementById("build-final-score-text"),
-    playAgainBtn: document.getElementById("build-play-again-btn")
+    playAgainBtn: document.getElementById("build-play-again-btn"),
+    progressFill: document.getElementById("build-progress-fill"),
+    progressPercentText: document.getElementById("build-progress-percent-text"),
+    progressNote: document.getElementById("build-progress-note")
   };
+}
+
+function updateBuildProgressUI(els, currentStep, totalSteps, noteOverride = "") {
+  const safeTotal = Number.isFinite(totalSteps) ? totalSteps : 0;
+  const safeCurrent = Number.isFinite(currentStep) ? currentStep : 0;
+  const clampedCurrent = Math.min(Math.max(safeCurrent, 0), safeTotal);
+  const percent = safeTotal > 0 ? Math.round((clampedCurrent / safeTotal) * 100) : 0;
+
+  if (els.progressFill) {
+    els.progressFill.style.width = `${percent}%`;
+  }
+
+  if (els.progressPercentText) {
+    els.progressPercentText.textContent = `${percent}%`;
+  }
+
+  if (els.progressNote) {
+    if (noteOverride) {
+      els.progressNote.textContent = noteOverride;
+    } else if (!safeTotal) {
+      els.progressNote.textContent = "No build questions are available yet.";
+    } else if (clampedCurrent >= safeTotal) {
+      els.progressNote.textContent = "Build set complete. Review your total or play again.";
+    } else {
+      els.progressNote.textContent = `${safeTotal - clampedCurrent} build prompt${safeTotal - clampedCurrent === 1 ? "" : "s"} remaining.`;
+    }
+  }
 }
 
 function getQuestionLabelOptions(question) {
@@ -135,6 +165,7 @@ function renderBuildQuestion() {
   els.difficulty.textContent = q.difficulty;
   els.progress.textContent = `${buildIndex + 1} / ${buildQuestions.length}`;
   els.score.textContent = `${buildScore}`;
+  updateBuildProgressUI(els, buildIndex + 1, buildQuestions.length);
   els.feedback.className = "feedback-box";
   els.feedback.textContent = "Choose the labels, enter the values, then click Check Answer.";
   els.nextBtn.disabled = true;
@@ -289,6 +320,7 @@ function showBuildCompletion() {
   els.activeView.classList.add("hidden");
   els.completeView.classList.remove("hidden");
   els.progress.textContent = `${buildQuestions.length} / ${buildQuestions.length}`;
+  updateBuildProgressUI(els, buildQuestions.length, buildQuestions.length);
   els.finalScore.textContent = `You scored ${buildScore} out of ${totalPossible} total line-items.`;
 }
 
