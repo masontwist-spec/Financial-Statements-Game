@@ -9,6 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const detailWhy = document.getElementById("detail-why");
   const detailFlow = document.getElementById("detail-flow");
   const detailFlowPath = document.getElementById("detail-flow-path");
+  const detailFlowSequence = document.getElementById("detail-flow-sequence");
+  const startButton = document.getElementById("start-net-income-btn");
 
   const hasDetailPanel = Boolean(
     detailTitle &&
@@ -31,7 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {
       { statement: "Income Statement", label: "Performance" },
       { statement: "Balance Sheet", label: "Position" },
       { statement: "Cash Flow Statement", label: "Cash effect" }
-    ]
+    ],
+    flowSequence: "Income Statement → Balance Sheet → Cash Flow Statement"
   };
 
   const ITEM_DETAILS = {
@@ -46,7 +49,8 @@ document.addEventListener("DOMContentLoaded", () => {
         { statement: "Income Statement", label: "Revenue recognized" },
         { statement: "Balance Sheet", label: "Accounts Receivable may increase" },
         { statement: "Cash Flow Statement", label: "Cash collected in operations" }
-      ]
+      ],
+      flowSequence: "Revenue → Accounts Receivable → Operating Cash Flow"
     },
     "net-income": {
       title: "Net Income",
@@ -59,7 +63,8 @@ document.addEventListener("DOMContentLoaded", () => {
         { statement: "Income Statement", label: "Final profit" },
         { statement: "Balance Sheet", label: "Retained Earnings updated" },
         { statement: "Cash Flow Statement", label: "Starting point for CFO" }
-      ]
+      ],
+      flowSequence: "Net Income → Retained Earnings → Cash Flow from Operations"
     },
     depreciation: {
       title: "Depreciation Expense",
@@ -72,7 +77,8 @@ document.addEventListener("DOMContentLoaded", () => {
         { statement: "Income Statement", label: "Expense reduces profit" },
         { statement: "Balance Sheet", label: "Equipment, Net declines" },
         { statement: "Cash Flow Statement", label: "Added back to CFO" }
-      ]
+      ],
+      flowSequence: "Depreciation Expense → Net Income → Cash Flow from Operations → Equipment, Net"
     },
     "accounts-receivable": {
       title: "Accounts Receivable",
@@ -85,7 +91,8 @@ document.addEventListener("DOMContentLoaded", () => {
         { statement: "Income Statement", label: "Revenue recorded" },
         { statement: "Balance Sheet", label: "Accounts Receivable grows" },
         { statement: "Cash Flow Statement", label: "Increase reduces CFO" }
-      ]
+      ],
+      flowSequence: "Revenue → Accounts Receivable → Working Capital Adjustment → Cash Flow from Operations"
     },
     inventory: {
       title: "Inventory",
@@ -98,7 +105,8 @@ document.addEventListener("DOMContentLoaded", () => {
         { statement: "Balance Sheet", label: "Inventory held" },
         { statement: "Income Statement", label: "COGS recognized when sold" },
         { statement: "Cash Flow Statement", label: "Increase reduces CFO" }
-      ]
+      ],
+      flowSequence: "Inventory → Cost of Goods Sold → Working Capital Adjustment → Cash Flow from Operations"
     },
     "accounts-payable": {
       title: "Accounts Payable",
@@ -111,7 +119,8 @@ document.addEventListener("DOMContentLoaded", () => {
         { statement: "Income Statement", label: "Expense recognized" },
         { statement: "Balance Sheet", label: "Accounts Payable rises" },
         { statement: "Cash Flow Statement", label: "Increase supports CFO" }
-      ]
+      ],
+      flowSequence: "Expense Activity → Accounts Payable → Working Capital Adjustment → Cash Flow from Operations"
     },
     equipment: {
       title: "Equipment, Net",
@@ -124,7 +133,8 @@ document.addEventListener("DOMContentLoaded", () => {
         { statement: "Cash Flow Statement", label: "CapEx outflow" },
         { statement: "Balance Sheet", label: "Equipment, Net increases" },
         { statement: "Income Statement", label: "Depreciation over time" }
-      ]
+      ],
+      flowSequence: "Capital Expenditures → Equipment, Net → Depreciation Expense"
     },
     "capital-expenditures": {
       title: "Capital Expenditures",
@@ -137,7 +147,8 @@ document.addEventListener("DOMContentLoaded", () => {
         { statement: "Cash Flow Statement", label: "Investing outflow" },
         { statement: "Balance Sheet", label: "Equipment, Net added" },
         { statement: "Income Statement", label: "Depreciation later" }
-      ]
+      ],
+      flowSequence: "Capital Expenditures → Equipment, Net → Depreciation Expense"
     },
     "debt-issued": {
       title: "Debt Issued",
@@ -150,7 +161,8 @@ document.addEventListener("DOMContentLoaded", () => {
         { statement: "Cash Flow Statement", label: "Financing inflow" },
         { statement: "Balance Sheet", label: "Debt rises" },
         { statement: "Balance Sheet", label: "Cash rises" }
-      ]
+      ],
+      flowSequence: "Debt Issued → Long-Term Debt → Cash"
     },
     "retained-earnings": {
       title: "Retained Earnings",
@@ -163,7 +175,8 @@ document.addEventListener("DOMContentLoaded", () => {
         { statement: "Income Statement", label: "Net Income earned" },
         { statement: "Balance Sheet", label: "Retained Earnings updated" },
         { statement: "Cash Flow Statement", label: "Dividends may reduce cash" }
-      ]
+      ],
+      flowSequence: "Net Income → Retained Earnings → Dividends may reduce cash"
     },
     "net-change-in-cash": {
       title: "Net Change in Cash",
@@ -176,7 +189,8 @@ document.addEventListener("DOMContentLoaded", () => {
         { statement: "Cash Flow Statement", label: "CFO + CFI + CFF" },
         { statement: "Cash Flow Statement", label: "Net Change in Cash" },
         { statement: "Balance Sheet", label: "Ending Cash updated" }
-      ]
+      ],
+      flowSequence: "Operating + Investing + Financing → Net Change in Cash → Ending Cash"
     },
     "cost-of-goods-sold": {
       title: "Cost of Goods Sold",
@@ -188,7 +202,8 @@ document.addEventListener("DOMContentLoaded", () => {
       flowPath: [
         { statement: "Balance Sheet", label: "Inventory reduced" },
         { statement: "Income Statement", label: "COGS recognized" }
-      ]
+      ],
+      flowSequence: "Inventory → Cost of Goods Sold"
     },
     "gross-profit": {
       title: "Gross Profit",
@@ -201,7 +216,8 @@ document.addEventListener("DOMContentLoaded", () => {
         { statement: "Income Statement", label: "Revenue" },
         { statement: "Income Statement", label: "Less COGS" },
         { statement: "Income Statement", label: "Gross Profit" }
-      ]
+      ],
+      flowSequence: "Revenue → Cost of Goods Sold → Gross Profit"
     },
     cash: {
       title: "Cash",
@@ -213,7 +229,8 @@ document.addEventListener("DOMContentLoaded", () => {
       flowPath: [
         { statement: "Cash Flow Statement", label: "Net Change in Cash" },
         { statement: "Balance Sheet", label: "Ending Cash" }
-      ]
+      ],
+      flowSequence: "Net Change in Cash → Ending Cash"
     },
     "net-cash-operating": {
       title: "Net Cash from Operating Activities",
@@ -226,7 +243,8 @@ document.addEventListener("DOMContentLoaded", () => {
         { statement: "Income Statement", label: "Net Income" },
         { statement: "Cash Flow Statement", label: "Operating adjustments" },
         { statement: "Cash Flow Statement", label: "Net Cash from Operations" }
-      ]
+      ],
+      flowSequence: "Net Income → Operating Adjustments → Net Cash from Operating Activities"
     },
     "changes-in-working-capital": {
       title: "Changes in Working Capital",
@@ -238,7 +256,8 @@ document.addEventListener("DOMContentLoaded", () => {
       flowPath: [
         { statement: "Balance Sheet", label: "Working capital accounts move" },
         { statement: "Cash Flow Statement", label: "Operating adjustments" }
-      ]
+      ],
+      flowSequence: "Receivables / Inventory / Payables → Working Capital Adjustment → Cash Flow from Operations"
     },
     "selling-expense": {
       title: "Selling Expense",
@@ -250,7 +269,8 @@ document.addEventListener("DOMContentLoaded", () => {
       flowPath: [
         { statement: "Income Statement", label: "Operating expense" },
         { statement: "Income Statement", label: "Lower net income" }
-      ]
+      ],
+      flowSequence: "Selling Expense → Lower Net Income"
     },
     "general-and-admin": {
       title: "General and Administrative Expense",
@@ -262,7 +282,8 @@ document.addEventListener("DOMContentLoaded", () => {
       flowPath: [
         { statement: "Income Statement", label: "Overhead expense" },
         { statement: "Income Statement", label: "Lower net income" }
-      ]
+      ],
+      flowSequence: "G&A Expense → Lower Net Income"
     },
     "total-operating-expenses": {
       title: "Total Operating Expenses",
@@ -275,7 +296,8 @@ document.addEventListener("DOMContentLoaded", () => {
         { statement: "Income Statement", label: "Gross Profit" },
         { statement: "Income Statement", label: "Less operating expenses" },
         { statement: "Income Statement", label: "Operating Income" }
-      ]
+      ],
+      flowSequence: "Gross Profit → Operating Expenses → Operating Income"
     },
     "operating-income": {
       title: "Operating Income",
@@ -287,7 +309,8 @@ document.addEventListener("DOMContentLoaded", () => {
       flowPath: [
         { statement: "Income Statement", label: "Core business profit" },
         { statement: "Income Statement", label: "Flows toward net income" }
-      ]
+      ],
+      flowSequence: "Operating Income → Net Income"
     },
     "interest-expense": {
       title: "Interest Expense",
@@ -299,7 +322,8 @@ document.addEventListener("DOMContentLoaded", () => {
       flowPath: [
         { statement: "Balance Sheet", label: "Debt outstanding" },
         { statement: "Income Statement", label: "Interest expense" }
-      ]
+      ],
+      flowSequence: "Long-Term Debt → Interest Expense"
     },
     "current-assets": {
       title: "Current Assets",
@@ -311,7 +335,8 @@ document.addEventListener("DOMContentLoaded", () => {
       flowPath: [
         { statement: "Balance Sheet", label: "Short-term resources" },
         { statement: "Cash Flow Statement", label: "Working capital effects" }
-      ]
+      ],
+      flowSequence: "Current Assets → Working Capital Effects"
     },
     "total-current-assets": {
       title: "Total Current Assets",
@@ -322,7 +347,8 @@ document.addEventListener("DOMContentLoaded", () => {
       flow: "This subtotal summarizes working capital-related assets on the balance sheet.",
       flowPath: [
         { statement: "Balance Sheet", label: "Current asset total" }
-      ]
+      ],
+      flowSequence: "Current Assets → Total Current Assets"
     },
     "long-term-assets": {
       title: "Long-Term Assets",
@@ -335,7 +361,8 @@ document.addEventListener("DOMContentLoaded", () => {
         { statement: "Cash Flow Statement", label: "Investing outflow" },
         { statement: "Balance Sheet", label: "Long-term asset added" },
         { statement: "Income Statement", label: "Depreciation later" }
-      ]
+      ],
+      flowSequence: "Investing Outflow → Long-Term Asset → Depreciation"
     },
     "total-assets": {
       title: "Total Assets",
@@ -347,7 +374,8 @@ document.addEventListener("DOMContentLoaded", () => {
       flowPath: [
         { statement: "Balance Sheet", label: "Total Assets" },
         { statement: "Balance Sheet", label: "Equals liabilities + equity" }
-      ]
+      ],
+      flowSequence: "Current + Long-Term Assets → Total Assets"
     },
     liabilities: {
       title: "Liabilities",
@@ -359,7 +387,8 @@ document.addEventListener("DOMContentLoaded", () => {
       flowPath: [
         { statement: "Balance Sheet", label: "Obligations recorded" },
         { statement: "Cash Flow Statement", label: "Operating or financing effects" }
-      ]
+      ],
+      flowSequence: "Liabilities → Operating or Financing Effects"
     },
     "long-term-debt": {
       title: "Long-Term Debt",
@@ -571,6 +600,11 @@ document.addEventListener("DOMContentLoaded", () => {
       .join("");
   }
 
+  function renderFlowSequence(text) {
+    if (!detailFlowSequence) return;
+    detailFlowSequence.textContent = text;
+  }
+
   function updateDetailPanel(id) {
     if (!hasDetailPanel) return;
 
@@ -583,7 +617,8 @@ document.addEventListener("DOMContentLoaded", () => {
       flow: "Use the related highlights to trace how this line connects to other parts of the statements.",
       flowPath: [
         { statement: "Selected Line", label: "Current focus" }
-      ]
+      ],
+      flowSequence: "Selected Line → Related Accounts"
     };
 
     detailTitle.textContent = details.title;
@@ -593,6 +628,7 @@ document.addEventListener("DOMContentLoaded", () => {
     detailFlow.textContent = details.flow;
     renderWhereTags(details.where);
     renderFlowPath(details.flowPath);
+    renderFlowSequence(details.flowSequence || DEFAULT_PANEL.flowSequence);
   }
 
   function resetDetailPanel() {
@@ -604,6 +640,7 @@ document.addEventListener("DOMContentLoaded", () => {
     detailFlow.textContent = DEFAULT_PANEL.flow;
     renderWhereTags(DEFAULT_PANEL.where);
     renderFlowPath(DEFAULT_PANEL.flowPath);
+    renderFlowSequence(DEFAULT_PANEL.flowSequence);
   }
 
   function applyConnectionState(id) {
@@ -658,6 +695,20 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+
+  if (startButton) {
+    startButton.addEventListener("click", event => {
+      event.stopPropagation();
+      const startId = startButton.dataset.startId;
+      const targetItem = lineItems.find(item => item.dataset.id === startId);
+      if (!targetItem || !startId) return;
+
+      activeId = startId;
+      applyConnectionState(startId);
+      updateDetailPanel(startId);
+      targetItem.scrollIntoView({ block: "nearest", inline: "nearest" });
+    });
+  }
 
   document.addEventListener("click", clearConnectionState);
   resetDetailPanel();
