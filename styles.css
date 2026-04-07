@@ -262,7 +262,8 @@ a {
   top: calc(100% + 10px);
   right: 0;
   z-index: 80;
-  min-width: 240px;
+  width: min(240px, calc(100vw - 40px));
+  max-width: calc(100vw - 40px);
   display: grid;
   gap: 6px;
   padding: 10px;
