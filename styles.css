@@ -294,7 +294,7 @@ a {
   display: inline-flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 20px;
+  gap: 14px;
 }
 
 .hero-logo-mark {
@@ -315,6 +315,19 @@ a {
   font-size: clamp(4.5rem, 10vw, 7rem);
   line-height: 1;
   text-shadow: 0 12px 28px rgba(31, 143, 85, 0.16);
+}
+
+.hero-logo-mark-inline {
+  width: auto;
+  height: auto;
+  display: inline-block;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  font-size: clamp(3.5rem, 7vw, 5.4rem);
+  transform: translateY(-0.08em);
 }
 
 .hero-logo-copy {
