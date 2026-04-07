@@ -32,7 +32,7 @@
     <section class="quiz-hero">
       <p class="quiz-hero-eyebrow">Connected statement view</p>
       <h1>Interactive Statements.</h1>
-      <p>Choose a statement view and study the layout in a cleaner, full-width format.</p>
+      <p>The master overview for tracing how one accounting line moves through the income statement, balance sheet, and cash flow statement.</p>
     </section>
 
     <section class="build-mode-picker interactive-picker" aria-label="Statement picker">
@@ -45,48 +45,92 @@
     </section>
 
     <section class="interactive-instructions" aria-label="Interactive guide">
-      <p><strong>How to use this view:</strong> Click any line item to highlight related items across the three statements and trace how information flows between them.</p>
+      <p><strong>How to use this overview:</strong> Click a line item to see how it connects across the income statement, balance sheet, and cash flow statement.</p>
     </section>
 
-    <section class="interactive-layout" aria-label="Connected financial statements">
-      <article class="statement-card">
-        <div class="statement-card-header">
-          <h2>Income Statement</h2>
-        </div>
-        <div class="statement-card-body">
-          <div class="line-item" data-id="revenue"><span class="line-label">Revenue</span><span class="line-value">—</span></div>
-          <div class="line-item line-item-indented" data-id="cost-of-goods-sold"><span class="line-label">Cost of Goods Sold</span><span class="line-value">—</span></div>
-          <div class="line-item line-item-subtotal" data-id="gross-profit"><span class="line-label">Gross Profit</span><span class="line-value">—</span></div>
-          <div class="line-item line-item-indented" data-id="depreciation"><span class="line-label">Depreciation Expense</span><span class="line-value">—</span></div>
-          <div class="line-item line-item-total" data-id="net-income"><span class="line-label">Net Income</span><span class="line-value">—</span></div>
-        </div>
-      </article>
+    <section class="statement-detail-layout statement-detail-layout-overview">
+      <div>
+        <section class="interactive-summary-card" aria-label="Overview summary">
+          <p class="interactive-summary-eyebrow">Master overview</p>
+          <h2>Trace one number across all three statements.</h2>
+          <p>Use this page to understand how operating performance, balance sheet accounts, and cash movements connect. The focused pages below keep the same lesson panel while narrowing attention to one statement at a time.</p>
+        </section>
 
-      <article class="statement-card">
-        <div class="statement-card-header">
-          <h2>Balance Sheet</h2>
-        </div>
-        <div class="statement-card-body">
-          <div class="line-item" data-id="cash"><span class="line-label">Cash</span><span class="line-value">—</span></div>
-          <div class="line-item line-item-indented" data-id="accounts-receivable"><span class="line-label">Accounts Receivable</span><span class="line-value">—</span></div>
-          <div class="line-item line-item-indented" data-id="inventory"><span class="line-label">Inventory</span><span class="line-value">—</span></div>
-          <div class="line-item line-item-indented" data-id="equipment"><span class="line-label">Equipment, Net</span><span class="line-value">—</span></div>
-          <div class="line-item line-item-indented" data-id="retained-earnings"><span class="line-label">Retained Earnings</span><span class="line-value">—</span></div>
-        </div>
-      </article>
+        <section class="interactive-layout" aria-label="Connected financial statements">
+          <article class="statement-card">
+            <div class="statement-card-header">
+              <h2>Income Statement</h2>
+            </div>
+            <div class="statement-card-body">
+              <div class="line-item" data-id="revenue"><span class="line-label">Revenue</span><span class="line-value">—</span></div>
+              <div class="line-item line-item-indented" data-id="cost-of-goods-sold"><span class="line-label">Cost of Goods Sold</span><span class="line-value">—</span></div>
+              <div class="line-item line-item-subtotal" data-id="gross-profit"><span class="line-label">Gross Profit</span><span class="line-value">—</span></div>
+              <div class="line-item line-item-indented" data-id="depreciation"><span class="line-label">Depreciation Expense</span><span class="line-value">—</span></div>
+              <div class="line-item line-item-total" data-id="net-income"><span class="line-label">Net Income</span><span class="line-value">—</span></div>
+            </div>
+          </article>
 
-      <article class="statement-card">
-        <div class="statement-card-header">
-          <h2>Cash Flow Statement</h2>
+          <article class="statement-card">
+            <div class="statement-card-header">
+              <h2>Balance Sheet</h2>
+            </div>
+            <div class="statement-card-body">
+              <div class="line-item" data-id="cash"><span class="line-label">Cash</span><span class="line-value">—</span></div>
+              <div class="line-item line-item-indented" data-id="accounts-receivable"><span class="line-label">Accounts Receivable</span><span class="line-value">—</span></div>
+              <div class="line-item line-item-indented" data-id="inventory"><span class="line-label">Inventory</span><span class="line-value">—</span></div>
+              <div class="line-item line-item-indented" data-id="equipment"><span class="line-label">Equipment, Net</span><span class="line-value">—</span></div>
+              <div class="line-item line-item-indented" data-id="accounts-payable"><span class="line-label">Accounts Payable</span><span class="line-value">—</span></div>
+              <div class="line-item line-item-indented" data-id="retained-earnings"><span class="line-label">Retained Earnings</span><span class="line-value">—</span></div>
+            </div>
+          </article>
+
+          <article class="statement-card">
+            <div class="statement-card-header">
+              <h2>Cash Flow Statement</h2>
+            </div>
+            <div class="statement-card-body">
+              <div class="line-item" data-id="net-cash-operating"><span class="line-label">Cash Flows from Operating Activities</span><span class="line-value">—</span></div>
+              <div class="line-item line-item-indented" data-id="changes-in-working-capital"><span class="line-label">Changes in Working Capital</span><span class="line-value">—</span></div>
+              <div class="line-item line-item-indented" data-id="capital-expenditures"><span class="line-label">Capital Expenditures</span><span class="line-value">—</span></div>
+              <div class="line-item line-item-indented" data-id="debt-issued"><span class="line-label">Debt Issued</span><span class="line-value">—</span></div>
+              <div class="line-item line-item-total" data-id="net-change-in-cash"><span class="line-label">Net Change in Cash</span><span class="line-value">—</span></div>
+            </div>
+          </article>
+        </section>
+      </div>
+
+      <aside class="interactive-detail-panel" aria-label="Line item lesson">
+        <p class="interactive-detail-eyebrow">Mini Lesson</p>
+        <h3 id="detail-title">Choose a line item to begin</h3>
+        <p class="interactive-detail-intro" id="detail-intro">Click a line item to see how it connects across the income statement, balance sheet, and cash flow statement.</p>
+        <div class="interactive-detail-section">
+          <p class="interactive-detail-label">What it is</p>
+          <p id="detail-what">Select a line item to view a short teaching explanation.</p>
         </div>
-        <div class="statement-card-body">
-          <div class="line-item" data-id="net-cash-operating"><span class="line-label">Cash Flows from Operating Activities</span><span class="line-value">—</span></div>
-          <div class="line-item line-item-indented" data-id="changes-in-working-capital"><span class="line-label">Changes in Working Capital</span><span class="line-value">—</span></div>
-          <div class="line-item line-item-indented" data-id="capital-expenditures"><span class="line-label">Capital Expenditures</span><span class="line-value">—</span></div>
-          <div class="line-item line-item-indented" data-id="debt-issued"><span class="line-label">Debt Issued</span><span class="line-value">—</span></div>
-          <div class="line-item line-item-total" data-id="net-change-in-cash"><span class="line-label">Net Change in Cash</span><span class="line-value">—</span></div>
+        <div class="interactive-detail-section">
+          <p class="interactive-detail-label">Where it appears</p>
+          <div class="detail-tag-list" id="detail-where">
+            <span class="detail-tag">Income statement</span>
+            <span class="detail-tag">Balance sheet</span>
+            <span class="detail-tag">Cash flow statement</span>
+          </div>
         </div>
-      </article>
+        <div class="interactive-detail-section">
+          <p class="interactive-detail-label">Why it matters</p>
+          <p id="detail-why">The panel will explain why the line matters in financial analysis and statement construction.</p>
+        </div>
+        <div class="interactive-detail-flow">
+          <p class="interactive-detail-label">How it flows through the 3 statements</p>
+          <p id="detail-flow">The flow section will show the accounting path and connected line items.</p>
+          <div class="detail-flow-path" id="detail-flow-path">
+            <span class="detail-flow-chip">Income Statement</span>
+            <span class="detail-flow-arrow" aria-hidden="true">→</span>
+            <span class="detail-flow-chip">Balance Sheet</span>
+            <span class="detail-flow-arrow" aria-hidden="true">→</span>
+            <span class="detail-flow-chip">Cash Flow Statement</span>
+          </div>
+        </div>
+      </aside>
     </section>
   </main>
   <script src="interactive.js"></script>

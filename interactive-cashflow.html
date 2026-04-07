@@ -6,10 +6,16 @@
   <title>Interactive Cash Flow Statement | Interactive Accounting Game</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
+<body data-mode="interactive">
   <header class="site-header">
     <div class="container header-inner page-topbar">
-      <a href="index.html" class="brand-pill">⚖ The Accounting Game</a>
+      <a href="index.html" class="brand-pill" aria-label="Balance home">
+        <span class="brand-mark brand-mark-scale" aria-hidden="true">⚖</span>
+        <span class="brand-lockup">
+          <span class="brand-name">Balance.</span>
+          <span class="brand-tagline">Financial Statements Game</span>
+        </span>
+      </a>
       <nav class="page-nav">
         <a href="index.html">Home</a>
         <a href="income.html">Income Statement</a>
@@ -24,8 +30,9 @@
 
   <main class="container quiz-page">
     <section class="quiz-hero">
+      <p class="quiz-hero-eyebrow">Focused statement lesson</p>
       <h1>Interactive Cash Flow.</h1>
-      <p>Study the layout of a cleaner, more realistic statement of cash flows.</p>
+      <p>Click a line item to understand how profit, working capital, investing, and financing choices translate into cash movement.</p>
     </section>
 
     <section class="build-mode-picker interactive-picker" aria-label="Statement picker">
@@ -35,6 +42,10 @@
         <a href="interactive-balance.html" class="secondary-link-btn build-mode-link">Balance</a>
         <a href="interactive-cashflow.html" class="secondary-link-btn build-mode-link active" aria-current="page">Cash Flow</a>
       </div>
+    </section>
+
+    <section class="interactive-instructions" aria-label="Interactive guide">
+      <p><strong>How to use this lesson:</strong> Click a line item to see how it connects across the income statement, balance sheet, and cash flow statement.</p>
     </section>
 
     <section class="statement-detail-layout">
@@ -65,13 +76,34 @@
         </div>
       </div>
 
-      <aside class="interactive-detail-panel" aria-label="Line item details">
-        <p class="interactive-detail-eyebrow">Line Item Details</p>
-        <h3 id="detail-title">Select a line item</h3>
-        <p id="detail-explanation">Click any line on the statement to see a short explanation and how it connects across the three financial statements.</p>
+      <aside class="interactive-detail-panel" aria-label="Line item lesson">
+        <p class="interactive-detail-eyebrow">Mini Lesson</p>
+        <h3 id="detail-title">Choose a line item to begin</h3>
+        <p class="interactive-detail-intro" id="detail-intro">Click a line item to see how it connects across the income statement, balance sheet, and cash flow statement.</p>
+        <div class="interactive-detail-section">
+          <p class="interactive-detail-label">What it is</p>
+          <p id="detail-what">Select a line item to view a short teaching explanation.</p>
+        </div>
+        <div class="interactive-detail-section">
+          <p class="interactive-detail-label">Where it appears</p>
+          <div class="detail-tag-list" id="detail-where">
+            <span class="detail-tag">Cash flow statement</span>
+          </div>
+        </div>
+        <div class="interactive-detail-section">
+          <p class="interactive-detail-label">Why it matters</p>
+          <p id="detail-why">The panel will explain why the line matters in financial analysis and statement construction.</p>
+        </div>
         <div class="interactive-detail-flow">
           <p class="interactive-detail-label">How it flows through the 3 statements</p>
-          <p id="detail-flow">Choose a line item to view its statement flow.</p>
+          <p id="detail-flow">The flow section will show the accounting path and connected line items.</p>
+          <div class="detail-flow-path" id="detail-flow-path">
+            <span class="detail-flow-chip">Income Statement</span>
+            <span class="detail-flow-arrow" aria-hidden="true">→</span>
+            <span class="detail-flow-chip">Balance Sheet</span>
+            <span class="detail-flow-arrow" aria-hidden="true">→</span>
+            <span class="detail-flow-chip">Cash Flow Statement</span>
+          </div>
         </div>
       </aside>
     </section>
