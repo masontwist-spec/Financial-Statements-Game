@@ -216,6 +216,84 @@ a {
   box-shadow: 0 6px 16px rgba(31, 143, 85, 0.12);
 }
 
+.mobile-nav {
+  display: none;
+  position: relative;
+  margin-left: auto;
+}
+
+.mobile-nav summary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: linear-gradient(180deg, #ffffff 0%, #f6faf7 100%);
+  color: var(--text);
+  font-weight: 800;
+  cursor: pointer;
+  list-style: none;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+}
+
+.mobile-nav summary::-webkit-details-marker {
+  display: none;
+}
+
+.mobile-nav summary::after {
+  content: "▾";
+  margin-left: 8px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.mobile-nav[open] summary::after {
+  content: "▴";
+}
+
+.mobile-nav-menu {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 20;
+  min-width: 240px;
+  display: grid;
+  gap: 6px;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.98);
+  border: 1px solid rgba(191, 216, 197, 0.9);
+  border-radius: 18px;
+  box-shadow: 0 18px 40px rgba(18, 49, 35, 0.12);
+  backdrop-filter: blur(12px);
+}
+
+.mobile-nav-menu a {
+  display: flex;
+  align-items: center;
+  min-height: 42px;
+  padding: 0 12px;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.mobile-nav-menu a:hover,
+.mobile-nav-menu a:focus-visible {
+  background: var(--surface-soft);
+  border-color: var(--border);
+  color: var(--green-dark);
+  outline: none;
+}
+
+.mobile-nav-menu a.active {
+  background: linear-gradient(180deg, #f1faf4 0%, #def0e4 100%);
+  border-color: var(--border-strong);
+  color: var(--green-dark);
+}
+
 .hero,
 .mode-section,
 .quiz-hero,
@@ -1969,36 +2047,27 @@ body[data-mode="interactive"] {
   }
 
   .page-nav {
-    width: 100%;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    margin-left: 0;
-    overflow-x: auto;
-    overflow-y: hidden;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-
-  .page-nav::-webkit-scrollbar {
     display: none;
-  }
-
-  .page-nav a {
-    flex: 0 0 auto;
   }
 
   .page-topbar {
     flex-wrap: wrap;
-    align-items: stretch;
+    align-items: center;
+    gap: 12px;
   }
 
   .brand-pill {
-    width: 100%;
-    justify-content: center;
+    flex: 1 1 auto;
+    min-width: 0;
   }
 
   .brand-tagline {
     font-size: 0.68rem;
+  }
+
+  .mobile-nav {
+    display: block;
+    margin-left: 0;
   }
 
   .hero {
