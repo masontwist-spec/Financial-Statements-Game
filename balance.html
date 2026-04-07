@@ -9,7 +9,16 @@
 <body data-mode="balance">
   <header class="site-header">
     <div class="container header-inner page-topbar">
-      <a href="index.html" class="brand-pill">⚖ The Accounting Game</a>
+      <a href="index.html" class="brand-pill" aria-label="Balance home">
+        <span class="brand-mark" aria-hidden="true">
+          <span class="brand-mark-bar"></span>
+          <span class="brand-mark-bar"></span>
+        </span>
+        <span class="brand-lockup">
+          <span class="brand-name">Balance.</span>
+          <span class="brand-tagline">Financial Statements Game</span>
+        </span>
+      </a>
       <nav class="page-nav">
         <a href="index.html">Home</a>
         <a href="income.html">Income Statement</a>
@@ -24,6 +33,7 @@
 
   <main class="container quiz-page">
     <section class="quiz-hero">
+      <p class="quiz-hero-eyebrow">Statement focus</p>
       <h1>Balance Sheet.</h1>
       <p>Practice assets, liabilities, equity, and statement structure.</p>
     </section>

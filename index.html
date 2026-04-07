@@ -9,7 +9,16 @@
 <body>
   <header class="site-header">
     <div class="container header-inner page-topbar">
-      <a href="index.html" class="brand-pill">⚖ The Accounting Game</a>
+      <a href="index.html" class="brand-pill" aria-label="Balance home">
+        <span class="brand-mark" aria-hidden="true">
+          <span class="brand-mark-bar"></span>
+          <span class="brand-mark-bar"></span>
+        </span>
+        <span class="brand-lockup">
+          <span class="brand-name">Balance.</span>
+          <span class="brand-tagline">Financial Statements Game</span>
+        </span>
+      </a>
       <nav class="page-nav">
         <a href="index.html" class="active">Home</a>
         <a href="income.html">Income Statement</a>
@@ -24,23 +33,82 @@
   
   <main class="home-page">
     <section class="hero container">
-      <div class="hero-copy">
-        <div class="hero-logo">
-          <div class="hero-logo-top">
-            <div class="hero-logo-mark" aria-hidden="true">⚖</div>
-            <div class="hero-logo-copy">
-              <h1>Balance.</h1>
+      <div class="hero-shell">
+        <div class="hero-copy">
+          <p class="hero-eyebrow">Accounting fluency, built through repetition</p>
+          <div class="hero-logo">
+            <div class="hero-logo-top">
+              <div class="hero-logo-mark" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <div class="hero-logo-copy">
+                <h1>Balance.</h1>
+              </div>
+            </div>
+            <div class="hero-logo-bottom">
+              <p class="hero-logo-subtitle">FINANCIAL STATEMENTS GAME</p>
+              <p class="hero-logo-note">Practice the logic behind income, balance sheet, and cash flow with clean, focused drills.</p>
             </div>
           </div>
-          <div class="hero-logo-bottom">
-            <p class="hero-logo-subtitle">THE ACCOUNTING GAME</p>
-            <p class="hero-logo-note">Master the Three Financial Statements.</p>
+
+          <div class="hero-statement-tags" aria-label="Statement topics">
+            <span>Income Statement</span>
+            <span>Balance Sheet</span>
+            <span>Cash Flow</span>
+          </div>
+
+          <div class="hero-actions">
+            <a href="income.html" class="primary-btn hero-cta">Start Playing</a>
           </div>
         </div>
 
-        <div class="hero-actions">
-          <a href="income.html" class="primary-btn hero-cta">Start Playing</a>
-        </div>
+        <aside class="hero-ledger-card" aria-label="Accounting overview">
+          <div class="hero-ledger-header">
+            <p>Statement structure</p>
+            <span>Core flow</span>
+          </div>
+          <div class="hero-ledger-lines" aria-hidden="true">
+            <div class="hero-ledger-line">
+              <span>Revenue</span>
+              <strong>+</strong>
+            </div>
+            <div class="hero-ledger-line">
+              <span>Expenses</span>
+              <strong>-</strong>
+            </div>
+            <div class="hero-ledger-line hero-ledger-line-total">
+              <span>Net Income</span>
+              <strong>=</strong>
+            </div>
+            <div class="hero-ledger-divider"></div>
+            <div class="hero-ledger-line hero-ledger-line-balance">
+              <span>Assets</span>
+              <strong>=</strong>
+            </div>
+            <div class="hero-ledger-line hero-ledger-line-balance">
+              <span>Liabilities + Equity</span>
+              <strong></strong>
+            </div>
+          </div>
+          <p class="hero-ledger-note">Subtle visual cues inspired by working papers and statement layouts.</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="container brand-strip" aria-label="Brand principles">
+      <div class="brand-strip-item">
+        <span class="brand-strip-label">Method</span>
+        <strong>Statement-by-statement drills</strong>
+      </div>
+      <div class="brand-strip-item">
+        <span class="brand-strip-label">Focus</span>
+        <strong>Clean accounting logic</strong>
+      </div>
+      <div class="brand-strip-item">
+        <span class="brand-strip-label">Outcome</span>
+        <strong>Stronger financial intuition</strong>
       </div>
     </section>
 
