@@ -1970,13 +1970,35 @@ body[data-mode="interactive"] {
 
   .page-nav {
     width: 100%;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
     margin-left: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .page-nav::-webkit-scrollbar {
+    display: none;
   }
 
   .page-nav a {
-    flex: 1 1 calc(50% - 12px);
+    flex: 0 0 auto;
+  }
+
+  .page-topbar {
+    flex-wrap: wrap;
+    align-items: stretch;
+  }
+
+  .brand-pill {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .brand-tagline {
+    font-size: 0.68rem;
   }
 
   .hero {
