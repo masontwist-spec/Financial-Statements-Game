@@ -3,6 +3,7 @@ let buildQuestions = [];
 let buildIndex = 0;
 let buildScore = 0;
 let alreadyChecked = false;
+const BUILD_BEST_KEY = "balance_build_best";
 
 function shuffleBuild(array) {
   const copy = [...array];
@@ -15,6 +16,26 @@ function shuffleBuild(array) {
 
 function formatBuildNumber(value) {
   return Number(value).toLocaleString();
+}
+
+function saveBuildBestScore(nextScore, totalPossible) {
+  if (!Number.isFinite(nextScore) || !Number.isFinite(totalPossible)) return;
+
+  const existingRaw = localStorage.getItem(BUILD_BEST_KEY);
+
+  try {
+    const existing = existingRaw ? JSON.parse(existingRaw) : null;
+    if (existing && Number.isFinite(existing.score) && existing.score >= nextScore) {
+      return;
+    }
+  } catch (_error) {
+    // Ignore malformed localStorage data and overwrite it below.
+  }
+
+  localStorage.setItem(BUILD_BEST_KEY, JSON.stringify({
+    score: nextScore,
+    total: totalPossible
+  }));
 }
 
 function escapeHtml(text) {
@@ -322,6 +343,7 @@ function showBuildCompletion() {
   els.progress.textContent = `${buildQuestions.length} / ${buildQuestions.length}`;
   updateBuildProgressUI(els, buildQuestions.length, buildQuestions.length);
   els.finalScore.textContent = `You scored ${buildScore} out of ${totalPossible} total line-items.`;
+  saveBuildBestScore(buildScore, totalPossible);
 }
 
 function restartBuildQuiz() {

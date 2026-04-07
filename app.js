@@ -4,6 +4,32 @@ let selectedDifficulty = "All";
 let currentIndex = 0;
 let score = 0;
 let locked = false;
+const BEST_SCORE_PREFIX = "balance_";
+
+function getBestScoreKey(mode) {
+  return `${BEST_SCORE_PREFIX}${mode}_best`;
+}
+
+function saveBestScore(mode, nextScore, totalQuestions) {
+  if (!mode || !Number.isFinite(nextScore) || !Number.isFinite(totalQuestions)) return;
+
+  const key = getBestScoreKey(mode);
+  const existingRaw = localStorage.getItem(key);
+
+  try {
+    const existing = existingRaw ? JSON.parse(existingRaw) : null;
+    if (existing && Number.isFinite(existing.score) && existing.score >= nextScore) {
+      return;
+    }
+  } catch (_error) {
+    // Ignore malformed localStorage data and overwrite it below.
+  }
+
+  localStorage.setItem(key, JSON.stringify({
+    score: nextScore,
+    total: totalQuestions
+  }));
+}
 
 function shuffle(array) {
   const copy = [...array];
@@ -229,6 +255,7 @@ function showCompletion() {
   els.progressText.textContent = `${questions.length} / ${questions.length}`;
   els.scoreText.textContent = `${score}`;
   updateProgressUI(els, questions.length, questions.length);
+  saveBestScore(currentMode, score, questions.length);
 }
 
 function restartQuiz() {

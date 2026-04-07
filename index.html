@@ -5,6 +5,38 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Balance. - The Interactive Accounting Game</title>
   <link rel="stylesheet" href="styles.css" />
+  <style>
+    .best-score-text {
+      display: block;
+      margin-top: 10px;
+      color: #5f7668;
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .home-footer {
+      display: flex;
+      justify-content: center;
+      padding-bottom: 56px;
+    }
+
+    .reset-progress-btn {
+      border: 0;
+      background: transparent;
+      color: #5f7668;
+      font: inherit;
+      font-weight: 700;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      cursor: pointer;
+    }
+
+    .reset-progress-btn:hover,
+    .reset-progress-btn:focus-visible {
+      color: #14633a;
+      outline: none;
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -151,6 +183,7 @@
           <h3>Income Statement</h3>
           <p>Revenue, expenses, and profitability. Learn how companies report earnings.</p>
           <span class="question-tag">31 questions</span>
+          <span class="best-score-text" data-best-score="balance_income_best"></span>
         </a>
 
         <a class="mode-card" href="balance.html">
@@ -158,6 +191,7 @@
           <h3>Balance Sheet</h3>
           <p>Assets, liabilities, and equity. Master the accounting equation.</p>
           <span class="question-tag">31 questions</span>
+          <span class="best-score-text" data-best-score="balance_balance_best"></span>
         </a>
 
         <a class="mode-card" href="cashflow.html">
@@ -165,6 +199,7 @@
           <h3>Cash Flow</h3>
           <p>Operating, investing, and financing. Follow the money.</p>
           <span class="question-tag">30 questions</span>
+          <span class="best-score-text" data-best-score="balance_cashflow_best"></span>
         </a>
 
         <a class="mode-card" href="combined.html">
@@ -172,6 +207,7 @@
           <h3>Combined Mode</h3>
           <p>See how all three statements connect. The ultimate challenge.</p>
           <span class="question-tag">22 questions</span>
+          <span class="best-score-text" data-best-score="balance_combined_best"></span>
         </a>
 
         <a class="mode-card" href="build.html">
@@ -179,6 +215,7 @@
           <h3>Build Mode</h3>
           <p>Fill in full statement layouts and calculate the missing lines.</p>
           <span class="question-tag">26 build questions</span>
+          <span class="best-score-text" data-best-score="balance_build_best"></span>
         </a>
 
         <a class="mode-card" href="interactive.html">
@@ -213,6 +250,59 @@
         </div>
       </div>
     </section>
+
+    <footer class="container home-footer">
+      <button type="button" class="reset-progress-btn" id="reset-progress-btn">Reset Progress</button>
+    </footer>
   </main>
+
+  <script>
+    (function () {
+      const BEST_SCORE_PREFIX = "balance_";
+      const bestScoreEls = Array.from(document.querySelectorAll("[data-best-score]"));
+      const resetBtn = document.getElementById("reset-progress-btn");
+
+      function renderBestScores() {
+        bestScoreEls.forEach(el => {
+          const key = el.dataset.bestScore;
+          if (!key) return;
+
+          const raw = localStorage.getItem(key);
+          if (!raw) {
+            el.textContent = "";
+            return;
+          }
+
+          try {
+            const parsed = JSON.parse(raw);
+            if (!parsed || !Number.isFinite(parsed.score) || !Number.isFinite(parsed.total)) {
+              el.textContent = "";
+              return;
+            }
+
+            el.textContent = `Best: ${parsed.score} / ${parsed.total}`;
+          } catch (_error) {
+            el.textContent = "";
+          }
+        });
+      }
+
+      function resetProgress() {
+        Object.keys(localStorage).forEach(key => {
+          if (key.startsWith(BEST_SCORE_PREFIX)) {
+            localStorage.removeItem(key);
+          }
+        });
+
+        renderBestScores();
+      }
+
+      if (resetBtn) {
+        resetBtn.addEventListener("click", resetProgress);
+      }
+
+      renderBestScores();
+    }());
+  </script>
 </body>
 </html>
