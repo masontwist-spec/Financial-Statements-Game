@@ -2054,6 +2054,7 @@ body[data-mode="interactive"] {
     flex-wrap: wrap;
     align-items: center;
     gap: 12px;
+    overflow: visible;
   }
 
   .brand-pill {
