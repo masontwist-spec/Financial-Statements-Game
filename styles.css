@@ -1640,8 +1640,8 @@ a {
 
 .statement-lines .line-item {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 132px;
-  gap: 16px;
+  grid-template-columns: minmax(0, 1fr) minmax(132px, 168px);
+  gap: 20px;
   align-items: end;
   padding: 10px 0;
   border-bottom: 1px solid rgba(216, 231, 220, 0.62);
@@ -1659,6 +1659,7 @@ a {
   font-variant-numeric: tabular-nums;
   letter-spacing: 0.02em;
   color: var(--muted);
+  white-space: nowrap;
 }
 
 .statement-lines .line-item-indented .line-label {
