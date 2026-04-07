@@ -2074,6 +2074,14 @@ body[data-mode="interactive"] {
   .mobile-nav {
     display: block;
     margin-left: 0;
+    position: static;
+  }
+
+  .mobile-nav-menu {
+    left: 18px;
+    right: 18px;
+    width: auto;
+    max-width: none;
   }
 
   .hero {
