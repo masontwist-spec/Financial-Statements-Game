@@ -791,7 +791,7 @@ a {
   position: relative;
   z-index: 1;
   margin: 0 0 10px;
-  color: var(--mode-accent-strong);
+  color: #9ed8b3;
   font-size: 0.8rem;
   font-weight: 800;
   letter-spacing: 0.14em;
@@ -805,14 +805,14 @@ a {
   font-size: clamp(2.75rem, 6vw, 4.6rem);
   letter-spacing: -0.05em;
   line-height: 0.96;
-  color: var(--green-dark);
+  color: var(--panel-text);
 }
 
 .quiz-hero p {
   position: relative;
   z-index: 1;
   margin: 0;
-  color: var(--muted);
+  color: var(--panel-muted);
   font-size: 1.08rem;
 }
 
@@ -834,6 +834,7 @@ a {
   margin-bottom: 18px;
   font-size: clamp(1.45rem, 2vw, 1.9rem);
   letter-spacing: -0.03em;
+  color: var(--panel-text);
 }
 
 .stat-list {
@@ -848,9 +849,9 @@ a {
   align-items: center;
   gap: 12px;
   padding: 14px 16px;
-  border: 1px solid var(--border);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-md);
-  background: var(--surface-soft);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .stat-item::before {
@@ -865,7 +866,7 @@ a {
 }
 
 .stat-item span {
-  color: var(--muted);
+  color: var(--panel-muted);
   font-weight: 600;
 }
 
@@ -873,20 +874,21 @@ a {
   font-size: 1.02rem;
   font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
+  color: var(--panel-text);
 }
 
 .difficulty-filter-card {
   margin-top: 20px;
   padding-top: 20px;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .status-progress-card {
   margin-top: 18px;
   padding: 16px 16px 14px;
-  border: 1px solid var(--border);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-md);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(247, 251, 248, 0.94) 100%);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .status-progress-head {
@@ -898,7 +900,7 @@ a {
 }
 
 .status-progress-label {
-  color: var(--muted);
+  color: var(--panel-muted);
   font-size: 0.82rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -930,14 +932,14 @@ a {
 
 .status-progress-note {
   margin: 10px 0 0;
-  color: var(--muted);
+  color: var(--panel-muted);
   font-size: 0.92rem;
   line-height: 1.5;
 }
 
 .difficulty-filter-title {
   margin: 0 0 12px;
-  color: var(--text);
+  color: var(--panel-text);
   font-size: 0.95rem;
   font-weight: 800;
   letter-spacing: 0.02em;
@@ -962,9 +964,9 @@ a {
 .difficulty-filter-btn,
 .secondary-btn,
 .secondary-link-btn {
-  border: 1px solid var(--border);
-  background: linear-gradient(180deg, #ffffff 0%, #f6faf7 100%);
-  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--panel-text);
   border-radius: var(--radius-sm);
   padding: 11px 14px;
   font-weight: 700;
@@ -979,8 +981,8 @@ a {
 .secondary-link-btn:hover,
 .secondary-link-btn:focus-visible {
   transform: translateY(-1px);
-  border-color: var(--border-strong);
-  background: #ffffff;
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.08);
   box-shadow: var(--shadow-sm);
   outline: none;
 }
@@ -994,9 +996,9 @@ a {
 
 .difficulty-filter-btn.active,
 .build-mode-link.active {
-  border-color: #93c4a3;
-  background: linear-gradient(180deg, #eef9f1 0%, #ddf1e4 100%);
-  color: var(--green-dark);
+  border-color: rgba(31, 143, 85, 0.3);
+  background: rgba(31, 143, 85, 0.18);
+  color: #dff2e6;
   box-shadow: 0 12px 28px rgba(31, 143, 85, 0.12);
 }
 
@@ -1010,11 +1012,11 @@ a {
   min-height: 36px;
   padding: 0 12px;
   border-radius: var(--radius-pill);
-  background: var(--green-soft);
-  color: var(--green-dark);
+  background: rgba(31, 143, 85, 0.18);
+  color: #dff2e6;
   font-weight: 800;
   font-size: 0.88rem;
-  border: 1px solid #b8d9c3;
+  border: 1px solid rgba(31, 143, 85, 0.28);
 }
 
 .main-quiz-card h2 {
