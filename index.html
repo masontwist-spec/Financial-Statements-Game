@@ -9,6 +9,7 @@
     .home-footer {
       display: flex;
       justify-content: center;
+      margin-top: 48px;
       padding-bottom: 56px;
     }
 
@@ -28,9 +29,173 @@
       color: #14633a;
       outline: none;
     }
+
+    body.is-unlocked {
+      overflow: auto;
+    }
+
+    body:not(.is-unlocked) {
+      overflow: hidden;
+    }
+
+    .unlock-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      background: rgba(5, 8, 11, 0.86);
+      backdrop-filter: blur(10px);
+    }
+
+    .unlock-card {
+      width: min(820px, 100%);
+      padding: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius-lg);
+      background: var(--panel-strong);
+      box-shadow: var(--shadow-md);
+    }
+
+    .unlock-kicker {
+      margin: 0 0 8px;
+      color: #9ed8b3;
+      font-size: 0.8rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .unlock-card h2 {
+      margin: 0 0 10px;
+      color: var(--panel-text);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+
+    .unlock-card p {
+      margin: 0;
+      color: var(--panel-muted);
+      font-size: 1.05rem;
+      line-height: 1.55;
+    }
+
+    .unlock-equation {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+      gap: 10px;
+      align-items: center;
+      margin: 24px 0;
+    }
+
+    .unlock-slot {
+      min-height: 76px;
+      display: grid;
+      place-items: center;
+      padding: 12px;
+      border: 2px dashed rgba(158, 216, 179, 0.28);
+      border-radius: var(--radius-md);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--panel-muted);
+      font-weight: 800;
+      text-align: center;
+      transition: border-color 0.18s ease, background 0.18s ease, color 0.18s ease;
+    }
+
+    .unlock-slot.is-over,
+    .unlock-slot:focus-visible {
+      border-color: rgba(158, 216, 179, 0.78);
+      background: rgba(31, 143, 85, 0.16);
+      outline: none;
+    }
+
+    .unlock-slot.is-filled {
+      border-style: solid;
+      color: var(--panel-text);
+    }
+
+    .unlock-operator {
+      color: var(--panel-text);
+      font-size: 1.8rem;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .unlock-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .unlock-token {
+      min-height: 46px;
+      padding: 0 18px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: var(--radius-pill);
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--panel-text);
+      font-weight: 800;
+      cursor: grab;
+    }
+
+    .unlock-token:active {
+      cursor: grabbing;
+    }
+
+    .unlock-token.is-selected,
+    .unlock-token:focus-visible {
+      border-color: rgba(158, 216, 179, 0.7);
+      background: rgba(31, 143, 85, 0.2);
+      outline: none;
+    }
+
+    .unlock-feedback {
+      min-height: 26px;
+      margin-top: 16px;
+      color: var(--panel-muted);
+      font-weight: 700;
+    }
+
+    @media (max-width: 720px) {
+      .unlock-equation {
+        grid-template-columns: 1fr;
+      }
+
+      .unlock-operator {
+        font-size: 1.4rem;
+      }
+    }
   </style>
 </head>
 <body>
+  <div class="unlock-overlay" id="unlock-overlay" role="dialog" aria-modal="true" aria-labelledby="unlock-title">
+    <div class="unlock-card">
+      <p class="unlock-kicker">Unlock Balance.</p>
+      <h2 id="unlock-title">What is the accounting equation?</h2>
+      <p>Drag each term into the correct spot to unlock the game.</p>
+
+      <div class="unlock-equation" aria-label="Accounting equation puzzle">
+        <button type="button" class="unlock-slot" data-slot="assets">Drop term</button>
+        <span class="unlock-operator" aria-hidden="true">=</span>
+        <button type="button" class="unlock-slot" data-slot="liabilities">Drop term</button>
+        <span class="unlock-operator" aria-hidden="true">+</span>
+        <button type="button" class="unlock-slot" data-slot="equity">Drop term</button>
+      </div>
+
+      <p>Terms</p>
+      <div class="unlock-bank" id="unlock-bank">
+        <button type="button" class="unlock-token" draggable="true" data-term="equity">Owner's Equity</button>
+        <button type="button" class="unlock-token" draggable="true" data-term="assets">Assets</button>
+        <button type="button" class="unlock-token" draggable="true" data-term="liabilities">Liabilities</button>
+      </div>
+
+      <div class="unlock-feedback" id="unlock-feedback" aria-live="polite">Place the terms to make: Assets = Liabilities + Owner's Equity.</div>
+    </div>
+  </div>
+
   <header class="site-header">
     <div class="container header-inner page-topbar">
       <a href="index.html" class="brand-pill" aria-label="Balance home">
@@ -200,8 +365,16 @@
   <script>
     (function () {
       const BEST_SCORE_PREFIX = "balance_";
+      const UNLOCK_KEY = "balance_site_unlocked";
       const bestScoreEls = Array.from(document.querySelectorAll("[data-best-score]"));
       const resetBtn = document.getElementById("reset-progress-btn");
+      const unlockOverlay = document.getElementById("unlock-overlay");
+      const unlockFeedback = document.getElementById("unlock-feedback");
+      const unlockBank = document.getElementById("unlock-bank");
+      const unlockTokens = Array.from(document.querySelectorAll("[data-term]"));
+      const unlockSlots = Array.from(document.querySelectorAll("[data-slot]"));
+      let draggedTerm = "";
+      let selectedTerm = "";
 
       function renderBestScores() {
         bestScoreEls.forEach(el => {
@@ -235,11 +408,132 @@
           }
         });
 
+        localStorage.removeItem(UNLOCK_KEY);
         renderBestScores();
+        resetUnlockPlacement();
+        lockSiteIfNeeded();
       }
+
+      function lockSiteIfNeeded() {
+        if (localStorage.getItem(UNLOCK_KEY) === "true") {
+          document.body.classList.add("is-unlocked");
+          unlockOverlay.classList.add("hidden");
+          return;
+        }
+
+        document.body.classList.remove("is-unlocked");
+        unlockOverlay.classList.remove("hidden");
+      }
+
+      function getToken(term) {
+        return unlockTokens.find(token => token.dataset.term === term);
+      }
+
+      function placeTerm(slot, term) {
+        if (!slot || !term) return;
+
+        const existingTerm = slot.dataset.currentTerm;
+        if (existingTerm) {
+          const existingToken = getToken(existingTerm);
+          if (existingToken) {
+            existingToken.hidden = false;
+          }
+        }
+
+        const token = getToken(term);
+        if (token) {
+          token.hidden = true;
+        }
+
+        slot.dataset.currentTerm = term;
+        slot.textContent = token ? token.textContent : "Drop term";
+        slot.classList.add("is-filled");
+        selectedTerm = "";
+        unlockTokens.forEach(item => item.classList.remove("is-selected"));
+        checkUnlock();
+      }
+
+      function resetUnlockPlacement() {
+        unlockSlots.forEach(slot => {
+          slot.dataset.currentTerm = "";
+          slot.textContent = "Drop term";
+          slot.classList.remove("is-filled", "is-over");
+        });
+
+        unlockTokens.forEach(token => {
+          token.hidden = false;
+          token.classList.remove("is-selected");
+        });
+
+        selectedTerm = "";
+      }
+
+      function checkUnlock() {
+        const isComplete = unlockSlots.every(slot => Boolean(slot.dataset.currentTerm));
+        if (!isComplete) {
+          unlockFeedback.textContent = "Place the terms to make: Assets = Liabilities + Owner's Equity.";
+          return;
+        }
+
+        const isCorrect = unlockSlots.every(slot => slot.dataset.currentTerm === slot.dataset.slot);
+        if (!isCorrect) {
+          unlockFeedback.textContent = "Almost. The accounting equation starts with Assets on the left.";
+          return;
+        }
+
+        unlockFeedback.textContent = "Unlocked.";
+        localStorage.setItem(UNLOCK_KEY, "true");
+        window.setTimeout(() => {
+          document.body.classList.add("is-unlocked");
+          unlockOverlay.classList.add("hidden");
+        }, 450);
+      }
+
+      unlockTokens.forEach(token => {
+        token.addEventListener("dragstart", event => {
+          draggedTerm = token.dataset.term;
+          event.dataTransfer.setData("text/plain", draggedTerm);
+        });
+
+        token.addEventListener("click", () => {
+          selectedTerm = token.dataset.term;
+          unlockTokens.forEach(item => item.classList.toggle("is-selected", item === token));
+          unlockFeedback.textContent = "Now choose a blank spot in the equation.";
+        });
+      });
+
+      unlockSlots.forEach(slot => {
+        slot.addEventListener("dragover", event => {
+          event.preventDefault();
+          slot.classList.add("is-over");
+        });
+
+        slot.addEventListener("dragleave", () => {
+          slot.classList.remove("is-over");
+        });
+
+        slot.addEventListener("drop", event => {
+          event.preventDefault();
+          slot.classList.remove("is-over");
+          const term = event.dataTransfer.getData("text/plain") || draggedTerm;
+          placeTerm(slot, term);
+          draggedTerm = "";
+        });
+
+        slot.addEventListener("click", () => {
+          if (selectedTerm) {
+            placeTerm(slot, selectedTerm);
+          }
+        });
+      });
 
       if (resetBtn) {
         resetBtn.addEventListener("click", resetProgress);
+      }
+
+      if (unlockBank) {
+        resetUnlockPlacement();
+        lockSiteIfNeeded();
       }
 
       renderBestScores();
