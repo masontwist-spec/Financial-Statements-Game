@@ -852,6 +852,10 @@ a {
   align-items: start;
 }
 
+.rebalance-example-picker {
+  margin-bottom: 22px;
+}
+
 .rebalance-scenario {
   margin-bottom: 22px;
 }

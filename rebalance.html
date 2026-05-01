@@ -42,60 +42,44 @@
     <section class="quiz-hero">
       <p class="quiz-hero-eyebrow">Find the error</p>
       <h1>Rebalance.</h1>
-      <p>Review the statement, pinpoint the incorrect line, enter the corrected amount, and bring the sheet back into balance.</p>
+      <p>Review the statement, pinpoint the incorrect line, enter the corrected amount, and make the statement tie back to the context.</p>
+    </section>
+
+    <section class="build-mode-picker rebalance-example-picker" aria-label="Rebalance example picker">
+      <p class="build-mode-picker-title">Choose your example:</p>
+      <div class="build-mode-picker-links">
+        <button type="button" class="secondary-link-btn build-mode-link active" data-example-id="balance">Balance Sheet</button>
+        <button type="button" class="secondary-link-btn build-mode-link" data-example-id="income">Income Statement</button>
+        <button type="button" class="secondary-link-btn build-mode-link" data-example-id="cashflow">Cash Flow</button>
+      </div>
     </section>
 
     <section class="quiz-card rebalance-scenario" aria-label="Problem context">
       <p class="rebalance-scenario-kicker">Sample question</p>
-      <h2>Don's Carpentry posted the following balance sheet for year end December 31, 2024.</h2>
-      <p>
-        You are the CFO reviewing the statement. You know the company should have $275,000 in total liabilities and equity.
-        You also know the company bought equipment at the beginning of the year for $180,000, and that equipment depreciates at a rate of 10% per year.
-        Find the problem in the balance sheet and correct it so the statement rebalances.
-      </p>
+      <h2 id="rebalance-scenario-title">Don's Carpentry posted the following balance sheet for year end December 31, 2024.</h2>
+      <p id="rebalance-scenario-copy"></p>
     </section>
 
     <section class="rebalance-layout">
       <article class="statement-view-card rebalance-statement-card">
         <div class="statement-view-sheet">
           <div class="statement-view-meta">
-            <p class="statement-view-company">Don's Carpentry</p>
-            <h2>Balance Sheet</h2>
-            <p class="statement-view-period">December 31, 2024</p>
+            <p class="statement-view-company" id="statement-company">Don's Carpentry</p>
+            <h2 id="statement-title">Balance Sheet</h2>
+            <p class="statement-view-period" id="statement-period">December 31, 2024</p>
           </div>
 
-          <div class="statement-lines rebalance-lines" id="rebalance-lines">
-            <div class="line-item line-item-section"><span class="line-label">Assets</span><span class="line-value"></span></div>
-            <button type="button" class="line-item rebalance-line" data-line-id="cash"><span class="line-label">Cash</span><span class="line-value" data-line-value="cash">$42,000</span></button>
-            <button type="button" class="line-item rebalance-line" data-line-id="accountsReceivable"><span class="line-label">Accounts Receivable</span><span class="line-value" data-line-value="accountsReceivable">$28,000</span></button>
-            <button type="button" class="line-item rebalance-line" data-line-id="inventory"><span class="line-label">Inventory</span><span class="line-value" data-line-value="inventory">$43,000</span></button>
-            <button type="button" class="line-item rebalance-line" data-line-id="equipmentNet"><span class="line-label">Equipment, Net</span><span class="line-value" data-line-value="equipmentNet">$180,000</span></button>
-            <div class="line-item line-item-total"><span class="line-label">Total Assets</span><span class="line-value" id="total-assets">$293,000</span></div>
-
-            <div class="line-item line-item-section"><span class="line-label">Liabilities</span><span class="line-value"></span></div>
-            <button type="button" class="line-item rebalance-line" data-line-id="accountsPayable"><span class="line-label">Accounts Payable</span><span class="line-value" data-line-value="accountsPayable">$39,000</span></button>
-            <button type="button" class="line-item rebalance-line" data-line-id="notePayable"><span class="line-label">Note Payable</span><span class="line-value" data-line-value="notePayable">$96,000</span></button>
-            <div class="line-item line-item-subtotal"><span class="line-label">Total Liabilities</span><span class="line-value" id="total-liabilities">$135,000</span></div>
-
-            <div class="line-item line-item-section"><span class="line-label">Equity</span><span class="line-value"></span></div>
-            <button type="button" class="line-item rebalance-line" data-line-id="commonStock"><span class="line-label">Common Stock</span><span class="line-value" data-line-value="commonStock">$80,000</span></button>
-            <button type="button" class="line-item rebalance-line" data-line-id="retainedEarnings"><span class="line-label">Retained Earnings</span><span class="line-value" data-line-value="retainedEarnings">$60,000</span></button>
-            <div class="line-item line-item-subtotal"><span class="line-label">Total Equity</span><span class="line-value" id="total-equity">$140,000</span></div>
-            <div class="line-item line-item-total"><span class="line-label">Total Liabilities and Equity</span><span class="line-value" id="total-liabilities-equity">$275,000</span></div>
-          </div>
+          <div class="statement-lines rebalance-lines" id="rebalance-lines"></div>
         </div>
       </article>
 
       <aside class="quiz-card rebalance-panel">
         <h2>Fix the Statement</h2>
-        <div class="stat-list">
-          <div class="stat-item"><span>Assets</span><strong id="panel-assets">$293,000</strong></div>
-          <div class="stat-item"><span>Liab. + Equity</span><strong id="panel-liabilities-equity">$275,000</strong></div>
-        </div>
+        <div class="stat-list" id="rebalance-stat-list"></div>
 
         <div class="rebalance-control">
           <label for="corrected-amount">Corrected amount</label>
-          <input id="corrected-amount" class="build-value-input" type="number" inputmode="numeric" min="0" step="1000" placeholder="Select a line first" disabled />
+          <input id="corrected-amount" class="build-value-input" type="number" inputmode="numeric" step="1000" placeholder="Select a line first" disabled />
         </div>
 
         <div class="quiz-actions rebalance-actions">
@@ -118,32 +102,145 @@
     <div class="rebalance-hint-card">
       <button id="rebalance-hint-close" class="rebalance-hint-close" type="button" aria-label="Close hint">×</button>
       <p class="rebalance-scenario-kicker" id="rebalance-hint-title">Hint</p>
-      <p>We calculate Equipment, Net by subtracting accumulated depreciation.</p>
+      <p id="rebalance-hint-copy">We calculate Equipment, Net by subtracting accumulated depreciation.</p>
     </div>
   </div>
 
   <script>
     (function () {
-      const originalLines = {
-        cash: 42000,
-        accountsReceivable: 28000,
-        inventory: 43000,
-        equipmentNet: 180000,
-        accountsPayable: 39000,
-        notePayable: 96000,
-        commonStock: 80000,
-        retainedEarnings: 60000
+      const EXAMPLES = {
+        balance: {
+          title: "Don's Carpentry posted the following balance sheet for year end December 31, 2024.",
+          copy: "You are the CFO reviewing the statement. You know the company should have $275,000 in total liabilities and equity. You also know the company bought equipment at the beginning of the year for $180,000, and that equipment depreciates at a rate of 10% per year. Find the problem in the balance sheet and correct it so the statement rebalances.",
+          statementTitle: "Balance Sheet",
+          period: "December 31, 2024",
+          hint: "We calculate Equipment, Net by subtracting accumulated depreciation.",
+          initialLines: {
+            cash: 42000,
+            accountsReceivable: 28000,
+            inventory: 43000,
+            equipmentNet: 180000,
+            accountsPayable: 39000,
+            notePayable: 96000,
+            commonStock: 80000,
+            retainedEarnings: 60000
+          },
+          answer: {
+            lineId: "equipmentNet",
+            correctedValue: 162000,
+            success: "Correct. Equipment depreciated by $18,000 for the year, so Equipment, Net should be $162,000. That brings total assets back to $275,000."
+          },
+          rows: [
+            { type: "section", label: "Assets" },
+            { id: "cash", label: "Cash" },
+            { id: "accountsReceivable", label: "Accounts Receivable" },
+            { id: "inventory", label: "Inventory" },
+            { id: "equipmentNet", label: "Equipment, Net" },
+            { type: "total", label: "Total Assets", value: lines => lines.cash + lines.accountsReceivable + lines.inventory + lines.equipmentNet },
+            { type: "section", label: "Liabilities" },
+            { id: "accountsPayable", label: "Accounts Payable" },
+            { id: "notePayable", label: "Note Payable" },
+            { type: "subtotal", label: "Total Liabilities", value: lines => lines.accountsPayable + lines.notePayable },
+            { type: "section", label: "Equity" },
+            { id: "commonStock", label: "Common Stock" },
+            { id: "retainedEarnings", label: "Retained Earnings" },
+            { type: "subtotal", label: "Total Equity", value: lines => lines.commonStock + lines.retainedEarnings },
+            { type: "total", label: "Total Liabilities and Equity", value: lines => lines.accountsPayable + lines.notePayable + lines.commonStock + lines.retainedEarnings }
+          ],
+          stats: [
+            { label: "Assets", value: lines => lines.cash + lines.accountsReceivable + lines.inventory + lines.equipmentNet },
+            { label: "Liab. + Equity", value: lines => lines.accountsPayable + lines.notePayable + lines.commonStock + lines.retainedEarnings }
+          ],
+          difference: lines => (lines.cash + lines.accountsReceivable + lines.inventory + lines.equipmentNet) - (lines.accountsPayable + lines.notePayable + lines.commonStock + lines.retainedEarnings)
+        },
+        income: {
+          title: "Don's Carpentry posted the following income statement for year end December 31, 2024.",
+          copy: "You are the CFO reviewing the statement. You know net income should be $28,000 based on the closing entry prepared for retained earnings. You also know the inventory records show the products sold this year cost $62,000. Find the problem in the income statement and correct it so reported net income ties to the closing entry.",
+          statementTitle: "Income Statement",
+          period: "For the Year Ended December 31, 2024",
+          hint: "Cost of Goods Sold should come from the cost of the inventory that was actually sold during the period.",
+          initialLines: {
+            revenue: 120000,
+            costOfGoodsSold: 70000,
+            rentExpense: 18000,
+            depreciationExpense: 12000,
+            interestExpense: 0
+          },
+          answer: {
+            lineId: "costOfGoodsSold",
+            correctedValue: 62000,
+            success: "Correct. Cost of Goods Sold should be $62,000, which makes total expenses $92,000 and net income $28,000."
+          },
+          rows: [
+            { id: "revenue", label: "Revenue" },
+            { type: "section", label: "Expenses" },
+            { id: "costOfGoodsSold", label: "Cost of Goods Sold", indented: true },
+            { id: "rentExpense", label: "Rent Expense", indented: true },
+            { id: "depreciationExpense", label: "Depreciation Expense", indented: true },
+            { id: "interestExpense", label: "Interest Expense", indented: true },
+            { type: "subtotal", label: "Total Expenses", value: lines => lines.costOfGoodsSold + lines.rentExpense + lines.depreciationExpense + lines.interestExpense },
+            { type: "total", label: "Net Income", value: lines => lines.revenue - lines.costOfGoodsSold - lines.rentExpense - lines.depreciationExpense - lines.interestExpense }
+          ],
+          stats: [
+            { label: "Revenue", value: lines => lines.revenue },
+            { label: "Net Income", value: lines => lines.revenue - lines.costOfGoodsSold - lines.rentExpense - lines.depreciationExpense - lines.interestExpense }
+          ],
+          difference: lines => (lines.revenue - lines.costOfGoodsSold - lines.rentExpense - lines.depreciationExpense - lines.interestExpense) - 28000
+        },
+        cashflow: {
+          title: "Don's Carpentry posted the following statement of cash flows for year end December 31, 2024.",
+          copy: "You are the CFO reviewing the statement. You know beginning cash was $50,000 and ending cash should be $72,000. You also know the investing schedule shows a $32,000 cash purchase of equipment and $12,000 cash received from selling old equipment. Find the problem in the cash flow statement and correct it so ending cash reconciles.",
+          statementTitle: "Statement of Cash Flows",
+          period: "For the Year Ended December 31, 2024",
+          hint: "Ending cash equals beginning cash plus the net change in cash from operating, investing, and financing activities.",
+          initialLines: {
+            netCashOperating: 36000,
+            equipmentPurchased: -32000,
+            equipmentSold: 16000,
+            stockIssued: 18000,
+            dividendsPaid: -8000,
+            beginningCash: 50000
+          },
+          answer: {
+            lineId: "equipmentSold",
+            correctedValue: 12000,
+            success: "Correct. Cash received from selling equipment should be $12,000, so net investing cash flow is ($20,000) and ending cash reconciles to $72,000."
+          },
+          rows: [
+            { type: "section", label: "Cash Flows from Operating Activities" },
+            { id: "netCashOperating", label: "Net Cash from Operating Activities" },
+            { type: "section", label: "Cash Flows from Investing Activities" },
+            { id: "equipmentPurchased", label: "Purchase of Equipment", indented: true },
+            { id: "equipmentSold", label: "Sale of Equipment", indented: true },
+            { type: "subtotal", label: "Net Cash from Investing Activities", value: lines => lines.equipmentPurchased + lines.equipmentSold },
+            { type: "section", label: "Cash Flows from Financing Activities" },
+            { id: "stockIssued", label: "Common Stock Issued", indented: true },
+            { id: "dividendsPaid", label: "Dividends Paid", indented: true },
+            { type: "subtotal", label: "Net Cash from Financing Activities", value: lines => lines.stockIssued + lines.dividendsPaid },
+            { type: "total", label: "Net Change in Cash", value: lines => lines.netCashOperating + lines.equipmentPurchased + lines.equipmentSold + lines.stockIssued + lines.dividendsPaid },
+            { id: "beginningCash", label: "Beginning Cash" },
+            { type: "total", label: "Ending Cash", value: lines => lines.beginningCash + lines.netCashOperating + lines.equipmentPurchased + lines.equipmentSold + lines.stockIssued + lines.dividendsPaid }
+          ],
+          stats: [
+            { label: "Beginning Cash", value: lines => lines.beginningCash },
+            { label: "Ending Cash", value: lines => lines.beginningCash + lines.netCashOperating + lines.equipmentPurchased + lines.equipmentSold + lines.stockIssued + lines.dividendsPaid }
+          ],
+          difference: lines => (lines.beginningCash + lines.netCashOperating + lines.equipmentPurchased + lines.equipmentSold + lines.stockIssued + lines.dividendsPaid) - 72000
+        }
       };
 
-      const answer = {
-        lineId: "equipmentNet",
-        correctedValue: 162000
-      };
-
-      let lines = { ...originalLines };
+      let currentExampleId = "balance";
+      let currentExample = EXAMPLES[currentExampleId];
+      let lines = { ...currentExample.initialLines };
       let selectedLineId = "";
 
-      const lineButtons = Array.from(document.querySelectorAll("[data-line-id]"));
+      const exampleButtons = Array.from(document.querySelectorAll("[data-example-id]"));
+      const scenarioTitle = document.getElementById("rebalance-scenario-title");
+      const scenarioCopy = document.getElementById("rebalance-scenario-copy");
+      const statementTitle = document.getElementById("statement-title");
+      const statementPeriod = document.getElementById("statement-period");
+      const statementLines = document.getElementById("rebalance-lines");
+      const statList = document.getElementById("rebalance-stat-list");
       const amountInput = document.getElementById("corrected-amount");
       const checkBtn = document.getElementById("check-rebalance-btn");
       const resetBtn = document.getElementById("reset-rebalance-btn");
@@ -159,51 +256,70 @@
       });
 
       function formatCurrency(value) {
+        if (value < 0) {
+          return `(${currencyFormatter.format(Math.abs(value))})`;
+        }
+
         return currencyFormatter.format(value);
       }
 
-      function getTotals() {
-        const assets = lines.cash + lines.accountsReceivable + lines.inventory + lines.equipmentNet;
-        const liabilities = lines.accountsPayable + lines.notePayable;
-        const equity = lines.commonStock + lines.retainedEarnings;
-        const liabilitiesEquity = liabilities + equity;
+      function createLineRow(row) {
+        if (row.type === "section") {
+          const section = document.createElement("div");
+          section.className = "line-item line-item-section";
+          section.innerHTML = `<span class="line-label">${row.label}</span><span class="line-value"></span>`;
+          return section;
+        }
 
-        return {
-          assets,
-          liabilities,
-          equity,
-          liabilitiesEquity,
-          difference: assets - liabilitiesEquity
-        };
+        const value = row.id ? lines[row.id] : row.value(lines);
+        const isEditable = Boolean(row.id);
+        const el = document.createElement(isEditable ? "button" : "div");
+        const classes = ["line-item"];
+
+        if (isEditable) classes.push("rebalance-line");
+        if (row.indented) classes.push("line-item-indented");
+        if (row.type === "subtotal") classes.push("line-item-subtotal");
+        if (row.type === "total") classes.push("line-item-total");
+
+        el.className = classes.join(" ");
+        if (isEditable) {
+          el.type = "button";
+          el.dataset.lineId = row.id;
+          el.setAttribute("aria-pressed", row.id === selectedLineId ? "true" : "false");
+          el.classList.toggle("is-selected", row.id === selectedLineId);
+          el.addEventListener("click", () => selectLine(row.id));
+        }
+
+        el.innerHTML = `<span class="line-label">${row.label}</span><span class="line-value">${formatCurrency(value)}</span>`;
+        return el;
       }
 
-      function renderTotals() {
-        const totals = getTotals();
+      function renderExample() {
+        scenarioTitle.textContent = currentExample.title;
+        scenarioCopy.textContent = currentExample.copy;
+        statementTitle.textContent = currentExample.statementTitle;
+        statementPeriod.textContent = currentExample.period;
+        document.getElementById("rebalance-hint-copy").textContent = currentExample.hint;
 
-        document.getElementById("total-assets").textContent = formatCurrency(totals.assets);
-        document.getElementById("total-liabilities").textContent = formatCurrency(totals.liabilities);
-        document.getElementById("total-equity").textContent = formatCurrency(totals.equity);
-        document.getElementById("total-liabilities-equity").textContent = formatCurrency(totals.liabilitiesEquity);
-        document.getElementById("panel-assets").textContent = formatCurrency(totals.assets);
-        document.getElementById("panel-liabilities-equity").textContent = formatCurrency(totals.liabilitiesEquity);
-        document.body.classList.toggle("is-balanced", totals.difference === 0);
-      }
-
-      function renderLineValues() {
-        Object.keys(lines).forEach(lineId => {
-          const valueEl = document.querySelector(`[data-line-value="${lineId}"]`);
-          if (valueEl) valueEl.textContent = formatCurrency(lines[lineId]);
+        statementLines.innerHTML = "";
+        currentExample.rows.forEach(row => {
+          statementLines.appendChild(createLineRow(row));
         });
+
+        statList.innerHTML = "";
+        currentExample.stats.forEach(stat => {
+          const item = document.createElement("div");
+          item.className = "stat-item";
+          item.innerHTML = `<span>${stat.label}</span><strong>${formatCurrency(stat.value(lines))}</strong>`;
+          statList.appendChild(item);
+        });
+
+        document.body.classList.toggle("is-balanced", currentExample.difference(lines) === 0);
       }
 
       function selectLine(lineId) {
         selectedLineId = lineId;
-
-        lineButtons.forEach(button => {
-          const isSelected = button.dataset.lineId === selectedLineId;
-          button.classList.toggle("is-selected", isSelected);
-          button.setAttribute("aria-pressed", isSelected ? "true" : "false");
-        });
+        renderExample();
 
         amountInput.disabled = false;
         checkBtn.disabled = false;
@@ -218,38 +334,37 @@
         if (!selectedLineId) return;
 
         const nextValue = Number(amountInput.value);
-        if (!Number.isFinite(nextValue) || nextValue < 0) {
+        if (!Number.isFinite(nextValue)) {
           feedback.className = "feedback-box error";
-          feedback.textContent = "Enter a valid positive amount before checking the fix.";
+          feedback.textContent = "Enter a valid amount before checking the fix.";
           return;
         }
 
         lines[selectedLineId] = nextValue;
-        renderLineValues();
-        renderTotals();
+        renderExample();
 
-        const totals = getTotals();
-        const isCorrectLine = selectedLineId === answer.lineId;
-        const isCorrectValue = nextValue === answer.correctedValue;
+        const difference = currentExample.difference(lines);
+        const isCorrectLine = selectedLineId === currentExample.answer.lineId;
+        const isCorrectValue = nextValue === currentExample.answer.correctedValue;
 
-        if (isCorrectLine && isCorrectValue && totals.difference === 0) {
+        if (isCorrectLine && isCorrectValue && difference === 0) {
           feedback.className = "feedback-box success";
-          feedback.textContent = "Correct. Equipment depreciated by $18,000 for the year, so Equipment, Net should be $162,000. That brings total assets back to $275,000.";
+          feedback.textContent = currentExample.answer.success;
           checkBtn.disabled = true;
           amountInput.disabled = true;
           return;
         }
 
         feedback.className = "feedback-box error";
-        if (totals.difference === 0) {
+        if (difference === 0) {
           feedback.textContent = "The statement balances now, but this sample is configured to require the specific incorrect line item. Try resetting and finding the source of the error.";
         } else {
-          feedback.textContent = `Not quite. The statement is still out of balance by ${formatCurrency(Math.abs(totals.difference))}.`;
+          feedback.textContent = `Not quite. The statement is still off by ${formatCurrency(Math.abs(difference))}.`;
         }
       }
 
       function resetQuestion() {
-        lines = { ...originalLines };
+        lines = { ...currentExample.initialLines };
         selectedLineId = "";
         amountInput.value = "";
         amountInput.disabled = true;
@@ -259,18 +374,26 @@
         feedback.textContent = "Select the line item that appears wrong, then enter the corrected amount.";
         document.body.classList.remove("is-balanced");
 
-        lineButtons.forEach(button => {
-          button.classList.remove("is-selected");
-          button.setAttribute("aria-pressed", "false");
-        });
-
-        renderLineValues();
-        renderTotals();
+        renderExample();
       }
 
-      lineButtons.forEach(button => {
-        button.setAttribute("aria-pressed", "false");
-        button.addEventListener("click", () => selectLine(button.dataset.lineId));
+      exampleButtons.forEach(button => {
+        button.setAttribute("aria-pressed", button.dataset.exampleId === currentExampleId ? "true" : "false");
+        button.addEventListener("click", () => {
+          const nextExampleId = button.dataset.exampleId;
+          if (!nextExampleId || nextExampleId === currentExampleId) return;
+
+          currentExampleId = nextExampleId;
+          currentExample = EXAMPLES[currentExampleId];
+
+          exampleButtons.forEach(exampleButton => {
+            const isActive = exampleButton.dataset.exampleId === currentExampleId;
+            exampleButton.classList.toggle("active", isActive);
+            exampleButton.setAttribute("aria-pressed", isActive ? "true" : "false");
+          });
+
+          resetQuestion();
+        });
       });
 
       amountInput.addEventListener("keydown", event => {
