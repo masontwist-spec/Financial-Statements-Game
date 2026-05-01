@@ -365,7 +365,7 @@
   <script>
     (function () {
       const BEST_SCORE_PREFIX = "balance_";
-      const UNLOCK_KEY = "balance_site_unlocked";
+      const UNLOCK_KEY = "balance_session_unlocked";
       const bestScoreEls = Array.from(document.querySelectorAll("[data-best-score]"));
       const resetBtn = document.getElementById("reset-progress-btn");
       const unlockOverlay = document.getElementById("unlock-overlay");
@@ -408,14 +408,14 @@
           }
         });
 
-        localStorage.removeItem(UNLOCK_KEY);
+        sessionStorage.removeItem(UNLOCK_KEY);
         renderBestScores();
         resetUnlockPlacement();
         lockSiteIfNeeded();
       }
 
       function lockSiteIfNeeded() {
-        if (localStorage.getItem(UNLOCK_KEY) === "true") {
+        if (sessionStorage.getItem(UNLOCK_KEY) === "true") {
           document.body.classList.add("is-unlocked");
           unlockOverlay.classList.add("hidden");
           return;
@@ -482,7 +482,7 @@
         }
 
         unlockFeedback.textContent = "Unlocked.";
-        localStorage.setItem(UNLOCK_KEY, "true");
+        sessionStorage.setItem(UNLOCK_KEY, "true");
         window.setTimeout(() => {
           document.body.classList.add("is-unlocked");
           unlockOverlay.classList.add("hidden");
