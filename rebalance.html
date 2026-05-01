@@ -155,10 +155,10 @@
         },
         income: {
           title: "Don's Carpentry posted the following income statement for year end December 31, 2024.",
-          copy: "You are the CFO reviewing the statement. You know net income should be $28,000 based on the closing entry prepared for retained earnings. You also know the inventory records show the products sold this year cost $62,000. Find the problem in the income statement and correct it so reported net income ties to the closing entry.",
+          copy: "You are the CFO reviewing the statement. You know net income should be $28,000 based on the closing entry prepared for retained earnings. The inventory rollforward shows beginning inventory of $44,000, purchases of $68,000, and ending inventory of $50,000. Find the problem in the income statement and correct it so reported net income ties to the closing entry.",
           statementTitle: "Income Statement",
           period: "For the Year Ended December 31, 2024",
-          hint: "Cost of Goods Sold should come from the cost of the inventory that was actually sold during the period.",
+          hint: "Cost of Goods Sold equals beginning inventory plus purchases minus ending inventory.",
           initialLines: {
             carpentryRevenue: 112000,
             repairRevenue: 18000,
@@ -203,26 +203,35 @@
         },
         cashflow: {
           title: "Don's Carpentry posted the following statement of cash flows for year end December 31, 2024.",
-          copy: "You are the CFO reviewing the statement. You know beginning cash was $50,000 and ending cash should be $72,000. You also know the investing schedule shows a $32,000 cash purchase of equipment and $12,000 cash received from selling old equipment. Find the problem in the cash flow statement and correct it so ending cash reconciles.",
+          copy: "You are the CFO reviewing the statement. You know beginning cash was $50,000 and ending cash should be $83,000. The comparative balance sheet shows accounts receivable increased from $24,000 to $33,000, inventory decreased from $48,000 to $42,000, and accounts payable increased from $18,000 to $25,000. The investing schedule shows a $32,000 cash purchase of equipment and $12,000 cash received from selling old equipment. Find the problem in the cash flow statement and correct it so ending cash reconciles.",
           statementTitle: "Statement of Cash Flows",
           period: "For the Year Ended December 31, 2024",
-          hint: "Ending cash equals beginning cash plus the net change in cash from operating, investing, and financing activities.",
+          hint: "Under the indirect method, an increase in accounts receivable is subtracted from net income because some revenue has not been collected in cash yet.",
           initialLines: {
-            netCashOperating: 36000,
+            netIncome: 31000,
+            depreciationExpense: 8000,
+            accountsReceivableChange: 9000,
+            inventoryChange: 6000,
+            accountsPayableChange: 7000,
             equipmentPurchased: -32000,
-            equipmentSold: 16000,
+            equipmentSold: 12000,
             stockIssued: 18000,
             dividendsPaid: -8000,
             beginningCash: 50000
           },
           answer: {
-            lineId: "equipmentSold",
-            correctedValue: 12000,
-            success: "Correct. Cash received from selling equipment should be $12,000, so net investing cash flow is ($20,000) and ending cash reconciles to $72,000."
+            lineId: "accountsReceivableChange",
+            correctedValue: -9000,
+            success: "Correct. Accounts receivable increased by $9,000, so the indirect-method adjustment should be ($9,000). That makes operating cash flow $43,000 and ending cash $83,000."
           },
           rows: [
             { type: "section", label: "Cash Flows from Operating Activities" },
-            { id: "netCashOperating", label: "Net Cash from Operating Activities" },
+            { id: "netIncome", label: "Net Income", indented: true },
+            { id: "depreciationExpense", label: "Depreciation Expense", indented: true },
+            { id: "accountsReceivableChange", label: "Change in Accounts Receivable", indented: true },
+            { id: "inventoryChange", label: "Change in Inventory", indented: true },
+            { id: "accountsPayableChange", label: "Change in Accounts Payable", indented: true },
+            { type: "subtotal", label: "Net Cash from Operating Activities", value: lines => lines.netIncome + lines.depreciationExpense + lines.accountsReceivableChange + lines.inventoryChange + lines.accountsPayableChange },
             { type: "section", label: "Cash Flows from Investing Activities" },
             { id: "equipmentPurchased", label: "Purchase of Equipment", indented: true },
             { id: "equipmentSold", label: "Sale of Equipment", indented: true },
@@ -231,15 +240,15 @@
             { id: "stockIssued", label: "Common Stock Issued", indented: true },
             { id: "dividendsPaid", label: "Dividends Paid", indented: true },
             { type: "subtotal", label: "Net Cash from Financing Activities", value: lines => lines.stockIssued + lines.dividendsPaid },
-            { type: "total", label: "Net Change in Cash", value: lines => lines.netCashOperating + lines.equipmentPurchased + lines.equipmentSold + lines.stockIssued + lines.dividendsPaid },
+            { type: "total", label: "Net Change in Cash", value: lines => lines.netIncome + lines.depreciationExpense + lines.accountsReceivableChange + lines.inventoryChange + lines.accountsPayableChange + lines.equipmentPurchased + lines.equipmentSold + lines.stockIssued + lines.dividendsPaid },
             { id: "beginningCash", label: "Beginning Cash" },
-            { type: "total", label: "Ending Cash", value: lines => lines.beginningCash + lines.netCashOperating + lines.equipmentPurchased + lines.equipmentSold + lines.stockIssued + lines.dividendsPaid }
+            { type: "total", label: "Ending Cash", value: lines => lines.beginningCash + lines.netIncome + lines.depreciationExpense + lines.accountsReceivableChange + lines.inventoryChange + lines.accountsPayableChange + lines.equipmentPurchased + lines.equipmentSold + lines.stockIssued + lines.dividendsPaid }
           ],
           stats: [
             { label: "Beginning Cash", value: lines => lines.beginningCash },
-            { label: "Ending Cash", value: lines => lines.beginningCash + lines.netCashOperating + lines.equipmentPurchased + lines.equipmentSold + lines.stockIssued + lines.dividendsPaid }
+            { label: "Ending Cash", value: lines => lines.beginningCash + lines.netIncome + lines.depreciationExpense + lines.accountsReceivableChange + lines.inventoryChange + lines.accountsPayableChange + lines.equipmentPurchased + lines.equipmentSold + lines.stockIssued + lines.dividendsPaid }
           ],
-          difference: lines => (lines.beginningCash + lines.netCashOperating + lines.equipmentPurchased + lines.equipmentSold + lines.stockIssued + lines.dividendsPaid) - 72000
+          difference: lines => (lines.beginningCash + lines.netIncome + lines.depreciationExpense + lines.accountsReceivableChange + lines.inventoryChange + lines.accountsPayableChange + lines.equipmentPurchased + lines.equipmentSold + lines.stockIssued + lines.dividendsPaid) - 83000
         }
       };
 
