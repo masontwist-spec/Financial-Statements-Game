@@ -73,6 +73,11 @@
 
       <aside class="quiz-card rebalance-panel">
         <h2>Fix the Statement</h2>
+        <div class="rebalance-question-nav" aria-label="Rebalance question navigation">
+          <button id="rebalance-prev-question" class="secondary-btn" type="button">Previous</button>
+          <span id="rebalance-question-count">Question 1 / 4</span>
+          <button id="rebalance-next-question" class="secondary-btn" type="button">Next</button>
+        </div>
         <div class="stat-list" id="rebalance-stat-list"></div>
 
         <div class="rebalance-control">
@@ -250,12 +255,452 @@
         }
       };
 
+      const QUESTION_SETS = {
+        income: [
+          EXAMPLES.income,
+          {
+            title: "Don's Carpentry posted the following income statement for year end December 31, 2024.",
+            copy: "You are the CFO reviewing depreciation expense. Net income should be $28,000 based on the tax workpaper. The company bought equipment for $160,000, expects a $20,000 residual value, and uses straight-line depreciation over 7 years. Find the problem in the income statement and correct it.",
+            statementTitle: "Income Statement",
+            period: "For the Year Ended December 31, 2024",
+            hint: "Straight-line depreciation is cost minus residual value, divided by useful life.",
+            initialLines: {
+              projectRevenue: 146000,
+              serviceRevenue: 34000,
+              costOfGoodsSold: 80000,
+              wagesExpense: 22000,
+              rentExpense: 15000,
+              utilitiesExpense: 6000,
+              advertisingExpense: 5000,
+              depreciationExpense: 12000,
+              interestExpense: 4000
+            },
+            answer: {
+              lineId: "depreciationExpense",
+              correctedValue: 20000,
+              success: "Correct. Depreciation should be ($160,000 - $20,000) / 7, or $20,000. That brings net income to $28,000."
+            },
+            rows: [
+              { type: "section", label: "Revenue" },
+              { id: "projectRevenue", label: "Project Revenue", indented: true },
+              { id: "serviceRevenue", label: "Service Revenue", indented: true },
+              { type: "subtotal", label: "Total Revenue", value: lines => lines.projectRevenue + lines.serviceRevenue },
+              { id: "costOfGoodsSold", label: "Cost of Goods Sold" },
+              { type: "subtotal", label: "Gross Profit", value: lines => lines.projectRevenue + lines.serviceRevenue - lines.costOfGoodsSold },
+              { type: "section", label: "Operating Expenses" },
+              { id: "wagesExpense", label: "Wages Expense", indented: true },
+              { id: "rentExpense", label: "Rent Expense", indented: true },
+              { id: "utilitiesExpense", label: "Utilities Expense", indented: true },
+              { id: "advertisingExpense", label: "Advertising Expense", indented: true },
+              { id: "depreciationExpense", label: "Depreciation Expense", indented: true },
+              { type: "subtotal", label: "Operating Income", value: lines => lines.projectRevenue + lines.serviceRevenue - lines.costOfGoodsSold - lines.wagesExpense - lines.rentExpense - lines.utilitiesExpense - lines.advertisingExpense - lines.depreciationExpense },
+              { type: "section", label: "Other Expense" },
+              { id: "interestExpense", label: "Interest Expense", indented: true },
+              { type: "total", label: "Net Income", value: lines => lines.projectRevenue + lines.serviceRevenue - lines.costOfGoodsSold - lines.wagesExpense - lines.rentExpense - lines.utilitiesExpense - lines.advertisingExpense - lines.depreciationExpense - lines.interestExpense }
+            ],
+            stats: [
+              { label: "Revenue", value: lines => lines.projectRevenue + lines.serviceRevenue },
+              { label: "Net Income", value: lines => lines.projectRevenue + lines.serviceRevenue - lines.costOfGoodsSold - lines.wagesExpense - lines.rentExpense - lines.utilitiesExpense - lines.advertisingExpense - lines.depreciationExpense - lines.interestExpense }
+            ],
+            difference: lines => (lines.projectRevenue + lines.serviceRevenue - lines.costOfGoodsSold - lines.wagesExpense - lines.rentExpense - lines.utilitiesExpense - lines.advertisingExpense - lines.depreciationExpense - lines.interestExpense) - 28000
+          },
+          {
+            title: "Don's Carpentry posted the following income statement for year end December 31, 2024.",
+            copy: "You are the CFO reviewing bad debt expense. Net income should be $33,000. The aging schedule is not ready yet, so the company uses its policy of recording bad debt expense at 2% of credit sales. Credit sales were $150,000. Find the problem and correct it.",
+            statementTitle: "Income Statement",
+            period: "For the Year Ended December 31, 2024",
+            hint: "Bad debt expense is estimated from credit sales, not total cash collected.",
+            initialLines: {
+              creditSales: 150000,
+              cashSales: 20000,
+              costOfGoodsSold: 75000,
+              wagesExpense: 30000,
+              rentExpense: 12000,
+              utilitiesExpense: 5000,
+              badDebtExpense: 300,
+              depreciationExpense: 10000,
+              interestExpense: 2000
+            },
+            answer: {
+              lineId: "badDebtExpense",
+              correctedValue: 3000,
+              success: "Correct. Bad debt expense is 2% of $150,000 credit sales, or $3,000. Net income ties to $33,000."
+            },
+            rows: [
+              { type: "section", label: "Revenue" },
+              { id: "creditSales", label: "Credit Sales", indented: true },
+              { id: "cashSales", label: "Cash Sales", indented: true },
+              { type: "subtotal", label: "Total Revenue", value: lines => lines.creditSales + lines.cashSales },
+              { id: "costOfGoodsSold", label: "Cost of Goods Sold" },
+              { type: "subtotal", label: "Gross Profit", value: lines => lines.creditSales + lines.cashSales - lines.costOfGoodsSold },
+              { type: "section", label: "Operating Expenses" },
+              { id: "wagesExpense", label: "Wages Expense", indented: true },
+              { id: "rentExpense", label: "Rent Expense", indented: true },
+              { id: "utilitiesExpense", label: "Utilities Expense", indented: true },
+              { id: "badDebtExpense", label: "Bad Debt Expense", indented: true },
+              { id: "depreciationExpense", label: "Depreciation Expense", indented: true },
+              { type: "subtotal", label: "Operating Income", value: lines => lines.creditSales + lines.cashSales - lines.costOfGoodsSold - lines.wagesExpense - lines.rentExpense - lines.utilitiesExpense - lines.badDebtExpense - lines.depreciationExpense },
+              { id: "interestExpense", label: "Interest Expense" },
+              { type: "total", label: "Net Income", value: lines => lines.creditSales + lines.cashSales - lines.costOfGoodsSold - lines.wagesExpense - lines.rentExpense - lines.utilitiesExpense - lines.badDebtExpense - lines.depreciationExpense - lines.interestExpense }
+            ],
+            stats: [
+              { label: "Revenue", value: lines => lines.creditSales + lines.cashSales },
+              { label: "Net Income", value: lines => lines.creditSales + lines.cashSales - lines.costOfGoodsSold - lines.wagesExpense - lines.rentExpense - lines.utilitiesExpense - lines.badDebtExpense - lines.depreciationExpense - lines.interestExpense }
+            ],
+            difference: lines => (lines.creditSales + lines.cashSales - lines.costOfGoodsSold - lines.wagesExpense - lines.rentExpense - lines.utilitiesExpense - lines.badDebtExpense - lines.depreciationExpense - lines.interestExpense) - 33000
+          },
+          {
+            title: "Don's Carpentry posted the following income statement for year end December 31, 2024.",
+            copy: "You are the CFO reviewing warranty expense. Net income should be $45,700. The company estimates warranty claims at 3% of product sales. Product sales were $210,000 this year. Find the problem in the income statement and correct it.",
+            statementTitle: "Income Statement",
+            period: "For the Year Ended December 31, 2024",
+            hint: "Estimated warranty expense is recorded in the same period as the related sales.",
+            initialLines: {
+              productSales: 210000,
+              serviceRevenue: 36000,
+              costOfGoodsSold: 126000,
+              salariesExpense: 32000,
+              rentExpense: 12000,
+              utilitiesExpense: 7000,
+              warrantyExpense: 3600,
+              depreciationExpense: 14000,
+              interestExpense: 3000
+            },
+            answer: {
+              lineId: "warrantyExpense",
+              correctedValue: 6300,
+              success: "Correct. Warranty expense is 3% of $210,000 product sales, or $6,300. Net income becomes $45,700."
+            },
+            rows: [
+              { type: "section", label: "Revenue" },
+              { id: "productSales", label: "Product Sales", indented: true },
+              { id: "serviceRevenue", label: "Service Revenue", indented: true },
+              { type: "subtotal", label: "Total Revenue", value: lines => lines.productSales + lines.serviceRevenue },
+              { id: "costOfGoodsSold", label: "Cost of Goods Sold" },
+              { type: "subtotal", label: "Gross Profit", value: lines => lines.productSales + lines.serviceRevenue - lines.costOfGoodsSold },
+              { type: "section", label: "Operating Expenses" },
+              { id: "salariesExpense", label: "Salaries Expense", indented: true },
+              { id: "rentExpense", label: "Rent Expense", indented: true },
+              { id: "utilitiesExpense", label: "Utilities Expense", indented: true },
+              { id: "warrantyExpense", label: "Warranty Expense", indented: true },
+              { id: "depreciationExpense", label: "Depreciation Expense", indented: true },
+              { type: "subtotal", label: "Operating Income", value: lines => lines.productSales + lines.serviceRevenue - lines.costOfGoodsSold - lines.salariesExpense - lines.rentExpense - lines.utilitiesExpense - lines.warrantyExpense - lines.depreciationExpense },
+              { id: "interestExpense", label: "Interest Expense" },
+              { type: "total", label: "Net Income", value: lines => lines.productSales + lines.serviceRevenue - lines.costOfGoodsSold - lines.salariesExpense - lines.rentExpense - lines.utilitiesExpense - lines.warrantyExpense - lines.depreciationExpense - lines.interestExpense }
+            ],
+            stats: [
+              { label: "Revenue", value: lines => lines.productSales + lines.serviceRevenue },
+              { label: "Net Income", value: lines => lines.productSales + lines.serviceRevenue - lines.costOfGoodsSold - lines.salariesExpense - lines.rentExpense - lines.utilitiesExpense - lines.warrantyExpense - lines.depreciationExpense - lines.interestExpense }
+            ],
+            difference: lines => (lines.productSales + lines.serviceRevenue - lines.costOfGoodsSold - lines.salariesExpense - lines.rentExpense - lines.utilitiesExpense - lines.warrantyExpense - lines.depreciationExpense - lines.interestExpense) - 45700
+          }
+        ],
+        balance: [
+          EXAMPLES.balance,
+          {
+            title: "Don's Carpentry posted the following balance sheet for year end December 31, 2024.",
+            copy: "You are the CFO reviewing receivables. The receivables aging schedule shows gross accounts receivable of $64,000 and a required allowance for doubtful accounts of $6,000. Total liabilities and equity should be $305,000. Find the problem and correct it.",
+            statementTitle: "Balance Sheet",
+            period: "December 31, 2024",
+            hint: "Allowance for Doubtful Accounts is a contra-asset, so it reduces Accounts Receivable.",
+            initialLines: {
+              cash: 38000,
+              accountsReceivable: 64000,
+              allowanceDoubtful: 6000,
+              inventory: 52000,
+              prepaidInsurance: 9000,
+              equipmentNet: 148000,
+              accountsPayable: 41000,
+              unearnedRevenue: 12000,
+              notePayable: 90000,
+              commonStock: 80000,
+              retainedEarnings: 82000
+            },
+            answer: {
+              lineId: "allowanceDoubtful",
+              correctedValue: -6000,
+              success: "Correct. The allowance is a $6,000 contra-asset, so it should be shown as ($6,000). Assets now equal $305,000."
+            },
+            rows: [
+              { type: "section", label: "Assets" },
+              { id: "cash", label: "Cash" },
+              { id: "accountsReceivable", label: "Accounts Receivable" },
+              { id: "allowanceDoubtful", label: "Allowance for Doubtful Accounts" },
+              { id: "inventory", label: "Inventory" },
+              { id: "prepaidInsurance", label: "Prepaid Insurance" },
+              { id: "equipmentNet", label: "Equipment, Net" },
+              { type: "total", label: "Total Assets", value: lines => lines.cash + lines.accountsReceivable + lines.allowanceDoubtful + lines.inventory + lines.prepaidInsurance + lines.equipmentNet },
+              { type: "section", label: "Liabilities" },
+              { id: "accountsPayable", label: "Accounts Payable" },
+              { id: "unearnedRevenue", label: "Unearned Revenue" },
+              { id: "notePayable", label: "Note Payable" },
+              { type: "subtotal", label: "Total Liabilities", value: lines => lines.accountsPayable + lines.unearnedRevenue + lines.notePayable },
+              { type: "section", label: "Equity" },
+              { id: "commonStock", label: "Common Stock" },
+              { id: "retainedEarnings", label: "Retained Earnings" },
+              { type: "total", label: "Total Liabilities and Equity", value: lines => lines.accountsPayable + lines.unearnedRevenue + lines.notePayable + lines.commonStock + lines.retainedEarnings }
+            ],
+            stats: [
+              { label: "Assets", value: lines => lines.cash + lines.accountsReceivable + lines.allowanceDoubtful + lines.inventory + lines.prepaidInsurance + lines.equipmentNet },
+              { label: "Liab. + Equity", value: lines => lines.accountsPayable + lines.unearnedRevenue + lines.notePayable + lines.commonStock + lines.retainedEarnings }
+            ],
+            difference: lines => (lines.cash + lines.accountsReceivable + lines.allowanceDoubtful + lines.inventory + lines.prepaidInsurance + lines.equipmentNet) - (lines.accountsPayable + lines.unearnedRevenue + lines.notePayable + lines.commonStock + lines.retainedEarnings)
+          },
+          {
+            title: "Don's Carpentry posted the following balance sheet for year end December 31, 2024.",
+            copy: "You are the CFO reviewing deferred revenue. A customer paid $24,000 on December 1 for a 12-month service contract. Only one month has been earned by December 31. Total assets are supported at $326,000. Find the problem and correct it.",
+            statementTitle: "Balance Sheet",
+            period: "December 31, 2024",
+            hint: "Cash received before work is performed is unearned revenue until the service is earned.",
+            initialLines: {
+              cash: 76000,
+              accountsReceivable: 32000,
+              inventory: 48000,
+              equipmentNet: 170000,
+              accountsPayable: 42000,
+              unearnedRevenue: 12000,
+              notePayable: 104000,
+              commonStock: 90000,
+              retainedEarnings: 67000
+            },
+            answer: {
+              lineId: "unearnedRevenue",
+              correctedValue: 23000,
+              success: "Correct. Only $1,000 of the $24,000 contract has been earned, so Unearned Revenue should be $23,000."
+            },
+            rows: [
+              { type: "section", label: "Assets" },
+              { id: "cash", label: "Cash" },
+              { id: "accountsReceivable", label: "Accounts Receivable" },
+              { id: "inventory", label: "Inventory" },
+              { id: "equipmentNet", label: "Equipment, Net" },
+              { type: "total", label: "Total Assets", value: lines => lines.cash + lines.accountsReceivable + lines.inventory + lines.equipmentNet },
+              { type: "section", label: "Liabilities" },
+              { id: "accountsPayable", label: "Accounts Payable" },
+              { id: "unearnedRevenue", label: "Unearned Revenue" },
+              { id: "notePayable", label: "Note Payable" },
+              { type: "subtotal", label: "Total Liabilities", value: lines => lines.accountsPayable + lines.unearnedRevenue + lines.notePayable },
+              { type: "section", label: "Equity" },
+              { id: "commonStock", label: "Common Stock" },
+              { id: "retainedEarnings", label: "Retained Earnings" },
+              { type: "total", label: "Total Liabilities and Equity", value: lines => lines.accountsPayable + lines.unearnedRevenue + lines.notePayable + lines.commonStock + lines.retainedEarnings }
+            ],
+            stats: [
+              { label: "Assets", value: lines => lines.cash + lines.accountsReceivable + lines.inventory + lines.equipmentNet },
+              { label: "Liab. + Equity", value: lines => lines.accountsPayable + lines.unearnedRevenue + lines.notePayable + lines.commonStock + lines.retainedEarnings }
+            ],
+            difference: lines => (lines.cash + lines.accountsReceivable + lines.inventory + lines.equipmentNet) - (lines.accountsPayable + lines.unearnedRevenue + lines.notePayable + lines.commonStock + lines.retainedEarnings)
+          },
+          {
+            title: "Don's Carpentry posted the following balance sheet for year end December 31, 2024.",
+            copy: "You are the CFO reviewing accrued interest. The company has a $90,000 note payable at 6% annual interest. The note has been outstanding for 10 months, and no interest has been paid yet. Total assets are supported at $289,000. Find the problem and correct it.",
+            statementTitle: "Balance Sheet",
+            period: "December 31, 2024",
+            hint: "Accrued interest equals principal times annual rate times the fraction of the year outstanding.",
+            initialLines: {
+              cash: 51000,
+              accountsReceivable: 36000,
+              inventory: 59000,
+              equipmentNet: 143000,
+              accountsPayable: 39500,
+              interestPayable: 0,
+              notePayable: 90000,
+              commonStock: 85000,
+              retainedEarnings: 70000
+            },
+            answer: {
+              lineId: "interestPayable",
+              correctedValue: 4500,
+              success: "Correct. Interest payable is $90,000 x 6% x 10/12, or $4,500."
+            },
+            rows: [
+              { type: "section", label: "Assets" },
+              { id: "cash", label: "Cash" },
+              { id: "accountsReceivable", label: "Accounts Receivable" },
+              { id: "inventory", label: "Inventory" },
+              { id: "equipmentNet", label: "Equipment, Net" },
+              { type: "total", label: "Total Assets", value: lines => lines.cash + lines.accountsReceivable + lines.inventory + lines.equipmentNet },
+              { type: "section", label: "Liabilities" },
+              { id: "accountsPayable", label: "Accounts Payable" },
+              { id: "interestPayable", label: "Interest Payable" },
+              { id: "notePayable", label: "Note Payable" },
+              { type: "subtotal", label: "Total Liabilities", value: lines => lines.accountsPayable + lines.interestPayable + lines.notePayable },
+              { type: "section", label: "Equity" },
+              { id: "commonStock", label: "Common Stock" },
+              { id: "retainedEarnings", label: "Retained Earnings" },
+              { type: "total", label: "Total Liabilities and Equity", value: lines => lines.accountsPayable + lines.interestPayable + lines.notePayable + lines.commonStock + lines.retainedEarnings }
+            ],
+            stats: [
+              { label: "Assets", value: lines => lines.cash + lines.accountsReceivable + lines.inventory + lines.equipmentNet },
+              { label: "Liab. + Equity", value: lines => lines.accountsPayable + lines.interestPayable + lines.notePayable + lines.commonStock + lines.retainedEarnings }
+            ],
+            difference: lines => (lines.cash + lines.accountsReceivable + lines.inventory + lines.equipmentNet) - (lines.accountsPayable + lines.interestPayable + lines.notePayable + lines.commonStock + lines.retainedEarnings)
+          }
+        ],
+        cashflow: [
+          EXAMPLES.cashflow,
+          {
+            title: "Don's Carpentry posted the following statement of cash flows for year end December 31, 2024.",
+            copy: "You are the CFO reviewing the indirect-method statement. Beginning cash was $44,000 and ending cash should be $88,000. Net income includes a $6,000 gain from selling equipment. Under the indirect method, find the problem and correct it so ending cash reconciles.",
+            statementTitle: "Statement of Cash Flows",
+            period: "For the Year Ended December 31, 2024",
+            hint: "A gain included in net income is subtracted in operating activities because the sale proceeds belong in investing activities.",
+            initialLines: {
+              netIncome: 52000,
+              depreciationExpense: 14000,
+              gainOnSale: 6000,
+              accountsReceivableChange: -5000,
+              inventoryChange: -4000,
+              accountsPayableChange: 3000,
+              equipmentPurchased: -34000,
+              equipmentSold: 22000,
+              stockIssued: 9000,
+              dividendsPaid: -7000,
+              beginningCash: 44000
+            },
+            answer: {
+              lineId: "gainOnSale",
+              correctedValue: -6000,
+              success: "Correct. The $6,000 gain must be subtracted from operating cash flow, not added."
+            },
+            rows: [
+              { type: "section", label: "Cash Flows from Operating Activities" },
+              { id: "netIncome", label: "Net Income", indented: true },
+              { id: "depreciationExpense", label: "Depreciation Expense", indented: true },
+              { id: "gainOnSale", label: "Gain on Sale of Equipment", indented: true },
+              { id: "accountsReceivableChange", label: "Change in Accounts Receivable", indented: true },
+              { id: "inventoryChange", label: "Change in Inventory", indented: true },
+              { id: "accountsPayableChange", label: "Change in Accounts Payable", indented: true },
+              { type: "subtotal", label: "Net Cash from Operating Activities", value: lines => lines.netIncome + lines.depreciationExpense + lines.gainOnSale + lines.accountsReceivableChange + lines.inventoryChange + lines.accountsPayableChange },
+              { type: "section", label: "Cash Flows from Investing Activities" },
+              { id: "equipmentPurchased", label: "Purchase of Equipment", indented: true },
+              { id: "equipmentSold", label: "Sale of Equipment", indented: true },
+              { type: "subtotal", label: "Net Cash from Investing Activities", value: lines => lines.equipmentPurchased + lines.equipmentSold },
+              { type: "section", label: "Cash Flows from Financing Activities" },
+              { id: "stockIssued", label: "Common Stock Issued", indented: true },
+              { id: "dividendsPaid", label: "Dividends Paid", indented: true },
+              { type: "subtotal", label: "Net Cash from Financing Activities", value: lines => lines.stockIssued + lines.dividendsPaid },
+              { type: "total", label: "Net Change in Cash", value: lines => lines.netIncome + lines.depreciationExpense + lines.gainOnSale + lines.accountsReceivableChange + lines.inventoryChange + lines.accountsPayableChange + lines.equipmentPurchased + lines.equipmentSold + lines.stockIssued + lines.dividendsPaid },
+              { id: "beginningCash", label: "Beginning Cash" },
+              { type: "total", label: "Ending Cash", value: lines => lines.beginningCash + lines.netIncome + lines.depreciationExpense + lines.gainOnSale + lines.accountsReceivableChange + lines.inventoryChange + lines.accountsPayableChange + lines.equipmentPurchased + lines.equipmentSold + lines.stockIssued + lines.dividendsPaid }
+            ],
+            stats: [
+              { label: "Beginning Cash", value: lines => lines.beginningCash },
+              { label: "Ending Cash", value: lines => lines.beginningCash + lines.netIncome + lines.depreciationExpense + lines.gainOnSale + lines.accountsReceivableChange + lines.inventoryChange + lines.accountsPayableChange + lines.equipmentPurchased + lines.equipmentSold + lines.stockIssued + lines.dividendsPaid }
+            ],
+            difference: lines => (lines.beginningCash + lines.netIncome + lines.depreciationExpense + lines.gainOnSale + lines.accountsReceivableChange + lines.inventoryChange + lines.accountsPayableChange + lines.equipmentPurchased + lines.equipmentSold + lines.stockIssued + lines.dividendsPaid) - 88000
+          },
+          {
+            title: "Don's Carpentry posted the following statement of cash flows for year end December 31, 2024.",
+            copy: "You are the CFO reviewing working capital. Beginning cash was $61,000 and ending cash should be $83,000. The comparative balance sheet shows inventory increased from $40,000 to $57,000. Find the problem in the operating section and correct it.",
+            statementTitle: "Statement of Cash Flows",
+            period: "For the Year Ended December 31, 2024",
+            hint: "An increase in inventory uses cash, so it is subtracted in operating activities.",
+            initialLines: {
+              netIncome: 47000,
+              depreciationExpense: 9000,
+              accountsReceivableChange: -6000,
+              inventoryChange: 17000,
+              prepaidInsuranceChange: -3000,
+              accountsPayableChange: 5000,
+              equipmentPurchased: -36000,
+              loanProceeds: 29000,
+              dividendsPaid: -6000,
+              beginningCash: 61000
+            },
+            answer: {
+              lineId: "inventoryChange",
+              correctedValue: -17000,
+              success: "Correct. Inventory increased by $17,000, so operating cash flow should subtract $17,000."
+            },
+            rows: [
+              { type: "section", label: "Cash Flows from Operating Activities" },
+              { id: "netIncome", label: "Net Income", indented: true },
+              { id: "depreciationExpense", label: "Depreciation Expense", indented: true },
+              { id: "accountsReceivableChange", label: "Change in Accounts Receivable", indented: true },
+              { id: "inventoryChange", label: "Change in Inventory", indented: true },
+              { id: "prepaidInsuranceChange", label: "Change in Prepaid Insurance", indented: true },
+              { id: "accountsPayableChange", label: "Change in Accounts Payable", indented: true },
+              { type: "subtotal", label: "Net Cash from Operating Activities", value: lines => lines.netIncome + lines.depreciationExpense + lines.accountsReceivableChange + lines.inventoryChange + lines.prepaidInsuranceChange + lines.accountsPayableChange },
+              { type: "section", label: "Cash Flows from Investing Activities" },
+              { id: "equipmentPurchased", label: "Purchase of Equipment", indented: true },
+              { type: "subtotal", label: "Net Cash from Investing Activities", value: lines => lines.equipmentPurchased },
+              { type: "section", label: "Cash Flows from Financing Activities" },
+              { id: "loanProceeds", label: "Loan Proceeds", indented: true },
+              { id: "dividendsPaid", label: "Dividends Paid", indented: true },
+              { type: "subtotal", label: "Net Cash from Financing Activities", value: lines => lines.loanProceeds + lines.dividendsPaid },
+              { type: "total", label: "Net Change in Cash", value: lines => lines.netIncome + lines.depreciationExpense + lines.accountsReceivableChange + lines.inventoryChange + lines.prepaidInsuranceChange + lines.accountsPayableChange + lines.equipmentPurchased + lines.loanProceeds + lines.dividendsPaid },
+              { id: "beginningCash", label: "Beginning Cash" },
+              { type: "total", label: "Ending Cash", value: lines => lines.beginningCash + lines.netIncome + lines.depreciationExpense + lines.accountsReceivableChange + lines.inventoryChange + lines.prepaidInsuranceChange + lines.accountsPayableChange + lines.equipmentPurchased + lines.loanProceeds + lines.dividendsPaid }
+            ],
+            stats: [
+              { label: "Beginning Cash", value: lines => lines.beginningCash },
+              { label: "Ending Cash", value: lines => lines.beginningCash + lines.netIncome + lines.depreciationExpense + lines.accountsReceivableChange + lines.inventoryChange + lines.prepaidInsuranceChange + lines.accountsPayableChange + lines.equipmentPurchased + lines.loanProceeds + lines.dividendsPaid }
+            ],
+            difference: lines => (lines.beginningCash + lines.netIncome + lines.depreciationExpense + lines.accountsReceivableChange + lines.inventoryChange + lines.prepaidInsuranceChange + lines.accountsPayableChange + lines.equipmentPurchased + lines.loanProceeds + lines.dividendsPaid) - 83000
+          },
+          {
+            title: "Don's Carpentry posted the following statement of cash flows for year end December 31, 2024.",
+            copy: "You are the CFO reviewing financing activities. Beginning cash was $35,000 and ending cash should be $69,000. Retained earnings began at $80,000, net income was $42,000, and ending retained earnings was $101,000. Find the problem and correct it.",
+            statementTitle: "Statement of Cash Flows",
+            period: "For the Year Ended December 31, 2024",
+            hint: "Dividends can be solved from beginning retained earnings plus net income minus ending retained earnings.",
+            initialLines: {
+              netIncome: 42000,
+              depreciationExpense: 10000,
+              accountsReceivableChange: -4000,
+              inventoryChange: 3000,
+              accountsPayableChange: 6000,
+              equipmentPurchased: -26000,
+              equipmentSold: 9000,
+              stockIssued: 15000,
+              dividendsPaid: -12000,
+              beginningCash: 35000
+            },
+            answer: {
+              lineId: "dividendsPaid",
+              correctedValue: -21000,
+              success: "Correct. Dividends are $80,000 + $42,000 - $101,000, or $21,000 paid."
+            },
+            rows: [
+              { type: "section", label: "Cash Flows from Operating Activities" },
+              { id: "netIncome", label: "Net Income", indented: true },
+              { id: "depreciationExpense", label: "Depreciation Expense", indented: true },
+              { id: "accountsReceivableChange", label: "Change in Accounts Receivable", indented: true },
+              { id: "inventoryChange", label: "Change in Inventory", indented: true },
+              { id: "accountsPayableChange", label: "Change in Accounts Payable", indented: true },
+              { type: "subtotal", label: "Net Cash from Operating Activities", value: lines => lines.netIncome + lines.depreciationExpense + lines.accountsReceivableChange + lines.inventoryChange + lines.accountsPayableChange },
+              { type: "section", label: "Cash Flows from Investing Activities" },
+              { id: "equipmentPurchased", label: "Purchase of Equipment", indented: true },
+              { id: "equipmentSold", label: "Sale of Equipment", indented: true },
+              { type: "subtotal", label: "Net Cash from Investing Activities", value: lines => lines.equipmentPurchased + lines.equipmentSold },
+              { type: "section", label: "Cash Flows from Financing Activities" },
+              { id: "stockIssued", label: "Common Stock Issued", indented: true },
+              { id: "dividendsPaid", label: "Dividends Paid", indented: true },
+              { type: "subtotal", label: "Net Cash from Financing Activities", value: lines => lines.stockIssued + lines.dividendsPaid },
+              { type: "total", label: "Net Change in Cash", value: lines => lines.netIncome + lines.depreciationExpense + lines.accountsReceivableChange + lines.inventoryChange + lines.accountsPayableChange + lines.equipmentPurchased + lines.equipmentSold + lines.stockIssued + lines.dividendsPaid },
+              { id: "beginningCash", label: "Beginning Cash" },
+              { type: "total", label: "Ending Cash", value: lines => lines.beginningCash + lines.netIncome + lines.depreciationExpense + lines.accountsReceivableChange + lines.inventoryChange + lines.accountsPayableChange + lines.equipmentPurchased + lines.equipmentSold + lines.stockIssued + lines.dividendsPaid }
+            ],
+            stats: [
+              { label: "Beginning Cash", value: lines => lines.beginningCash },
+              { label: "Ending Cash", value: lines => lines.beginningCash + lines.netIncome + lines.depreciationExpense + lines.accountsReceivableChange + lines.inventoryChange + lines.accountsPayableChange + lines.equipmentPurchased + lines.equipmentSold + lines.stockIssued + lines.dividendsPaid }
+            ],
+            difference: lines => (lines.beginningCash + lines.netIncome + lines.depreciationExpense + lines.accountsReceivableChange + lines.inventoryChange + lines.accountsPayableChange + lines.equipmentPurchased + lines.equipmentSold + lines.stockIssued + lines.dividendsPaid) - 69000
+          }
+        ]
+      };
+
       let currentExampleId = "income";
-      let currentExample = EXAMPLES[currentExampleId];
+      let currentQuestionIndex = 0;
+      let currentExample = QUESTION_SETS[currentExampleId][currentQuestionIndex];
       let lines = { ...currentExample.initialLines };
       let selectedLineId = "";
 
       const exampleButtons = Array.from(document.querySelectorAll("[data-example-id]"));
+      const prevQuestionBtn = document.getElementById("rebalance-prev-question");
+      const nextQuestionBtn = document.getElementById("rebalance-next-question");
+      const questionCount = document.getElementById("rebalance-question-count");
       const scenarioTitle = document.getElementById("rebalance-scenario-title");
       const scenarioCopy = document.getElementById("rebalance-scenario-copy");
       const statementTitle = document.getElementById("statement-title");
@@ -316,11 +761,15 @@
       }
 
       function renderExample() {
+        const questionTotal = QUESTION_SETS[currentExampleId].length;
         scenarioTitle.textContent = currentExample.title;
         scenarioCopy.textContent = currentExample.copy;
         statementTitle.textContent = currentExample.statementTitle;
         statementPeriod.textContent = currentExample.period;
         document.getElementById("rebalance-hint-copy").textContent = currentExample.hint;
+        questionCount.textContent = `Question ${currentQuestionIndex + 1} / ${questionTotal}`;
+        prevQuestionBtn.disabled = currentQuestionIndex === 0;
+        nextQuestionBtn.disabled = currentQuestionIndex >= questionTotal - 1;
 
         statementLines.innerHTML = "";
         currentExample.rows.forEach(row => {
@@ -405,7 +854,8 @@
           if (!nextExampleId || nextExampleId === currentExampleId) return;
 
           currentExampleId = nextExampleId;
-          currentExample = EXAMPLES[currentExampleId];
+          currentQuestionIndex = 0;
+          currentExample = QUESTION_SETS[currentExampleId][currentQuestionIndex];
 
           exampleButtons.forEach(exampleButton => {
             const isActive = exampleButton.dataset.exampleId === currentExampleId;
@@ -415,6 +865,21 @@
 
           resetQuestion();
         });
+      });
+
+      function goToQuestion(nextIndex) {
+        const questionTotal = QUESTION_SETS[currentExampleId].length;
+        currentQuestionIndex = Math.min(Math.max(nextIndex, 0), questionTotal - 1);
+        currentExample = QUESTION_SETS[currentExampleId][currentQuestionIndex];
+        resetQuestion();
+      }
+
+      prevQuestionBtn.addEventListener("click", () => {
+        goToQuestion(currentQuestionIndex - 1);
+      });
+
+      nextQuestionBtn.addEventListener("click", () => {
+        goToQuestion(currentQuestionIndex + 1);
       });
 
       amountInput.addEventListener("keydown", event => {
