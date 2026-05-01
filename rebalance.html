@@ -48,15 +48,15 @@
     <section class="build-mode-picker rebalance-example-picker" aria-label="Rebalance example picker">
       <p class="build-mode-picker-title">Choose your example:</p>
       <div class="build-mode-picker-links">
-        <button type="button" class="secondary-link-btn build-mode-link active" data-example-id="balance">Balance Sheet</button>
-        <button type="button" class="secondary-link-btn build-mode-link" data-example-id="income">Income Statement</button>
+        <button type="button" class="secondary-link-btn build-mode-link active" data-example-id="income">Income Statement</button>
+        <button type="button" class="secondary-link-btn build-mode-link" data-example-id="balance">Balance Sheet</button>
         <button type="button" class="secondary-link-btn build-mode-link" data-example-id="cashflow">Cash Flow</button>
       </div>
     </section>
 
     <section class="quiz-card rebalance-scenario" aria-label="Problem context">
       <p class="rebalance-scenario-kicker">Sample question</p>
-      <h2 id="rebalance-scenario-title">Don's Carpentry posted the following balance sheet for year end December 31, 2024.</h2>
+      <h2 id="rebalance-scenario-title">Don's Carpentry posted the following income statement for year end December 31, 2024.</h2>
       <p id="rebalance-scenario-copy"></p>
     </section>
 
@@ -102,7 +102,7 @@
     <div class="rebalance-hint-card">
       <button id="rebalance-hint-close" class="rebalance-hint-close" type="button" aria-label="Close hint">×</button>
       <p class="rebalance-scenario-kicker" id="rebalance-hint-title">Hint</p>
-      <p id="rebalance-hint-copy">We calculate Equipment, Net by subtracting accumulated depreciation.</p>
+      <p id="rebalance-hint-copy">Cost of Goods Sold should come from the cost of the inventory that was actually sold during the period.</p>
     </div>
   </div>
 
@@ -160,32 +160,46 @@
           period: "For the Year Ended December 31, 2024",
           hint: "Cost of Goods Sold should come from the cost of the inventory that was actually sold during the period.",
           initialLines: {
-            revenue: 120000,
+            carpentryRevenue: 112000,
+            repairRevenue: 18000,
             costOfGoodsSold: 70000,
-            rentExpense: 18000,
-            depreciationExpense: 12000,
-            interestExpense: 0
+            wagesExpense: 12000,
+            rentExpense: 10000,
+            utilitiesExpense: 5000,
+            insuranceExpense: 3000,
+            depreciationExpense: 7000,
+            interestExpense: 3000
           },
           answer: {
             lineId: "costOfGoodsSold",
             correctedValue: 62000,
-            success: "Correct. Cost of Goods Sold should be $62,000, which makes total expenses $92,000 and net income $28,000."
+            success: "Correct. Cost of Goods Sold should be $62,000, which makes gross profit $68,000, operating income $31,000, and net income $28,000."
           },
           rows: [
-            { id: "revenue", label: "Revenue" },
+            { type: "section", label: "Revenue" },
+            { id: "carpentryRevenue", label: "Carpentry Revenue", indented: true },
+            { id: "repairRevenue", label: "Repair Revenue", indented: true },
+            { type: "subtotal", label: "Total Revenue", value: lines => lines.carpentryRevenue + lines.repairRevenue },
             { type: "section", label: "Expenses" },
             { id: "costOfGoodsSold", label: "Cost of Goods Sold", indented: true },
+            { type: "subtotal", label: "Gross Profit", value: lines => lines.carpentryRevenue + lines.repairRevenue - lines.costOfGoodsSold },
+            { type: "section", label: "Operating Expenses" },
+            { id: "wagesExpense", label: "Wages Expense", indented: true },
             { id: "rentExpense", label: "Rent Expense", indented: true },
+            { id: "utilitiesExpense", label: "Utilities Expense", indented: true },
+            { id: "insuranceExpense", label: "Insurance Expense", indented: true },
             { id: "depreciationExpense", label: "Depreciation Expense", indented: true },
+            { type: "subtotal", label: "Total Operating Expenses", value: lines => lines.wagesExpense + lines.rentExpense + lines.utilitiesExpense + lines.insuranceExpense + lines.depreciationExpense },
+            { type: "subtotal", label: "Operating Income", value: lines => lines.carpentryRevenue + lines.repairRevenue - lines.costOfGoodsSold - lines.wagesExpense - lines.rentExpense - lines.utilitiesExpense - lines.insuranceExpense - lines.depreciationExpense },
+            { type: "section", label: "Other Expense" },
             { id: "interestExpense", label: "Interest Expense", indented: true },
-            { type: "subtotal", label: "Total Expenses", value: lines => lines.costOfGoodsSold + lines.rentExpense + lines.depreciationExpense + lines.interestExpense },
-            { type: "total", label: "Net Income", value: lines => lines.revenue - lines.costOfGoodsSold - lines.rentExpense - lines.depreciationExpense - lines.interestExpense }
+            { type: "total", label: "Net Income", value: lines => lines.carpentryRevenue + lines.repairRevenue - lines.costOfGoodsSold - lines.wagesExpense - lines.rentExpense - lines.utilitiesExpense - lines.insuranceExpense - lines.depreciationExpense - lines.interestExpense }
           ],
           stats: [
-            { label: "Revenue", value: lines => lines.revenue },
-            { label: "Net Income", value: lines => lines.revenue - lines.costOfGoodsSold - lines.rentExpense - lines.depreciationExpense - lines.interestExpense }
+            { label: "Revenue", value: lines => lines.carpentryRevenue + lines.repairRevenue },
+            { label: "Net Income", value: lines => lines.carpentryRevenue + lines.repairRevenue - lines.costOfGoodsSold - lines.wagesExpense - lines.rentExpense - lines.utilitiesExpense - lines.insuranceExpense - lines.depreciationExpense - lines.interestExpense }
           ],
-          difference: lines => (lines.revenue - lines.costOfGoodsSold - lines.rentExpense - lines.depreciationExpense - lines.interestExpense) - 28000
+          difference: lines => (lines.carpentryRevenue + lines.repairRevenue - lines.costOfGoodsSold - lines.wagesExpense - lines.rentExpense - lines.utilitiesExpense - lines.insuranceExpense - lines.depreciationExpense - lines.interestExpense) - 28000
         },
         cashflow: {
           title: "Don's Carpentry posted the following statement of cash flows for year end December 31, 2024.",
@@ -229,7 +243,7 @@
         }
       };
 
-      let currentExampleId = "balance";
+      let currentExampleId = "income";
       let currentExample = EXAMPLES[currentExampleId];
       let lines = { ...currentExample.initialLines };
       let selectedLineId = "";
