@@ -192,7 +192,7 @@
         <button type="button" class="unlock-token" draggable="true" data-term="liabilities">Liabilities</button>
       </div>
 
-      <div class="unlock-feedback" id="unlock-feedback" aria-live="polite">Place the terms to make: Assets = Liabilities + Owner's Equity.</div>
+      <div class="unlock-feedback" id="unlock-feedback" aria-live="polite">Place each term where it belongs.</div>
     </div>
   </div>
 
@@ -471,13 +471,13 @@
       function checkUnlock() {
         const isComplete = unlockSlots.every(slot => Boolean(slot.dataset.currentTerm));
         if (!isComplete) {
-          unlockFeedback.textContent = "Place the terms to make: Assets = Liabilities + Owner's Equity.";
+          unlockFeedback.textContent = "Place each term where it belongs.";
           return;
         }
 
         const isCorrect = unlockSlots.every(slot => slot.dataset.currentTerm === slot.dataset.slot);
         if (!isCorrect) {
-          unlockFeedback.textContent = "Almost. The accounting equation starts with Assets on the left.";
+          unlockFeedback.textContent = "Almost. Try rearranging the terms.";
           return;
         }
 
