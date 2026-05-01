@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Multiple Choice | Interactive Accounting Game</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-mode="multiple-choice">
+  <header class="site-header">
+    <div class="container header-inner page-topbar">
+      <a href="index.html" class="brand-pill" aria-label="Balance home">
+        <span class="brand-mark brand-mark-scale" aria-hidden="true">⚖</span>
+        <span class="brand-lockup">
+          <span class="brand-name">Balance.</span>
+          <span class="brand-tagline">Financial Statements Game</span>
+        </span>
+      </a>
+      <nav class="page-nav">
+        <a href="index.html">Home</a>
+        <a href="multiple-choice.html" class="active">Multiple Choice</a>
+        <a href="combined.html">Combined</a>
+        <a href="build.html">Build</a>
+        <a href="interactive.html">Interactive</a>
+      </nav>
+      <details class="mobile-nav">
+        <summary>Menu</summary>
+        <nav class="mobile-nav-menu">
+          <a href="index.html">Home</a>
+          <a href="multiple-choice.html" class="active">Multiple Choice</a>
+          <a href="combined.html">Combined</a>
+          <a href="build.html">Build</a>
+          <a href="interactive.html">Interactive</a>
+        </nav>
+      </details>
+    </div>
+  </header>
+
+  <main class="container quiz-page">
+    <section class="quiz-hero">
+      <p class="quiz-hero-eyebrow">Statement practice</p>
+      <h1>Multiple Choice.</h1>
+      <p>Choose the statement you want to drill, then work through focused questions with instant feedback.</p>
+    </section>
+
+    <section class="mode-section multiple-choice-picker">
+      <div class="section-heading">
+        <h2>Choose Your Statement</h2>
+        <p>Start with one statement and switch whenever you want a different focus.</p>
+      </div>
+
+      <div class="mode-grid statement-choice-grid">
+        <a class="mode-card" href="income.html">
+          <div class="mode-icon green">↗</div>
+          <h3>Income Statement</h3>
+          <p>Practice revenue, expenses, margins, and net income.</p>
+          <span class="question-tag">18 questions</span>
+          <span class="best-score-text" data-best-score="balance_income_best"></span>
+        </a>
+
+        <a class="mode-card" href="balance.html">
+          <div class="mode-icon orange">⚖</div>
+          <h3>Balance Sheet</h3>
+          <p>Practice assets, liabilities, equity, and statement structure.</p>
+          <span class="question-tag">18 questions</span>
+          <span class="best-score-text" data-best-score="balance_balance_best"></span>
+        </a>
+
+        <a class="mode-card" href="cashflow.html">
+          <div class="mode-icon blue">⇄</div>
+          <h3>Cash Flow</h3>
+          <p>Practice operating, investing, and financing classification.</p>
+          <span class="question-tag">18 questions</span>
+          <span class="best-score-text" data-best-score="balance_cashflow_best"></span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      const bestScoreEls = Array.from(document.querySelectorAll("[data-best-score]"));
+
+      bestScoreEls.forEach(el => {
+        const key = el.dataset.bestScore;
+        if (!key) return;
+
+        const raw = localStorage.getItem(key);
+        if (!raw) return;
+
+        try {
+          const parsed = JSON.parse(raw);
+          if (!parsed || !Number.isFinite(parsed.score) || !Number.isFinite(parsed.total)) return;
+          el.textContent = `Best: ${parsed.score} / ${parsed.total}`;
+        } catch (_error) {
+          el.textContent = "";
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

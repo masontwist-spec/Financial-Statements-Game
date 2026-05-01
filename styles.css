@@ -206,6 +206,16 @@ a {
   box-shadow: inset 0 -2px 0 var(--green);
 }
 
+.best-score-text {
+  display: block;
+  margin-top: 10px;
+  color: #5f7668;
+  font-size: 0.92rem;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
 .mobile-nav {
   display: none;
   position: relative;
@@ -821,6 +831,14 @@ a {
   grid-template-columns: 300px 1fr;
   gap: 20px;
   align-items: start;
+}
+
+.multiple-choice-picker {
+  margin-top: 22px;
+}
+
+.statement-choice-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .quiz-card {
