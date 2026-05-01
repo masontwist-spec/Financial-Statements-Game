@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rebalance | Interactive Accounting Game</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body data-mode="rebalance">
+  <header class="site-header">
+    <div class="container header-inner page-topbar">
+      <a href="index.html" class="brand-pill" aria-label="Balance home">
+        <span class="brand-mark brand-mark-scale" aria-hidden="true">⚖</span>
+        <span class="brand-lockup">
+          <span class="brand-name">Balance.</span>
+          <span class="brand-tagline">Financial Statements Game</span>
+        </span>
+      </a>
+      <nav class="page-nav">
+        <a href="index.html">Home</a>
+        <a href="multiple-choice.html">Multiple Choice</a>
+        <a href="combined.html">Combined</a>
+        <a href="build.html">Build</a>
+        <a href="interactive.html">Interactive</a>
+        <a href="rebalance.html" class="active">Rebalance</a>
+      </nav>
+      <details class="mobile-nav">
+        <summary>Menu</summary>
+        <nav class="mobile-nav-menu">
+          <a href="index.html">Home</a>
+          <a href="multiple-choice.html">Multiple Choice</a>
+          <a href="combined.html">Combined</a>
+          <a href="build.html">Build</a>
+          <a href="interactive.html">Interactive</a>
+          <a href="rebalance.html" class="active">Rebalance</a>
+        </nav>
+      </details>
+    </div>
+  </header>
+
+  <main class="container quiz-page">
+    <section class="quiz-hero">
+      <p class="quiz-hero-eyebrow">Find the error</p>
+      <h1>Rebalance.</h1>
+      <p>Review the statement, pinpoint the incorrect line, enter the corrected amount, and bring the sheet back into balance.</p>
+    </section>
+
+    <section class="rebalance-layout">
+      <article class="statement-view-card rebalance-statement-card">
+        <div class="statement-view-sheet">
+          <div class="statement-view-meta">
+            <p class="statement-view-company">Don's Carpentry</p>
+            <h2>Balance Sheet</h2>
+            <p class="statement-view-period">December 31, 2024</p>
+          </div>
+
+          <div class="statement-lines rebalance-lines" id="rebalance-lines">
+            <div class="line-item line-item-section"><span class="line-label">Assets</span><span class="line-value"></span></div>
+            <button type="button" class="line-item rebalance-line" data-line-id="cash"><span class="line-label">Cash</span><span class="line-value" data-line-value="cash">$42,000</span></button>
+            <button type="button" class="line-item rebalance-line" data-line-id="accountsReceivable"><span class="line-label">Accounts Receivable</span><span class="line-value" data-line-value="accountsReceivable">$28,000</span></button>
+            <button type="button" class="line-item rebalance-line" data-line-id="inventory"><span class="line-label">Inventory</span><span class="line-value" data-line-value="inventory">$65,000</span></button>
+            <button type="button" class="line-item rebalance-line" data-line-id="equipmentNet"><span class="line-label">Equipment, Net</span><span class="line-value" data-line-value="equipmentNet">$150,000</span></button>
+            <div class="line-item line-item-total"><span class="line-label">Total Assets</span><span class="line-value" id="total-assets">$285,000</span></div>
+
+            <div class="line-item line-item-section"><span class="line-label">Liabilities</span><span class="line-value"></span></div>
+            <button type="button" class="line-item rebalance-line" data-line-id="accountsPayable"><span class="line-label">Accounts Payable</span><span class="line-value" data-line-value="accountsPayable">$39,000</span></button>
+            <button type="button" class="line-item rebalance-line" data-line-id="notePayable"><span class="line-label">Note Payable</span><span class="line-value" data-line-value="notePayable">$96,000</span></button>
+            <div class="line-item line-item-subtotal"><span class="line-label">Total Liabilities</span><span class="line-value" id="total-liabilities">$135,000</span></div>
+
+            <div class="line-item line-item-section"><span class="line-label">Equity</span><span class="line-value"></span></div>
+            <button type="button" class="line-item rebalance-line" data-line-id="commonStock"><span class="line-label">Common Stock</span><span class="line-value" data-line-value="commonStock">$80,000</span></button>
+            <button type="button" class="line-item rebalance-line" data-line-id="retainedEarnings"><span class="line-label">Retained Earnings</span><span class="line-value" data-line-value="retainedEarnings">$60,000</span></button>
+            <div class="line-item line-item-subtotal"><span class="line-label">Total Equity</span><span class="line-value" id="total-equity">$140,000</span></div>
+            <div class="line-item line-item-total"><span class="line-label">Total Liabilities and Equity</span><span class="line-value" id="total-liabilities-equity">$275,000</span></div>
+          </div>
+        </div>
+      </article>
+
+      <aside class="quiz-card rebalance-panel">
+        <h2>Fix the Statement</h2>
+        <div class="stat-list">
+          <div class="stat-item"><span>Assets</span><strong id="panel-assets">$285,000</strong></div>
+          <div class="stat-item"><span>Liab. + Equity</span><strong id="panel-liabilities-equity">$275,000</strong></div>
+          <div class="stat-item"><span>Difference</span><strong id="panel-difference">$10,000</strong></div>
+        </div>
+
+        <div class="rebalance-control">
+          <label for="corrected-amount">Corrected amount</label>
+          <input id="corrected-amount" class="build-value-input" type="number" inputmode="numeric" min="0" step="1000" placeholder="Select a line first" disabled />
+        </div>
+
+        <div class="quiz-actions rebalance-actions">
+          <button id="check-rebalance-btn" class="primary-btn" type="button" disabled>Check Fix</button>
+          <button id="reset-rebalance-btn" class="secondary-btn" type="button">Reset</button>
+        </div>
+
+        <div class="feedback-box" id="rebalance-feedback">
+          Select the line item that appears wrong, then enter the corrected amount.
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      const originalLines = {
+        cash: 42000,
+        accountsReceivable: 28000,
+        inventory: 65000,
+        equipmentNet: 150000,
+        accountsPayable: 39000,
+        notePayable: 96000,
+        commonStock: 80000,
+        retainedEarnings: 60000
+      };
+
+      const answer = {
+        lineId: "equipmentNet",
+        correctedValue: 140000
+      };
+
+      let lines = { ...originalLines };
+      let selectedLineId = "";
+
+      const lineButtons = Array.from(document.querySelectorAll("[data-line-id]"));
+      const amountInput = document.getElementById("corrected-amount");
+      const checkBtn = document.getElementById("check-rebalance-btn");
+      const resetBtn = document.getElementById("reset-rebalance-btn");
+      const feedback = document.getElementById("rebalance-feedback");
+
+      const currencyFormatter = new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        maximumFractionDigits: 0
+      });
+
+      function formatCurrency(value) {
+        return currencyFormatter.format(value);
+      }
+
+      function getTotals() {
+        const assets = lines.cash + lines.accountsReceivable + lines.inventory + lines.equipmentNet;
+        const liabilities = lines.accountsPayable + lines.notePayable;
+        const equity = lines.commonStock + lines.retainedEarnings;
+        const liabilitiesEquity = liabilities + equity;
+
+        return {
+          assets,
+          liabilities,
+          equity,
+          liabilitiesEquity,
+          difference: assets - liabilitiesEquity
+        };
+      }
+
+      function renderTotals() {
+        const totals = getTotals();
+
+        document.getElementById("total-assets").textContent = formatCurrency(totals.assets);
+        document.getElementById("total-liabilities").textContent = formatCurrency(totals.liabilities);
+        document.getElementById("total-equity").textContent = formatCurrency(totals.equity);
+        document.getElementById("total-liabilities-equity").textContent = formatCurrency(totals.liabilitiesEquity);
+        document.getElementById("panel-assets").textContent = formatCurrency(totals.assets);
+        document.getElementById("panel-liabilities-equity").textContent = formatCurrency(totals.liabilitiesEquity);
+        document.getElementById("panel-difference").textContent = formatCurrency(Math.abs(totals.difference));
+
+        document.body.classList.toggle("is-balanced", totals.difference === 0);
+      }
+
+      function renderLineValues() {
+        Object.keys(lines).forEach(lineId => {
+          const valueEl = document.querySelector(`[data-line-value="${lineId}"]`);
+          if (valueEl) valueEl.textContent = formatCurrency(lines[lineId]);
+        });
+      }
+
+      function selectLine(lineId) {
+        selectedLineId = lineId;
+
+        lineButtons.forEach(button => {
+          const isSelected = button.dataset.lineId === selectedLineId;
+          button.classList.toggle("is-selected", isSelected);
+          button.setAttribute("aria-pressed", isSelected ? "true" : "false");
+        });
+
+        amountInput.disabled = false;
+        checkBtn.disabled = false;
+        amountInput.placeholder = "Enter corrected amount";
+        amountInput.value = lines[lineId];
+        feedback.className = "feedback-box";
+        feedback.textContent = "Now enter the amount that would make the statement balance.";
+        amountInput.focus();
+      }
+
+      function checkAnswer() {
+        if (!selectedLineId) return;
+
+        const nextValue = Number(amountInput.value);
+        if (!Number.isFinite(nextValue) || nextValue < 0) {
+          feedback.className = "feedback-box error";
+          feedback.textContent = "Enter a valid positive amount before checking the fix.";
+          return;
+        }
+
+        lines[selectedLineId] = nextValue;
+        renderLineValues();
+        renderTotals();
+
+        const totals = getTotals();
+        const isCorrectLine = selectedLineId === answer.lineId;
+        const isCorrectValue = nextValue === answer.correctedValue;
+
+        if (isCorrectLine && isCorrectValue && totals.difference === 0) {
+          feedback.className = "feedback-box success";
+          feedback.textContent = "Correct. Equipment, Net was overstated by $10,000, and reducing it to $140,000 brings total assets back to $275,000.";
+          checkBtn.disabled = true;
+          amountInput.disabled = true;
+          return;
+        }
+
+        feedback.className = "feedback-box error";
+        if (totals.difference === 0) {
+          feedback.textContent = "The statement balances now, but this sample is configured to require the specific incorrect line item. Try resetting and finding the source of the error.";
+        } else {
+          feedback.textContent = `Not quite. The statement is still out of balance by ${formatCurrency(Math.abs(totals.difference))}.`;
+        }
+      }
+
+      function resetQuestion() {
+        lines = { ...originalLines };
+        selectedLineId = "";
+        amountInput.value = "";
+        amountInput.disabled = true;
+        amountInput.placeholder = "Select a line first";
+        checkBtn.disabled = true;
+        feedback.className = "feedback-box";
+        feedback.textContent = "Select the line item that appears wrong, then enter the corrected amount.";
+        document.body.classList.remove("is-balanced");
+
+        lineButtons.forEach(button => {
+          button.classList.remove("is-selected");
+          button.setAttribute("aria-pressed", "false");
+        });
+
+        renderLineValues();
+        renderTotals();
+      }
+
+      lineButtons.forEach(button => {
+        button.setAttribute("aria-pressed", "false");
+        button.addEventListener("click", () => selectLine(button.dataset.lineId));
+      });
+
+      amountInput.addEventListener("keydown", event => {
+        if (event.key === "Enter") {
+          checkAnswer();
+        }
+      });
+
+      checkBtn.addEventListener("click", checkAnswer);
+      resetBtn.addEventListener("click", resetQuestion);
+      resetQuestion();
+    })();
+  </script>
+</body>
+</html>
