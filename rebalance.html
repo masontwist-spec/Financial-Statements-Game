@@ -47,23 +47,24 @@
 
     <section class="quiz-card rebalance-scenario" aria-label="Problem context">
       <p class="rebalance-scenario-kicker">Sample question</p>
-      <h2>Don's Carpentry posted one balance sheet line incorrectly.</h2>
+      <h2>Don's Carpentry posted the following balance sheet for year end December 31, 2024.</h2>
       <p>
-        The controller gives you the following year-end support. Cash, receivables, inventory, liabilities, common stock, and retained earnings agree to the accounting records.
-        The fixed asset schedule shows equipment originally cost $180,000 and accumulated depreciation is $40,000.
+        You are the CFO reviewing the statement. You know the company should have $275,000 in total liabilities and equity.
+        You also know the company bought equipment at the beginning of the year for $180,000, and that equipment depreciates at a rate of 10% per year.
+        Find the problem in the balance sheet and correct it so the statement rebalances.
       </p>
       <div class="rebalance-evidence-grid" aria-label="Supporting evidence">
         <div class="rebalance-evidence-item">
-          <span>Equipment cost</span>
+          <span>Known Liab. + Equity</span>
+          <strong>$275,000</strong>
+        </div>
+        <div class="rebalance-evidence-item">
+          <span>Equipment purchase</span>
           <strong>$180,000</strong>
         </div>
         <div class="rebalance-evidence-item">
-          <span>Accumulated depreciation</span>
-          <strong>($40,000)</strong>
-        </div>
-        <div class="rebalance-evidence-item">
-          <span>Correct Equipment, Net</span>
-          <strong>$140,000</strong>
+          <span>Annual depreciation rate</span>
+          <strong>10%</strong>
         </div>
       </div>
     </section>
@@ -81,9 +82,9 @@
             <div class="line-item line-item-section"><span class="line-label">Assets</span><span class="line-value"></span></div>
             <button type="button" class="line-item rebalance-line" data-line-id="cash"><span class="line-label">Cash</span><span class="line-value" data-line-value="cash">$42,000</span></button>
             <button type="button" class="line-item rebalance-line" data-line-id="accountsReceivable"><span class="line-label">Accounts Receivable</span><span class="line-value" data-line-value="accountsReceivable">$28,000</span></button>
-            <button type="button" class="line-item rebalance-line" data-line-id="inventory"><span class="line-label">Inventory</span><span class="line-value" data-line-value="inventory">$65,000</span></button>
-            <button type="button" class="line-item rebalance-line" data-line-id="equipmentNet"><span class="line-label">Equipment, Net</span><span class="line-value" data-line-value="equipmentNet">$150,000</span></button>
-            <div class="line-item line-item-total"><span class="line-label">Total Assets</span><span class="line-value" id="total-assets">$285,000</span></div>
+            <button type="button" class="line-item rebalance-line" data-line-id="inventory"><span class="line-label">Inventory</span><span class="line-value" data-line-value="inventory">$43,000</span></button>
+            <button type="button" class="line-item rebalance-line" data-line-id="equipmentNet"><span class="line-label">Equipment, Net</span><span class="line-value" data-line-value="equipmentNet">$180,000</span></button>
+            <div class="line-item line-item-total"><span class="line-label">Total Assets</span><span class="line-value" id="total-assets">$293,000</span></div>
 
             <div class="line-item line-item-section"><span class="line-label">Liabilities</span><span class="line-value"></span></div>
             <button type="button" class="line-item rebalance-line" data-line-id="accountsPayable"><span class="line-label">Accounts Payable</span><span class="line-value" data-line-value="accountsPayable">$39,000</span></button>
@@ -102,9 +103,9 @@
       <aside class="quiz-card rebalance-panel">
         <h2>Fix the Statement</h2>
         <div class="stat-list">
-          <div class="stat-item"><span>Assets</span><strong id="panel-assets">$285,000</strong></div>
+          <div class="stat-item"><span>Assets</span><strong id="panel-assets">$293,000</strong></div>
           <div class="stat-item"><span>Liab. + Equity</span><strong id="panel-liabilities-equity">$275,000</strong></div>
-          <div class="stat-item"><span>Difference</span><strong id="panel-difference">$10,000</strong></div>
+          <div class="stat-item"><span>Difference</span><strong id="panel-difference">$18,000</strong></div>
         </div>
 
         <div class="rebalance-control">
@@ -129,8 +130,8 @@
       const originalLines = {
         cash: 42000,
         accountsReceivable: 28000,
-        inventory: 65000,
-        equipmentNet: 150000,
+        inventory: 43000,
+        equipmentNet: 180000,
         accountsPayable: 39000,
         notePayable: 96000,
         commonStock: 80000,
@@ -139,7 +140,7 @@
 
       const answer = {
         lineId: "equipmentNet",
-        correctedValue: 140000
+        correctedValue: 162000
       };
 
       let lines = { ...originalLines };
@@ -235,7 +236,7 @@
 
         if (isCorrectLine && isCorrectValue && totals.difference === 0) {
           feedback.className = "feedback-box success";
-          feedback.textContent = "Correct. Equipment, Net was overstated by $10,000, and reducing it to $140,000 brings total assets back to $275,000.";
+          feedback.textContent = "Correct. Equipment depreciated by $18,000 for the year, so Equipment, Net should be $162,000. That brings total assets back to $275,000.";
           checkBtn.disabled = true;
           amountInput.disabled = true;
           return;
