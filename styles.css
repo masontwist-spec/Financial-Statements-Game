@@ -927,6 +927,81 @@ a {
   margin-top: 18px;
 }
 
+.rebalance-hint-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+}
+
+.rebalance-hint-btn {
+  min-height: 38px;
+  padding: 0 18px;
+  border: 1px solid rgba(158, 109, 43, 0.34);
+  border-radius: var(--radius-pill);
+  background: rgba(158, 109, 43, 0.14);
+  color: #f2d7ad;
+  font-weight: 800;
+  cursor: pointer;
+  transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+}
+
+.rebalance-hint-btn:hover,
+.rebalance-hint-btn:focus-visible {
+  transform: translateY(-1px);
+  border-color: rgba(242, 215, 173, 0.48);
+  background: rgba(158, 109, 43, 0.22);
+  outline: none;
+}
+
+.rebalance-hint-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(4, 7, 10, 0.68);
+  backdrop-filter: blur(8px);
+}
+
+.rebalance-hint-card {
+  position: relative;
+  width: min(460px, 100%);
+  padding: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-lg);
+  background: var(--panel-strong);
+  box-shadow: var(--shadow-md);
+}
+
+.rebalance-hint-card p:last-child {
+  margin: 0;
+  color: var(--panel-text);
+  font-size: 1.1rem;
+  line-height: 1.55;
+}
+
+.rebalance-hint-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--panel-text);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.rebalance-hint-close:hover,
+.rebalance-hint-close:focus-visible {
+  background: rgba(255, 255, 255, 0.12);
+  outline: none;
+}
+
 .quiz-card {
   padding: 26px;
 }

@@ -108,7 +108,19 @@
         </div>
       </aside>
     </section>
+
+    <section class="rebalance-hint-wrap" aria-label="Need a hint">
+      <button id="rebalance-hint-btn" class="rebalance-hint-btn" type="button">Hint</button>
+    </section>
   </main>
+
+  <div id="rebalance-hint-modal" class="rebalance-hint-modal hidden" role="dialog" aria-modal="true" aria-labelledby="rebalance-hint-title">
+    <div class="rebalance-hint-card">
+      <button id="rebalance-hint-close" class="rebalance-hint-close" type="button" aria-label="Close hint">×</button>
+      <p class="rebalance-scenario-kicker" id="rebalance-hint-title">Hint</p>
+      <p>We calculate Equipment, Net by subtracting accumulated depreciation.</p>
+    </div>
+  </div>
 
   <script>
     (function () {
@@ -136,6 +148,9 @@
       const checkBtn = document.getElementById("check-rebalance-btn");
       const resetBtn = document.getElementById("reset-rebalance-btn");
       const feedback = document.getElementById("rebalance-feedback");
+      const hintBtn = document.getElementById("rebalance-hint-btn");
+      const hintModal = document.getElementById("rebalance-hint-modal");
+      const hintClose = document.getElementById("rebalance-hint-close");
 
       const currencyFormatter = new Intl.NumberFormat("en-US", {
         style: "currency",
@@ -266,6 +281,30 @@
 
       checkBtn.addEventListener("click", checkAnswer);
       resetBtn.addEventListener("click", resetQuestion);
+
+      function openHint() {
+        hintModal.classList.remove("hidden");
+        hintClose.focus();
+      }
+
+      function closeHint() {
+        hintModal.classList.add("hidden");
+        hintBtn.focus();
+      }
+
+      hintBtn.addEventListener("click", openHint);
+      hintClose.addEventListener("click", closeHint);
+      hintModal.addEventListener("click", event => {
+        if (event.target === hintModal) {
+          closeHint();
+        }
+      });
+      document.addEventListener("keydown", event => {
+        if (event.key === "Escape" && !hintModal.classList.contains("hidden")) {
+          closeHint();
+        }
+      });
+
       resetQuestion();
     })();
   </script>
