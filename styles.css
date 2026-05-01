@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600;700;800&family=Roboto:wght@400;500;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600;700;800&display=swap");
 
 :root {
   --bg: #101214;
@@ -26,7 +26,7 @@
   --radius-sm: 14px;
   --radius-pill: 999px;
   --container: 1600px;
-  --font-sans: "Roboto", Arial, Helvetica, sans-serif;
+  --font-sans: Calibri, "Segoe UI", Arial, Helvetica, sans-serif;
   --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
   --panel: rgba(18, 22, 26, 0.9);
   --panel-soft: rgba(24, 29, 34, 0.92);
@@ -51,6 +51,10 @@ body {
     radial-gradient(circle at top right, rgba(255, 255, 255, 0.06), transparent 20%),
     linear-gradient(180deg, #121518 0%, #0b0d10 100%);
   color: var(--text);
+}
+
+html {
+  font-size: 10pt;
 }
 
 body {
