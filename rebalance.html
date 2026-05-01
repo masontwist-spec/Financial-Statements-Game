@@ -53,20 +53,6 @@
         You also know the company bought equipment at the beginning of the year for $180,000, and that equipment depreciates at a rate of 10% per year.
         Find the problem in the balance sheet and correct it so the statement rebalances.
       </p>
-      <div class="rebalance-evidence-grid" aria-label="Supporting evidence">
-        <div class="rebalance-evidence-item">
-          <span>Known Liab. + Equity</span>
-          <strong>$275,000</strong>
-        </div>
-        <div class="rebalance-evidence-item">
-          <span>Equipment purchase</span>
-          <strong>$180,000</strong>
-        </div>
-        <div class="rebalance-evidence-item">
-          <span>Annual depreciation rate</span>
-          <strong>10%</strong>
-        </div>
-      </div>
     </section>
 
     <section class="rebalance-layout">
@@ -105,7 +91,6 @@
         <div class="stat-list">
           <div class="stat-item"><span>Assets</span><strong id="panel-assets">$293,000</strong></div>
           <div class="stat-item"><span>Liab. + Equity</span><strong id="panel-liabilities-equity">$275,000</strong></div>
-          <div class="stat-item"><span>Difference</span><strong id="panel-difference">$18,000</strong></div>
         </div>
 
         <div class="rebalance-control">
@@ -186,8 +171,6 @@
         document.getElementById("total-liabilities-equity").textContent = formatCurrency(totals.liabilitiesEquity);
         document.getElementById("panel-assets").textContent = formatCurrency(totals.assets);
         document.getElementById("panel-liabilities-equity").textContent = formatCurrency(totals.liabilitiesEquity);
-        document.getElementById("panel-difference").textContent = formatCurrency(Math.abs(totals.difference));
-
         document.body.classList.toggle("is-balanced", totals.difference === 0);
       }
 
